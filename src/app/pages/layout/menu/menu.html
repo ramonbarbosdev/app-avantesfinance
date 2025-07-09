@@ -1,0 +1,101 @@
+<div class="h-screen flex">
+    <!-- Sidebar com largura dinâmica -->
+    <div class="bg-[hsl(var(--background))] text-[hsl(var(--foreground))]
+     shadow-lg transition-all duration-300 ease-in-out flex flex-col
+     fixed inset-y-0 left-0 z-40 
+     transform-translate-x-full
+     md:translate-x-0 md:relative md:w-64" [ngClass]="{
+      'md:w-64': sidebarOpen,
+      'w-4/6': sidebarOpen,
+      'md:w-0': !sidebarOpen,
+      'w-0': !sidebarOpen
+    }">
+        <!-- Header do Sidebar -->
+        <div class="flex items-center justify-between p-4 border-gray-700" *ngIf="sidebarOpen">
+            <div class="flex">
+                <hlm-avatar variant="large">
+                    <img src="" alt="Avatar" hlmAvatarImage />
+                    <span class="bg-[hsl(var(--foreground))] text-white" hlmAvatarFallback>U</span>
+                </hlm-avatar>
+                <div class="flex flex-col ml-2">
+                    <span class="text-base font-bold">Usuario</span>
+                    <span class="text-sm font-medium">Status</span>
+                </div>
+            </div>
+
+            <div class="block md:hidden">
+                <button title="Fechar" hlm variant="ghost" (click)="toggleSidebar()"
+                    class="text-[hsl(var(--foreground))]">
+                    <ng-icon hlm name="lucidePanelLeftClose" size="base" />
+                </button>
+            </div>
+
+        </div>
+
+
+        <!-- sidebar.component.html -->
+        <div *ngIf="sidebarOpen" class="w-full h-screen max-h-screen bg-white  overflow-y-auto p-4">
+
+            <!-- Grupo: Modulos -->
+            <div class="mb-6">
+                <h2 class="text-sm font-semibold text-gray-600 mb-2">Modulos</h2>
+                
+                 <button [routerLink]="'amigos'"
+                    class="w-full text-left px-4 py-2 rounded hover:bg-gray-100 text-gray-800">
+                    <span class="inline-flex items-center gap-2">
+                        <ng-icon hlm size='sm' name="lucideBolt" />
+                        Banco
+                    </span>
+                </button>
+
+            </div>
+
+            <!-- Grupo: Opções -->
+            <div class="mt-4">
+                <h2 class="text-sm font-semibold text-gray-600 mb-2">Opções</h2>
+
+
+               
+                <button (click)="sair()" class="w-full text-left px-4 py-2 rounded hover:bg-gray-100 text-gray-800">
+                    <span class="inline-flex items-center gap-2">
+                        <ng-icon hlm size='sm' name="lucideLogOut" />
+                        Sair
+                    </span>
+                </button>
+            </div>
+        </div>
+
+        
+
+
+    </div>
+
+    <!-- Conteúdo principal (Topbar + Router outlet) -->
+    <div class="flex flex-col flex-1 overflow-hidden">
+
+        <!-- Topbar ao lado da sidebar -->
+        <div class="bg-[hsl(var(--background))] text-[hsl(var(--foreground))] border-b border-[hsl(var(--secondary))]">
+            <div class="flex justify-start p-3">
+                <div class="mr-4">
+                    <button title="abri/fechar" hlm variant="ghost" (click)="toggleSidebar()" class="text-center">
+                        <ng-icon hlm size="base" name="lucidePanelRightClose" />
+                    </button>
+                </div>
+                <div>
+                    <h1 class="text-base font-bold">Avantes</h1>
+                </div>
+            </div>
+        </div>
+
+        <!-- Conteúdo abaixo da Topbar -->
+        <div class="flex-1 p-4 overflow-auto">
+            <router-outlet></router-outlet>
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<router-outlet></router-outlet>
