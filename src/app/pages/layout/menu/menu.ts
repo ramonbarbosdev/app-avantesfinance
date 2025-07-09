@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, Inject, OnInit } from '@angular/core';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { HlmIconDirective } from '@spartan-ng/helm/icon';
 import { NgIcon, provideIcons } from '@ng-icons/core';
@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 import { HlmAvatarImageDirective, HlmAvatarComponent, HlmAvatarFallbackDirective,  } from '@spartan-ng/helm/avatar';
 import { lucidePanelLeftClose , lucidePanelRightClose, lucideBolt, lucideLogOut, lucideSunMoon} from '@ng-icons/lucide';
 import { ThemeService } from '../../../services/theme.service';
+import { AuthService } from '../../../auth/auth.service';
 
 
 @Component({
@@ -16,6 +17,8 @@ import { ThemeService } from '../../../services/theme.service';
   styleUrl: './menu.scss'
 })
 export class Menu implements OnInit {
+
+  auth =  inject(AuthService);
 
   constructor(public themeService: ThemeService) {}
 
@@ -42,7 +45,7 @@ export class Menu implements OnInit {
 
   
   sair() {
-    // this.auth.logout();
+    this.auth.logout();
   }
 
    

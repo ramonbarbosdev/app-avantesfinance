@@ -1,1 +1,33 @@
-<p>login works!</p>
+<div class="flex min-h-screen items-center justify-center bg-muted px-4">
+  <div class="w-full max-w-sm rounded-2xl bg-background p-6 shadow-lg">
+    
+
+    <app-input
+    [inputId]="'login'"
+    [type]="'text'"
+    [label]="'Seu login de acesso'"
+    [(model)]="objeto.login"
+    [required]="true"
+    placeholder="Login"
+    ></app-input>
+
+    <app-input
+    [inputId]="'senha'"
+    [type]="'password'"
+    [label]="'Sua senha de acesso'"
+    [(model)]="objeto.senha"
+    [required]="true"
+    placeholder="Senha"
+    ></app-input>
+
+    <button (click)="logar()" hlmBtn variant="default" class="w-full mb-3">
+      Entrar
+    </button>
+
+    <div class="text-center">
+      <button [routerLink]="['/register']" class="text-sm text-muted-foreground hover:underline">
+        Não tenho conta
+      </button>
+    </div>
+  </div>
+</div>
