@@ -1,5 +1,5 @@
 <div class="flex min-h-screen items-center justify-center bg-muted px-4">
-  <div class="w-full max-w-sm rounded-2xl bg-background p-6 shadow-lg">
+  <div  *ngIf="loading == false" class="w-full max-w-sm rounded-2xl bg-background p-6 shadow-lg">
     
 
     <app-input
@@ -23,6 +23,7 @@
     <button (click)="logar()" hlmBtn variant="default" class="w-full mb-3">
       Entrar
     </button>
+   
 
     <div class="text-center">
       <button [routerLink]="['/register']" class="text-sm text-muted-foreground hover:underline">
@@ -30,4 +31,10 @@
       </button>
     </div>
   </div>
+
+   <div class="w-full flex m-1 justify-center"   *ngIf="loading == true">
+      <hlm-spinner />
+    </div>
+
 </div>
+
