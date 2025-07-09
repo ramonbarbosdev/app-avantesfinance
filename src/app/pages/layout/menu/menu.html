@@ -15,7 +15,7 @@
             <div class="flex">
                 <hlm-avatar variant="large">
                     <img src="" alt="Avatar" hlmAvatarImage />
-                    <span class="bg-[hsl(var(--foreground))] text-white" hlmAvatarFallback>U</span>
+                    <span class="bg-[hsl(var(--foreground))] text-[hsl(var(--background))] " hlmAvatarFallback>U</span>
                 </hlm-avatar>
                 <div class="flex flex-col ml-2">
                     <span class="text-base font-bold">Usuario</span>
@@ -34,17 +34,17 @@
 
 
         <!-- sidebar.component.html -->
-        <div *ngIf="sidebarOpen" class="w-full h-screen max-h-screen bg-white  overflow-y-auto p-4">
+        <div *ngIf="sidebarOpen" class="w-full h-screen max-h-screen   overflow-y-auto p-4">
 
             <!-- Grupo: Modulos -->
             <div class="mb-6">
-                <h2 class="text-sm font-semibold text-gray-600 mb-2">Modulos</h2>
-                
-                 <button [routerLink]="'amigos'"
-                    class="w-full text-left px-4 py-2 rounded hover:bg-gray-100 text-gray-800">
+                <h2 class="text-sm font-semibold  mb-2  text-[hsl(var(--accent-foreground))]">Modulos</h2>
+
+                <button [routerLink]="'amigos'"
+                    class="w-full text-left px-4 py-2 rounded hover:bg-[hsl(var(--muted))] ">
                     <span class="inline-flex items-center gap-2">
-                        <ng-icon hlm size='sm' name="lucideBolt" />
-                        Banco
+                        <ng-icon hlm size='sm' name="lucideBolt"  class=""/>
+                        <p class="">Banco</p>
                     </span>
                 </button>
 
@@ -52,11 +52,17 @@
 
             <!-- Grupo: Opções -->
             <div class="mt-4">
-                <h2 class="text-sm font-semibold text-gray-600 mb-2">Opções</h2>
+                <h2 class="text-sm font-semibold  mb-2   text-[hsl(var(--accent-foreground))]">Opções</h2>
 
+                <button (click)="themeService.toggleTheme()"
+                    class="w-full text-left px-4 py-2 rounded hover:bg-[hsl(var(--muted))] ">
+                    <span class="inline-flex items-center gap-2">
+                        <ng-icon hlm size='sm' name="lucideSunMoon" />
+                    </span>
+                    Tema
+                </button>
 
-               
-                <button (click)="sair()" class="w-full text-left px-4 py-2 rounded hover:bg-gray-100 text-gray-800">
+                <button (click)="sair()" class="w-full text-left px-4 py-2 rounded hover:bg-[hsl(var(--muted))] ">
                     <span class="inline-flex items-center gap-2">
                         <ng-icon hlm size='sm' name="lucideLogOut" />
                         Sair
@@ -65,7 +71,7 @@
             </div>
         </div>
 
-        
+
 
 
     </div>

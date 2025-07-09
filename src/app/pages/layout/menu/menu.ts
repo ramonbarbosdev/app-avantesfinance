@@ -4,17 +4,20 @@ import { HlmIconDirective } from '@spartan-ng/helm/icon';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { CommonModule } from '@angular/common';
 import { HlmAvatarImageDirective, HlmAvatarComponent, HlmAvatarFallbackDirective,  } from '@spartan-ng/helm/avatar';
-import { lucidePanelLeftClose , lucidePanelRightClose, lucideBolt, lucideLogOut} from '@ng-icons/lucide';
+import { lucidePanelLeftClose , lucidePanelRightClose, lucideBolt, lucideLogOut, lucideSunMoon} from '@ng-icons/lucide';
+import { ThemeService } from '../../../services/theme.service';
 
 
 @Component({
   selector: 'app-menu',
   imports: [RouterOutlet, NgIcon, HlmIconDirective, CommonModule, HlmAvatarImageDirective, HlmAvatarComponent, HlmAvatarFallbackDirective, RouterLink],
-  providers: [provideIcons({ lucidePanelLeftClose,lucidePanelRightClose, lucideBolt, lucideLogOut })],
+  providers: [provideIcons({ lucidePanelLeftClose,lucidePanelRightClose, lucideBolt, lucideLogOut,lucideSunMoon })],
   templateUrl: './menu.html',
   styleUrl: './menu.scss'
 })
 export class Menu implements OnInit {
+
+  constructor(public themeService: ThemeService) {}
 
   sidebarOpen = false;
   isMobile = false;
