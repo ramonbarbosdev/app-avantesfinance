@@ -8,11 +8,11 @@ import { toast } from 'ngx-sonner';
   providedIn: 'root',
 })
 export class ItemsService {
-  private readonly apiUrl = `${environment.apiUrl}/pluggy`;
+  private readonly apiUrl = `${environment.apiUrl}/item-pluggy`;
 
   constructor(private http: HttpClient) {}
 
-  findItems(id_item: string, apiKey: string): Observable<any> {
+  findItemsById(id_item: string, apiKey: string): Observable<any> {
     const url = `${this.apiUrl}/obter-item/${id_item}/${apiKey}`;
 
     return this.http.get<any>(url).pipe(
@@ -21,13 +21,33 @@ export class ItemsService {
       }),
       catchError((e) => {
         console.log(e);
-  toast(e.error.message, {
-    description: e.error.codeDescription,
-    action: {
-      label: 'Ok',
-      onClick: () => {},
-    },
-  });
+        toast(e.error.message, {
+          description: e.error.codeDescription,
+          action: {
+            label: 'Ok',
+            onClick: () => {},
+          },
+        });
+        return throwError(() => e);
+      })
+    );
+  }
+  findItems(): Observable<any> {
+    const url = `${this.apiUrl}/`;
+
+    return this.http.get<any>(url).pipe(
+      tap((res) => {
+        return res;
+      }),
+      catchError((e) => {
+        console.log(e);
+        toast(e.error.message, {
+          description: e.error.codeDescription,
+          action: {
+            label: 'Ok',
+            onClick: () => {},
+          },
+        });
         return throwError(() => e);
       })
     );

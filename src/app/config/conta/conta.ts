@@ -25,17 +25,28 @@ export class Conta implements OnInit {
     let id_item = '7d134838-5301-4ab7-90b2-8409c1325152';
     let apiKey = this.authService.getUser().pluggy.apiKey;
 
-    this.itemService.findItems(id_item, apiKey).subscribe({
+    this.itemService.findItems().subscribe({
       next: (res) => {
 
+      Object.values(res as any).forEach((index: any) => {
         const item = new Items();
-        item.id_item = res.id;
-        item.institutionUrl = res.connector.institutionUrl;
-        item.name = res.connector.name;
-        item.status = res.connector.health.status;
-        item.type = res.connector.type;
-        this.listaItems = [item]; 
-        
+        item.id_item = index.id_item;
+        item.institutionUrl = index.institutionUrl;
+        item.name = index.name;
+        item.type = index.type;
+        this.listaItems = [item];
+      });
+
+        console.log(this.listaItems);
+
+        // const item = new Items();
+        // item.id_item = res.id;
+        // item.institutionUrl = res.connector.institutionUrl;
+        // item.name = res.connector.name;
+        // item.status = res.connector.health.status;
+        // item.type = res.connector.type;
+        // this.listaItems = [item]; 
+
       },
       error(e) {},
     });
