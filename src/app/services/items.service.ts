@@ -52,4 +52,33 @@ export class ItemsService {
       })
     );
   }
+
+  deleteItem(id_item: string, apiKey: string) {
+    const url = `${this.apiUrl}/${id_item}/${apiKey}`;
+
+    return this.http.delete<any>(url).pipe(
+      tap((res) => {
+
+        toast(res.message, {
+          // description: res.codeDescription,
+          action: {
+            label: 'Ok',
+            onClick: () => {},
+          },
+        });
+        
+      }),
+      catchError((e) => {
+        console.log(e);
+        toast(e.error.message, {
+          description: e.error.codeDescription,
+          action: {
+            label: 'Ok',
+            onClick: () => {},
+          },
+        });
+        return throwError(() => e);
+      })
+    );
+  }
 }
