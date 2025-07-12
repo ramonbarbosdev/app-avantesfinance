@@ -1,0 +1,55 @@
+<div class="p-10 flex flex-col gap-5">
+  <hlm-tabs tab="conta" class="w-full">
+    <hlm-tabs-list class="grid w-full grid-cols-2" aria-label="tabs example">
+      <button hlmTabsTrigger="conta">Conta</button>
+      <button hlmTabsTrigger="novo">Novo</button>
+    </hlm-tabs-list>
+    <div hlmTabsContent="conta">
+      <section class="p-2" hlmCard>
+        <table hlmTable>
+          <caption hlmCaption>
+            Listagem de contas conectadas
+          </caption>
+          <thead hlmTHead>
+            <tr hlmTr>
+              <th hlmTh class="w-[5%]"></th>
+              <th hlmTh class="w-[10%]"></th>
+              <th hlmTh class="">Conta</th>
+              <th hlmTh class="">Tipo</th>
+            </tr>
+          </thead>
+          <tbody hlmTBody>
+            <tr hlmTr *ngFor="let item of listaItems">
+              <td hlmTd class="">
+                <div
+                  (click)="excluirItem(item.id_item)"
+                  class="flex cursor-pointer hover:scale-[1.2] transform transition-all duration-300"
+                >
+                  <ng-icon hlm size="sm" name="lucideTrash2" />
+                </div>
+              </td>
+              <td hlmTd>
+                <img
+                  [src]="item.institutionUrl"
+                  alt="Girl in a jacket"
+                  width="50"
+                  height="50"
+                />
+              </td>
+              <td hlmTd>{{ item.name }}</td>
+              <td hlmTd class="">{{ item.type }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+    </div>
+
+    <div hlmTabsContent="novo">
+      
+      <app-contaform>
+
+      </app-contaform>
+      
+    </div>
+  </hlm-tabs>
+</div>

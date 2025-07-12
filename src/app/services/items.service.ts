@@ -32,6 +32,7 @@ export class ItemsService {
       })
     );
   }
+
   findItems(): Observable<any> {
     const url = `${this.apiUrl}/`;
 
@@ -58,7 +59,6 @@ export class ItemsService {
 
     return this.http.delete<any>(url).pipe(
       tap((res) => {
-
         toast(res.message, {
           // description: res.codeDescription,
           action: {
@@ -66,7 +66,35 @@ export class ItemsService {
             onClick: () => {},
           },
         });
-        
+      }),
+      catchError((e) => {
+        console.log(e);
+        toast(e.error.message, {
+          description: e.error.codeDescription,
+          action: {
+            label: 'Ok',
+            onClick: () => {},
+          },
+        });
+        return throwError(() => e);
+      })
+    );
+  }
+
+  createItem(objeto: any)
+  {
+    const url = `${this.apiUrl}/`;
+
+    return this.http.post<any>(url, objeto).pipe(
+      tap((res) => {
+         toast("Item criado com sucesso", {
+           // description: res.codeDescription,
+           action: {
+             label: 'Ok',
+             onClick: () => {},
+           },
+         });
+        return res;
       }),
       catchError((e) => {
         console.log(e);

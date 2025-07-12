@@ -1,0 +1,57 @@
+ <section hlmCard>
+        <div hlmCardHeader>
+          <h3 hlmCardTitle>Conta</h3>
+          <p hlmCardDescription>Adicione a nova conta bancaria.</p>
+        </div>
+        <div class="flex flex-col gap-5" hlmCardContent>
+          <!-- Linha 1 -->
+          <div class="flex  gap-5 grid grid-cols-1  md:grid-cols-2  w-full " >
+      
+            <app-input
+              [inputId]="'agency'"
+              [type]="'text'"
+              [label]="'Agencia: (*)'"
+              [(model)]="objeto.agency"
+              [required]="true"
+              placeholder="Ex: 9999"
+            >
+            </app-input>
+            <app-input
+              [inputId]="'account'"
+              [type]="'text'"
+              [label]="'Conta: (*)'"
+              [(model)]="objeto.account"
+              [required]="true"
+              placeholder="Ex: 99999999-9"
+            >
+            </app-input>
+          </div>
+
+          <!-- Linha 2 -->
+          <div class="flex  gap-5 grid grid-cols-1  md:grid-cols-2  w-full " >
+            <app-input
+              [inputId]="'cpf'"
+              [type]="'text'"
+              [label]="'CPF: (*)'"
+              [(model)]="objeto.cpf"
+              [required]="true"
+              placeholder="Ex: 999.999.99-99"
+            >
+            </app-input>
+            <app-input
+              [inputId]="'password'"
+              [type]="'password'"
+              [label]="'Senha: (*)'"
+              [(model)]="objeto.password"
+              [required]="true"
+              placeholder=""
+            >
+            </app-input>
+          </div>
+
+
+        </div>
+        <div hlmCardFooter>
+          <button (click)="cadastrar()" hlmBtn>Salvar</button>
+        </div>
+      </section>

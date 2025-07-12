@@ -3,8 +3,8 @@ import { Principal } from './pages/layout/principal/principal';
 import { Home } from './pages/home/home';
 import { Login } from './pages/layout/login/login';
 import { authGuard } from './auth/auth.guard';
-import { Ajustes } from './config/ajustes/ajustes';
-import { Conta } from './config/conta/conta';
+import { Conta } from './pages/config/conta/conta';
+import { Ajustes } from './pages/config/ajustes/ajustes';
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: Login },

@@ -45,6 +45,9 @@
       ],
       "@spartan-ng/helm/sonner": [
         "./libs/ui/ui-sonner-helm/src/index.ts"
+      ],
+      "@spartan-ng/helm/tabs": [
+        "./libs/ui/ui-tabs-helm/src/index.ts"
       ]
     }
   },
