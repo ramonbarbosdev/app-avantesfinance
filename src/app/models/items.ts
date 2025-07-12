@@ -3,4 +3,5 @@ export class Items {
   public institutionUrl!: string;
   public name!: string;
   public status!: string;
+  public type!: string;
 }

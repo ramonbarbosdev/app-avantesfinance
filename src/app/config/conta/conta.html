@@ -1,26 +1,23 @@
 <div class="p-10 flex flex-col gap-5 bg-gray-100">
-    <table hlmTable>
-            <caption hlmCaption>Listagem de contas conectadas</caption>
-            <thead hlmTHead>
-                <tr hlmTr>
-                    <th hlmTh class="w-[100px]">Logo</th>
-                    <th hlmTh class="">Conta</th>
-                    <th hlmTh>Status</th>
-                    <th hlmTh class="">Tipo</th>
-                </tr>
-            </thead>
-            <tbody hlmTBody>
-                <!-- @for (invoice of _invoices; track invoice.invoice) {
-                    <tr hlmTr>
-                        <td hlmTd ></td>
-                        <td hlmTd >{{ invoice.invoice }}</td>
-                        <td hlmTd>{{ invoice.paymentStatus }}</td>
-                        <td hlmTd class="">{{ invoice.totalAmount }}</td>
-                    </tr>
-                } -->
-            </tbody>
-            
-        </table>
-
+  <table hlmTable>
+    <caption hlmCaption>
+      Listagem de contas conectadas
+    </caption>
+    <thead hlmTHead>
+      <tr hlmTr>
+        <th hlmTh ></th>
+        <th hlmTh class="">Conta</th>
+        <th hlmTh>Status</th>
+        <th hlmTh class="">Tipo</th>
+      </tr>
+    </thead>
+    <tbody hlmTBody>
+        <tr hlmTr  *ngFor="let item of listaItems">
+          <td hlmTd> <img [src]="item.institutionUrl" alt="Girl in a jacket" width="50" height="50"> </td>
+          <td hlmTd>{{ item.name }}</td>
+          <td hlmTd>{{ item.status }}</td>
+          <td hlmTd class="">{{ item.type }}</td>
+        </tr>
+    </tbody>
+  </table>
 </div>
-

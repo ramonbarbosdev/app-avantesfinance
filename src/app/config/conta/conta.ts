@@ -3,38 +3,43 @@ import { Component, inject, OnInit } from '@angular/core';
 import { HlmTableImports } from '@spartan-ng/helm/table';
 import { Items } from '../../models/items';
 import { ItemsService } from '../../services/items.service';
-// import { HlmToasterComponent } from '@spartan-ng/helm/sonner';
+import { AuthService } from '../../auth/auth.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-conta',
-  imports: [HlmTableImports,],
+  imports: [HlmTableImports, CommonModule],
   templateUrl: './conta.html',
   styleUrl: './conta.scss',
 })
 export class Conta implements OnInit {
-  public items = new Items();
+  public listaItems: Items[] = [];
   private itemService = inject(ItemsService);
+  private authService = inject(AuthService);
 
   ngOnInit(): void {
     this.obterItem();
   }
 
   obterItem() {
-    let id_item!: string;
-    let apiKey!: string;
+    let id_item = '7d134838-5301-4ab7-90b2-8409c1325152';
+    let apiKey = this.authService.getUser().pluggy.apiKey;
 
     this.itemService.findItems(id_item, apiKey).subscribe({
       next: (res) => {
-        console.log(res);
 
+        const item = new Items();
+        item.id_item = res.id;
+        item.institutionUrl = res.connector.institutionUrl;
+        item.name = res.connector.name;
+        item.status = res.connector.health.status;
+        item.type = res.connector.type;
+        this.listaItems = [item]; 
+        
       },
-      error(e) {
-       
-
-      },
+      error(e) {},
     });
   }
-
 
   protected _invoices = [];
 }

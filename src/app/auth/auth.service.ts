@@ -12,14 +12,13 @@ export class AuthService {
   private readonly apiUrl = `${environment.apiUrl}`;
 
   private router = inject(Router);
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   login(credenciais: { login: string; senha: string }) {
     return this.http.post(`${this.apiUrl}/auth/login`, credenciais, {
       withCredentials: true, // <- permite receber e enviar cookies
     });
   }
-
 
   fazerLogout() {
     return this.http.post(
@@ -44,7 +43,6 @@ export class AuthService {
       next: () => {
         this.clearToken();
         this.router.navigate(['/login']);
-
       },
       error: (err) => {
         console.error('Erro no logout:', err);
@@ -54,22 +52,23 @@ export class AuthService {
     });
   }
 
-  obterChave(id_usuario: string, token: string) {
-
+  obterChave(id_usuario: string, token: string): Observable<any> {
     const url = `${this.apiUrl}/pluggy/obter-token/${id_usuario}`;
     return this.http
-      .get(url, { headers:new HttpHeaders({ Authorization: `${token}`}),})
+      .get(url, { headers: new HttpHeaders({ Authorization: `${token}` }) })
       .pipe(catchError((error) => throwError(() => error)));
   }
 
-   async setUser(info: any) {
-     const apiKey = await firstValueFrom(this.obterChave(info.id_usuario, info.Authorization));
-
+  async setUser(info: any) {
+    const retorno = await firstValueFrom(
+      this.obterChave(info.id_usuario, info.Authorization)
+    );
+    
     let objeto = {
       id_usuario: info.id_usuario,
       nm_usuario: info.nm_usuario,
       login: info.login,
-      apiKey: apiKey
+      pluggy: retorno
     };
     sessionStorage.setItem('user', JSON.stringify(objeto));
   }
@@ -86,8 +85,6 @@ export class AuthService {
     sessionStorage.removeItem('user');
     sessionStorage.removeItem('token');
   }
-
- 
 
   getUser() {
     let user = sessionStorage.getItem('user');
