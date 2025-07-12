@@ -40,19 +40,21 @@
             <div class="mb-6">
                 <h2 class="text-sm font-semibold  mb-2  text-[hsl(var(--accent-foreground))]">Modulos</h2>
 
-                <button [routerLink]="'amigos'"
-                    class="w-full text-left px-4 py-2 rounded hover:bg-[hsl(var(--muted))] ">
-                    <span class="inline-flex items-center gap-2">
-                        <ng-icon hlm size='sm' name="lucideBolt"  class=""/>
-                        <p class="">Banco</p>
-                    </span>
-                </button>
+                
 
             </div>
 
             <!-- Grupo: Opções -->
             <div class="mt-4">
                 <h2 class="text-sm font-semibold  mb-2   text-[hsl(var(--accent-foreground))]">Opções</h2>
+
+                <button [routerLink]="'ajustes'"
+                    class="w-full text-left px-4 py-2 rounded hover:bg-[hsl(var(--muted))] ">
+                    <span class="inline-flex items-center gap-2">
+                        <ng-icon hlm size='sm' name="lucideBolt"  class=""/>
+                        <p class="">Ajustes</p>
+                    </span>
+                </button>
 
                 <button (click)="themeService.toggleTheme()"
                     class="w-full text-left px-4 py-2 rounded hover:bg-[hsl(var(--muted))] ">
