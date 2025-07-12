@@ -50,18 +50,19 @@ export class Contaform implements OnInit {
   router = inject(Router);
 
   ngOnInit(): void {
-    // throw new Error('Method not implemented.');
     
   }
 
   cadastrar() {
+
+     this.eventService.emitItemReload();
     this.objeto.connectorId = 612;
     this.objeto.accessToken = this.authService.getUser().pluggy.accessToken;
 
     this.itemService.createItem(this.objeto).subscribe({
       next: (res) => {
         this.eventService.emitItemReload();
-        this.router.navigate(['admin/conta']);
+        window.location.reload();
       },
     });
   }

@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 
 import { HlmTableImports } from '@spartan-ng/helm/table';
 import { CommonModule } from '@angular/common';
@@ -18,6 +18,7 @@ import { AuthService } from '../../../auth/auth.service';
 import { Items } from '../../../models/items';
 import { Contaform } from "../contaform/contaform";
 import { EventService } from '../../../services/event.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-conta',
@@ -40,16 +41,22 @@ export class Conta implements OnInit {
   public listaItems: Items[] = [];
   private itemService = inject(ItemsService);
   private authService = inject(AuthService);
-  private eventService =  inject(EventService)
+  private eventService = inject(EventService);
+  router = inject(Router);
+  private cdRef = inject(ChangeDetectorRef);
 
   ngOnInit(): void {
     this.obterItem();
-    this.eventService.itemReload$.subscribe(() => this.obterItem());
+    this.eventService.itemReload$.subscribe(() => {
+      this.obterItem();
+      this.cdRef.detectChanges();
+    });
   }
 
   obterItem() {
     this.itemService.findItems().subscribe({
       next: (res) => {
+        this.listaItems = [];
         Object.values(res as any).forEach((index: any) => {
           const item = new Items();
           item.id_item = index.id_item;
