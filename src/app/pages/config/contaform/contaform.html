@@ -18,6 +18,8 @@
         [required]="true"
         placeholder="Ex: 9999"
         [formControl]="form.controls['agency']"
+        [mask]="'9999'"
+
       >
       </app-input>
       <app-input
@@ -27,6 +29,7 @@
         [required]="true"
         placeholder="Ex: 99999999-9"
         [formControl]="form.controls['account']"
+        [mask]="'99999999-9'"
       >
       </app-input>
     </div>
@@ -40,6 +43,7 @@
         [required]="true"
         placeholder="Ex: 999.999.99-99"
         [formControl]="form.controls['cpf']"
+        [mask]="'999.999.999-99'"
 
       >
       </app-input>

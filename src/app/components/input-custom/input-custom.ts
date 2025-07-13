@@ -8,6 +8,9 @@ import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideEye, lucideEyeClosed } from '@ng-icons/lucide';
 import { HlmIconDirective } from '@spartan-ng/helm/icon';
 import { FormControl, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
+import {
+  NgxMaskDirective,
+} from 'ngx-mask';
 
 @Component({
   selector: 'app-input',
@@ -19,6 +22,7 @@ import { FormControl, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/fo
     NgIcon,
     HlmIconDirective,
     ReactiveFormsModule,
+    NgxMaskDirective
   ],
   providers: [
     provideIcons({ lucideEye, lucideEyeClosed }),
@@ -42,6 +46,8 @@ export class InputCustom {
   @Input() width: string = 'w-full';
 
   @Input() formControl!: FormControl;
+
+  @Input() mask!: string;
 
   onInputChange(event: Event) {
     const value = (event.target as HTMLInputElement).value;

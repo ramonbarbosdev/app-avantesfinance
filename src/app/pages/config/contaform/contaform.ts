@@ -62,18 +62,7 @@ export class Contaform implements OnInit {
   router = inject(Router);
 
   ngOnInit(): void {
-    // this.form = this.fb.group({
-    //   agency: ['', Validators.required],
-    //   account: ['', Validators.required],
-    //   cpf: [
-    //     '',
-    //     [
-    //       Validators.required,
-    //       Validators.pattern(/^\d{3}\.\d{3}\.\d{2}-\d{2}$/),
-    //     ],
-    //   ],
-    //   password: ['', Validators.required],
-    // });
+
   }
 
   cadastrar() {
@@ -85,12 +74,11 @@ export class Contaform implements OnInit {
     const objeto = this.form.value;
     objeto.connectorId = 612;
     objeto.accessToken = this.authService.getUser().pluggy.accessToken;
-    console.log(objeto);
-    // this.itemService.createItem(this.objeto).subscribe({
-    //   next: (res) => {
-    //     this.eventService.emitItemReload();
-    //     window.location.reload();
-    //   },
-    // });
+    this.itemService.createItem(objeto).subscribe({
+      next: (res) => {
+        this.eventService.emitItemReload();
+        window.location.reload();
+      },
+    });
   }
 }
