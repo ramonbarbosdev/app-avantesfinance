@@ -4,4 +4,5 @@ export class Items {
   public name!: string;
   public status!: string;
   public type!: string;
+  public fl_main!: boolean;
 }

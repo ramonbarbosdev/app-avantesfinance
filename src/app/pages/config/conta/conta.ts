@@ -4,7 +4,7 @@ import { HlmTableImports } from '@spartan-ng/helm/table';
 import { CommonModule } from '@angular/common';
 import { HlmIconDirective } from '@spartan-ng/helm/icon';
 import { NgIcon, provideIcons } from '@ng-icons/core';
-import { lucideTrash2 } from '@ng-icons/lucide';
+import { lucideTrash2, lucideCheck } from '@ng-icons/lucide';
 
 import {
   HlmTabsComponent,
@@ -33,7 +33,7 @@ import { Router } from '@angular/router';
     HlmTabsTriggerDirective,
     Contaform,
   ],
-  providers: [provideIcons({ lucideTrash2 })],
+  providers: [provideIcons({ lucideTrash2, lucideCheck })],
   templateUrl: './conta.html',
   styleUrl: './conta.scss',
 })
@@ -63,6 +63,7 @@ export class Conta implements OnInit {
           item.institutionUrl = index.institutionUrl;
           item.name = index.name;
           item.type = index.type;
+          item.fl_main = index.flMain;
           this.listaItems = [...this.listaItems, item];
         });
       },
@@ -75,6 +76,17 @@ export class Conta implements OnInit {
 
     if (id_item)
       this.itemService.deleteItem(id_item, apiKey).subscribe({
+        next: (res) => {
+          this.obterItem();
+        },
+        error(e) {},
+      });
+  }
+
+  tornarPrincipal(id_item: string) {
+
+    if (id_item)
+      this.itemService.isMain(id_item).subscribe({
         next: (res) => {
           this.obterItem();
         },

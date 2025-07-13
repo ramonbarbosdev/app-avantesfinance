@@ -16,11 +16,18 @@
               <th hlmTh class="w-[10%]"></th>
               <th hlmTh class="">Conta</th>
               <th hlmTh class="">Tipo</th>
+              <th hlmTh class="">Principal</th>
             </tr>
           </thead>
           <tbody hlmTBody>
             <tr hlmTr *ngFor="let item of listaItems">
-              <td hlmTd class="">
+              <td hlmTd class="flex flex-row  h-full w-full   gap-2  justify-center  items-center ">
+                <div
+                  (click)="tornarPrincipal(item.id_item)"
+                  class="flex cursor-pointer hover:scale-[1.2] transform transition-all duration-300"
+                >
+                  <ng-icon hlm size="sm" name="lucideCheck" />
+                </div>
                 <div
                   (click)="excluirItem(item.id_item)"
                   class="flex cursor-pointer hover:scale-[1.2] transform transition-all duration-300"
@@ -38,6 +45,8 @@
               </td>
               <td hlmTd>{{ item.name }}</td>
               <td hlmTd class="">{{ item.type }}</td>
+              <td hlmTd *ngIf="item.fl_main  == true" class="">Sim</td>
+              <td hlmTd *ngIf="item.fl_main  == false" class="">Não</td>
             </tr>
           </tbody>
         </table>

@@ -12,6 +12,7 @@ export class ItemsService {
 
   constructor(private http: HttpClient) {}
 
+
   findItemsById(id_item: string, apiKey: string): Observable<any> {
     const url = `${this.apiUrl}/obter-item/${id_item}/${apiKey}`;
 
@@ -58,6 +59,33 @@ export class ItemsService {
     const url = `${this.apiUrl}/${id_item}/${apiKey}`;
 
     return this.http.delete<any>(url).pipe(
+      tap((res) => {
+        toast(res.message, {
+          // description: res.codeDescription,
+          action: {
+            label: 'Ok',
+            onClick: () => {},
+          },
+        });
+      }),
+      catchError((e) => {
+        console.log(e);
+        toast(e.error.message, {
+          description: e.error.codeDescription,
+          action: {
+            label: 'Ok',
+            onClick: () => {},
+          },
+        });
+        return throwError(() => e);
+      })
+    );
+  }
+
+  isMain(id_item: string) {
+    const url = `${this.apiUrl}/item-principal/${id_item}`;
+
+    return this.http.get<any>(url).pipe(
       tap((res) => {
         toast(res.message, {
           // description: res.codeDescription,
