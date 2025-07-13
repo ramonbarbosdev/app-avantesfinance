@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { HlmButtonDirective } from '@spartan-ng/helm/button';
 import { HlmCardContentDirective, HlmCardDirective, HlmCardHeaderDirective, HlmCardTitleDirective } from '@spartan-ng/helm/card';
+import { TableTransacaoConta } from '../../components/table-transacao-conta/table-transacao-conta';
 
 @Component({
   selector: 'app-home',
@@ -12,6 +13,7 @@ import { HlmCardContentDirective, HlmCardDirective, HlmCardHeaderDirective, HlmC
     HlmCardTitleDirective,
     HlmCardContentDirective,
     HlmButtonDirective,
+    TableTransacaoConta
   ],
   templateUrl: './home.html',
   styleUrl: './home.scss',

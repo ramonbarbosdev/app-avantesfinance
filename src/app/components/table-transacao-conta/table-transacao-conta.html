@@ -1,0 +1,28 @@
+  <!-- Lista de Transações Recentes -->
+  <div hlmCard>
+    <div hlmCardHeader>
+      <h3 hlmCardTitle>Movimentação Conta Nubank</h3>
+    </div>
+    <div hlmCardContent>
+      <table class="w-full text-sm">
+        <thead>
+          <tr class="text-left border-b border-gray-200">
+            <th>Descrição</th>
+            <th>Destinatario</th>
+            <th>Data</th>
+            <th>Valor</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of lista" class="border-b border-gray-100">
+            <td>{{ item.description }}</td>
+            <td>{{ item.recipien }}</td>
+            <td>{{ item.date | date: 'dd/MM/yyyy HH:mm' : 'UTC' }}</td>
+            <td [class.text-green-600]="item.type === 'CREDIT'" [class.text-red-600]="item.type === 'DEBIT'">
+              R$ {{item.amount | number: '1.2-2' }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
