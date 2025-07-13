@@ -18,6 +18,8 @@ export class TransacaoContaService {
 
     return this.http.get<any>(url).pipe(
       tap((res) => {
+          console.log(res);
+
         return res;
       }),
       catchError((e) => {
