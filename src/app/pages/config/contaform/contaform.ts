@@ -24,6 +24,9 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { Combobox } from "../../../components/combobox/combobox";
+import { PluggyService } from '../../../services/pluggy.service';
+import { Conector } from '../../../models/conector';
 
 @Component({
   selector: 'app-contaform',
@@ -37,6 +40,7 @@ import {
     HlmButtonDirective,
     InputCustom,
     ReactiveFormsModule,
+    Combobox,
   ],
   templateUrl: './contaform.html',
   styleUrl: './contaform.scss',
@@ -44,36 +48,54 @@ import {
 export class Contaform implements OnInit {
   fb = inject(FormBuilder);
 
+  public listaConectores: Conector[] = [];
+
   form = new FormGroup({
     agency: new FormControl('', Validators.required),
     account: new FormControl('', Validators.required),
-    cpf: new FormControl('', [
-      Validators.required,
-      Validators.minLength(11)
-    ]),
+    cpf: new FormControl('', [Validators.required, Validators.minLength(11)]),
     password: new FormControl('', Validators.required),
-    connectorId: new FormControl(0),
+    connectorId: new FormControl('', Validators.required),
     accessToken: new FormControl(''),
   });
 
   private itemService = inject(ItemsService);
+  private pluggyService = inject(PluggyService);
   private authService = inject(AuthService);
   private eventService = inject(EventService);
   router = inject(Router);
 
   ngOnInit(): void {
+    this.obterConectores();
+  }
 
+  obterConectores() {
+    let apiKey = this.authService.getUser().pluggy.apiKey;
+    this.pluggyService.findConectors(apiKey).subscribe({
+      next: (res) => {
+        Object.values(res as any).forEach((index: any) => {
+          const item = new Conector();
+          (item.value = String(index.id)), (item.label = index.name);
+          item.isOpenFinance = index.isOpenFinance;
+          this.listaConectores = [...this.listaConectores, item];
+        });
+      },
+    });
   }
 
   cadastrar() {
+    const objeto = this.form.value;
+    objeto.accessToken = this.authService.getUser().pluggy.accessToken;
+
+    console.log(this.form.value);
+
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       return;
     }
 
-    const objeto = this.form.value;
-    objeto.connectorId = 612;
-    objeto.accessToken = this.authService.getUser().pluggy.accessToken;
+
+
     this.itemService.createItem(objeto).subscribe({
       next: (res) => {
         this.eventService.emitItemReload();

@@ -58,6 +58,16 @@
       </app-input>
     </div>
 
+    <!-- Linha 3 -->
+    <div class="flex gap-5 grid grid-cols-1 md:grid-cols-2 w-full">
+      <app-combobox
+        [options]="listaConectores"
+         formControlName="connectorId"
+      >
+
+      </app-combobox>
+    </div>
+
     <div hlmCardFooter>
       <button [disabled]="form.invalid" hlmBtn>Salvar</button>
     </div>
