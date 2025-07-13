@@ -10,6 +10,7 @@ import {
 import { Transacao } from '../../models/transacao';
 import { TransacaoContaService } from '../../services/transacao-conta.service';
 import { AuthService } from '../../auth/auth.service';
+import { HlmTableImports } from '@spartan-ng/helm/table';
 
 @Component({
   selector: 'app-table-transacao-conta',
@@ -19,6 +20,7 @@ import { AuthService } from '../../auth/auth.service';
     HlmCardHeaderDirective,
     HlmCardTitleDirective,
     HlmCardContentDirective,
+    HlmTableImports,
   ],
   templateUrl: './table-transacao-conta.html',
   styleUrl: './table-transacao-conta.scss',
@@ -48,7 +50,9 @@ export class TableTransacaoConta implements OnInit {
           item.type = index.type;
           item.operationType = index.operationType;
           item.description = this.formatarDescricao(index.description).tipo;
-          item.recipien = this.formatarDescricao(index.description).destinatario;
+          item.recipien = this.formatarDescricao(
+            index.description
+          ).destinatario;
           item.date = index.date;
           this.lista = [...this.lista, item];
         });
