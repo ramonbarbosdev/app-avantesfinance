@@ -1,0 +1,35 @@
+<hr class="my-4" />
+
+<div class="space-y-2">
+  <h4 class="text-lg font-semibold">Itens do Lançamento</h4>
+<div *ngFor="let item of itens.controls; let i = index" [formGroup]="getItemFormGroup(item)" class="grid md:grid-cols-3 gap-4">
+  <app-input
+    [inputId]="'cd_itemlancamento_' + i"
+    [type]="'text'"
+    [label]="'Código Item'"
+    [formControlName]="'cd_itemlancamento'"
+    
+  ></app-input>
+
+  <app-input
+    [inputId]="'id_categoria_' + i"
+    [type]="'text'"
+    [label]="'Categoria'"
+    [formControlName]="'id_categoria'"
+  ></app-input>
+
+  <app-input
+    [inputId]="'vl_itemlancamento_' + i"
+    [type]="'text'"
+    [label]="'Valor'"
+    [formControlName]="'vl_itemlancamento'"
+  ></app-input>
+
+  <button type="button" hlmBtn (click)="removerItem(i)">Remover</button>
+</div>
+
+<div class="pt-4">
+  <button type="button" hlmBtn (click)="adicionarItem()">Adicionar Item</button>
+</div>
+
+</div>

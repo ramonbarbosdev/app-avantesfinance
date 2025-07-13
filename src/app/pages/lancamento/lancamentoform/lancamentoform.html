@@ -3,30 +3,78 @@
     <h3 hlmCardTitle>Lançamento</h3>
   </div>
 
-  <form [formGroup]="form" hlmCardContent class="space-y-4" (ngSubmit)="salvar()">
+  <form
+    [formGroup]="form"
+    hlmCardContent
+    class="space-y-4"
+    (ngSubmit)="salvar()"
+  >
     <div class="grid md:grid-cols-2 gap-4">
-      <input hlmInput formControlName="cd_lancamento" placeholder="Código" />
-      <input hlmInput formControlName="ds_lancamento" placeholder="Descrição" />
-      <input hlmInput type="month" formControlName="dt_anomes" placeholder="Ano-Mês" />
-      <input hlmInput type="date" formControlName="dt_lancamento" placeholder="Data Lançamento" />
-      <input hlmInput type="number" formControlName="id_centrocusto" placeholder="Centro de Custo" />
-      <input hlmInput type="number" formControlName="vl_total" placeholder="Valor Total" />
+      <app-input
+        [inputId]="'cd_lancamento'"
+        [type]="'text'"
+        [label]="'Codigo'"
+        [required]="true"
+        placeholder=""
+        [formControl]="form.controls['cd_lancamento']"
+      >
+      </app-input>
+      <app-input
+        [inputId]="'ds_lancamento'"
+        [type]="'text'"
+        [label]="'Descrição'"
+        [required]="true"
+        placeholder=""
+        [formControl]="form.controls['ds_lancamento']"
+      >
+      </app-input>
+      <app-input
+        [inputId]="'dt_anomes'"
+        [type]="'text'"
+        [label]="'Mês'"
+        [required]="true"
+        placeholder=""
+        [formControl]="form.controls['dt_anomes']"
+      >
+      </app-input>
+      <app-input
+        [inputId]="'dt_lancamento'"
+        [type]="'text'"
+        [label]="'Data'"
+        [required]="true"
+        placeholder=""
+        [formControl]="form.controls['dt_lancamento']"
+      >
+      </app-input>
+
+      <app-input
+        [inputId]="'id_centrocusto'"
+        [type]="'text'"
+        [label]="'Centro de Custo'"
+        [required]="true"
+        placeholder=""
+        [formControl]="form.controls['id_centrocusto']"
+      >
+      </app-input>
+
+      <app-input
+        [inputId]="'vl_total'"
+        [type]="'text'"
+        [label]="'Valor Total'"
+        [required]="true"
+        placeholder=""
+        [formControl]="form.controls['vl_total']"
+      >
+      </app-input>
+
+    
     </div>
 
-    <hr class="my-4" />
-
-    <div class="space-y-2">
-      <h4 class="text-lg font-semibold">Itens do Lançamento</h4>
-
-      <div *ngFor="let item of itens.controls; let i = index"  class="grid md:grid-cols-4 gap-4 items-center">
-        <input hlmInput formControlName="cd_itemlancamento" placeholder="Código Item" />
-        <input hlmInput type="number" formControlName="id_categoria" placeholder="Categoria" />
-        <input hlmInput type="number" formControlName="vl_itemlancamento" placeholder="Valor Item" />
-        <button type="button" hlmBtn (click)="removerItem(i)">Remover</button>
-      </div>
-
-      <button type="button" hlmBtn (click)="adicionarItem()">Adicionar Item</button>
-    </div>
+ <app-lancamentodetalheform
+  [fb]="fb"
+  [form]="form"
+  [itens]="itens"
+></app-lancamentodetalheform>
 
     <div hlmCardFooter class="pt-4">
       <button type="submit" hlmBtn class="w-full">Salvar Lançamento</button>

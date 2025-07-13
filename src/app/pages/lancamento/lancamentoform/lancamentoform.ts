@@ -15,6 +15,8 @@ import {
   HlmCardHeaderDirective,
   HlmCardTitleDirective,
 } from '@spartan-ng/helm/card';
+import { Lancamentodetalheform } from "../lancamentodetalheform/lancamentodetalheform";
+import { InputCustom } from "../../../components/input-custom/input-custom";
 
 @Component({
   selector: 'app-lancamentoform',
@@ -29,6 +31,8 @@ import {
     HlmCardTitleDirective,
     HlmCardContentDirective,
     HlmCardFooterDirective,
+    Lancamentodetalheform,
+    InputCustom,
   ],
   templateUrl: './lancamentoform.html',
   styleUrl: './lancamentoform.scss',
@@ -36,40 +40,33 @@ import {
 export class Lancamentoform {
   fb = inject(FormBuilder);
 
-  form!: FormGroup;
-
-  
+  form = new FormGroup({
+    cd_lancamento: new FormControl('', Validators.required),
+    ds_lancamento: new FormControl('', [Validators.required]),
+    dt_anomes: new FormControl('', [Validators.required]),
+    dt_lancamento: new FormControl('', [Validators.required]),
+    id_centrocusto: new FormControl('', [Validators.required]),
+    vl_total: new FormControl('', [Validators.required]),
+    itens: this.fb.array([]),
+  });
 
   ngOnInit() {
-    this.form = this.fb.group({
-      cd_lancamento: ['', Validators.required],
-      ds_lancamento: ['', Validators.required],
-      dt_anomes: ['', Validators.required],
-      dt_lancamento: ['', Validators.required],
-      id_centrocusto: [0, Validators.required],
-      vl_total: [0, Validators.required],
-      itens: this.fb.array([]),
-    });
-
     // inicializar com um item
-    this.adicionarItem();
+    // this.adicionarItem();
+  }
+
+  adicionarItem() {
+    this.itens.push(
+      this.fb.group({
+        cd_itemlancamento: [''],
+        id_categoria: [''],
+        vl_itemlancamento: [''],
+      })
+    );
   }
 
   get itens(): FormArray {
     return this.form.get('itens') as FormArray;
-  }
-
-  adicionarItem() {
-    const item = this.fb.group({
-      cd_itemlancamento: ['', Validators.required],
-      id_categoria: [0, Validators.required],
-      vl_itemlancamento: [0, Validators.required],
-    });
-    this.itens.push(item);
-  }
-
-  removerItem(index: number) {
-    this.itens.removeAt(index);
   }
 
   salvar() {
