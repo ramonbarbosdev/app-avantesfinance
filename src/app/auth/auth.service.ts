@@ -14,7 +14,7 @@ export class AuthService {
   private router = inject(Router);
   constructor(private http: HttpClient) {}
 
-  login(credenciais: { login: string; senha: string }) {
+  login(credenciais: any) {
     return this.http.post(`${this.apiUrl}/auth/login`, credenciais, {
       withCredentials: true, // <- permite receber e enviar cookies
     });

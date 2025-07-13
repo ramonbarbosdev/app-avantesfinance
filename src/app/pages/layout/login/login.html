@@ -1,26 +1,26 @@
 <div class="flex min-h-screen items-center justify-center bg-muted px-4">
-  <div  *ngIf="loading == false" class="w-full max-w-sm rounded-2xl bg-background p-6 shadow-lg">
     
-
+  <form [formGroup]="form" (ngSubmit)="logar()" *ngIf="loading == false" class="w-full max-w-sm rounded-2xl bg-background p-6 shadow-lg flex flex-col gap-3">
+    
     <app-input
     [inputId]="'login'"
     [type]="'text'"
     [label]="'Seu login de acesso'"
-    [(model)]="objeto.login"
     [required]="true"
     placeholder="Login"
+    [formControl]="form.controls['login']"
     ></app-input>
 
     <app-input
     [inputId]="'senha'"
     [type]="'password'"
     [label]="'Sua senha de acesso'"
-    [(model)]="objeto.senha"
     [required]="true"
     placeholder="Senha"
+    [formControl]="form.controls['senha']"
     ></app-input>
 
-    <button (click)="logar()" hlmBtn variant="default" class="w-full mb-3">
+    <button  hlmBtn variant="default" class="w-full mb-3">
       Entrar
     </button>
    
@@ -30,7 +30,7 @@
         Não tenho conta
       </button>
     </div>
-  </div>
+  </form>
 
    <div class="w-full flex m-1 justify-center"   *ngIf="loading == true">
       <hlm-spinner />
