@@ -1,1 +1,73 @@
-<p>home works!</p>
+<div class="p-6 space-y-6">
+  <div class="flex items-center justify-between">
+    <h2 class="text-2xl font-semibold">Painel Financeiro</h2>
+    <button hlmBtn>Atualizar</button>
+  </div>
+
+  <!-- Cards de Resumo -->
+  <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+    <div hlmCard class="bg-green-50">
+      <div hlmCardHeader>
+        <h3 hlmCardTitle>Saldo Total</h3>
+      </div>
+      <div hlmCardContent class="text-3xl font-bold text-green-700">
+        R$ {{ totalSaldo | number: '1.2-2' }}
+      </div>
+    </div>
+
+    <div hlmCard class="bg-blue-50">
+      <div hlmCardHeader>
+        <h3 hlmCardTitle>Entradas</h3>
+      </div>
+      <div hlmCardContent class="text-2xl font-semibold text-blue-600">
+        +R$ {{ totalEntradas | number: '1.2-2' }}
+      </div>
+    </div>
+
+    <div hlmCard class="bg-red-50">
+      <div hlmCardHeader>
+        <h3 hlmCardTitle>Saídas</h3>
+      </div>
+      <div hlmCardContent class="text-2xl font-semibold text-red-600">
+        -R$ {{ totalSaidas | number: '1.2-2' }}
+      </div>
+    </div>
+  </div>
+
+  <!-- Gráfico de Fluxo Financeiro (simulado) -->
+  <div hlmCard class="min-h-[200px]">
+    <div hlmCardHeader>
+      <h3 hlmCardTitle>Fluxo Financeiro (simulado)</h3>
+    </div>
+    <div hlmCardContent>
+      <p class="text-sm text-gray-500">[Insira gráfico aqui - Victory, ApexCharts ou Chart.js]</p>
+    </div>
+  </div>
+
+  <!-- Lista de Transações Recentes -->
+  <div hlmCard>
+    <div hlmCardHeader>
+      <h3 hlmCardTitle>Últimas Transações</h3>
+    </div>
+    <div hlmCardContent>
+      <table class="w-full text-sm">
+        <thead>
+          <tr class="text-left border-b border-gray-200">
+            <th>Descrição</th>
+            <th>Data</th>
+            <th>Valor</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let t of transacoesRecentes" class="border-b border-gray-100">
+            <td>{{ t.descricao }}</td>
+            <td>{{ t.data }}</td>
+            <td [class.text-green-600]="t.tipo === 'entrada'" [class.text-red-600]="t.tipo === 'saida'">
+              {{ t.tipo === 'entrada' ? '+' : '-' }}R$ {{ t.valor | number: '1.2-2' }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

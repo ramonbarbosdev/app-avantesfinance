@@ -20,7 +20,7 @@
     [formControl]="form.controls['senha']"
     ></app-input>
 
-    <button  hlmBtn variant="default" class="w-full mb-3">
+    <button [disabled]="form.invalid" hlmBtn variant="default" class="w-full mb-3">
       Entrar
     </button>
    
