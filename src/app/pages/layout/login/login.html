@@ -1,40 +1,41 @@
 <div class="flex min-h-screen items-center justify-center bg-muted px-4">
-    
-  <form [formGroup]="form" (ngSubmit)="logar()" *ngIf="loading == false" class="w-full max-w-sm rounded-2xl bg-background p-6 shadow-lg flex flex-col gap-3">
-    
+  <form
+    #f="ngForm"
+    (ngSubmit)="logar()"
+    *ngIf="loading == false"
+    class="w-full max-w-sm rounded-2xl bg-background p-6 shadow-lg flex flex-col gap-3"
+  >
+ 
     <app-input
-    [inputId]="'login'"
-    [type]="'text'"
-    [label]="'Seu login de acesso'"
-    [required]="true"
-    placeholder="Login"
-    [formControl]="form.controls['login']"
+      [inputId]="'login'"
+      [type]="'text'"
+      [label]="'Seu login de acesso'"
+      [required]="true"
+      placeholder="Login"
+      [(model)]="objeto.login"
     ></app-input>
 
     <app-input
-    [inputId]="'senha'"
-    [type]="'password'"
-    [label]="'Sua senha de acesso'"
-    [required]="true"
-    placeholder="Senha"
-    [formControl]="form.controls['senha']"
+      [inputId]="'senha'"
+      [type]="'password'"
+      [label]="'Sua senha de acesso'"
+      [required]="true"
+      placeholder="Senha"
+      [(model)]="objeto.senha"
     ></app-input>
 
-    <button [disabled]="form.invalid" hlmBtn variant="default" class="w-full mb-3">
+
+    <button
+      hlmBtn
+      variant="default"
+      class="w-full mb-3"
+    >
       Entrar
     </button>
-   
 
-    <div class="text-center">
-      <button [routerLink]="['/register']" class="text-sm text-muted-foreground hover:underline">
-        Não tenho conta
-      </button>
-    </div>
   </form>
 
-   <div class="w-full flex m-1 justify-center"   *ngIf="loading == true">
-      <hlm-spinner />
-    </div>
-
+  <div class="w-full flex m-1 justify-center" *ngIf="loading == true">
+    <hlm-spinner />
+  </div>
 </div>
-

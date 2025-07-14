@@ -31,12 +31,7 @@ import {
   styleUrl: './login.scss',
 })
 export class Login {
-  fb = inject(FormBuilder);
-
-  form = new FormGroup({
-    login: new FormControl('', Validators.required),
-    senha: new FormControl('', [Validators.required]),
-  });
+  public objeto = { login: '', senha: '' };
 
   public loading = false;
 
@@ -44,15 +39,15 @@ export class Login {
   constructor(private auth: AuthService) {}
 
   logar() {
-    
-    if (this.form.invalid) {
-      this.form.markAllAsTouched();
-      return;
-    }
     this.loading = true;
-    const objeto = this.form.value;
 
-    this.auth.login(objeto).subscribe({
+    if (!this.objeto.login) 
+    {
+        this.loading = false;
+        return;
+    }
+
+    this.auth.login(this.objeto).subscribe({
       next: (res: any) => {
         this.loading = false;
         this.auth.setUser(res);
