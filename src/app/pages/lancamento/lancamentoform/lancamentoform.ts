@@ -17,6 +17,9 @@ import { MoneyCustom } from '../../../components/money-custom/money-custom';
 import { Box } from '../../../models/box';
 import { LancamentoService } from '../../../services/lancamento.service';
 import { Combobox } from '../../../components/combobox/combobox';
+import { ZodError } from 'zod';
+import { LancametosSchema } from '../../../schema/lancamento-schema.';
+import { HlmFormFieldModule } from '@spartan-ng/helm/form-field';
 
 @Component({
   selector: 'app-lancamentoform',
@@ -31,13 +34,13 @@ import { Combobox } from '../../../components/combobox/combobox';
     DateCustom,
     MoneyCustom,
     Combobox,
-    Lancamentodetalheform
+    Lancamentodetalheform,
+    HlmFormFieldModule,
   ],
   templateUrl: './lancamentoform.html',
   styleUrl: './lancamentoform.scss',
 })
 export class Lancamentoform {
-
   public listaCentroCusto: Box[] = [];
   service = inject(LancamentoService);
 
@@ -51,25 +54,40 @@ export class Lancamentoform {
     itens: [{ cd_itemlancamento: '', id_categoria: '', vl_itemlancamento: '' }],
   };
 
+  public errorValidacao: Record<string, string> = {};
+
   ngOnInit() {
-   const data = new Date();
-   const ano = data.getFullYear();
-   const mes = String(data.getMonth() + 1).padStart(2, '0');
-   this.objeto.dt_anomes = `${ano}${mes}`;
-   this.obterCentroCusto();
+    const data = new Date();
+    const ano = data.getFullYear();
+    const mes = String(data.getMonth() + 1).padStart(2, '0');
+    this.objeto.dt_anomes = `${ano}${mes}`;
+    this.obterCentroCusto();
   }
 
   adicionarItem() {
-       this.objeto.itens.push({
-         cd_itemlancamento: '',
-         id_categoria: '',
-         vl_itemlancamento: '',
-       });
+    this.objeto.itens.push({
+      cd_itemlancamento: '',
+      id_categoria: '',
+      vl_itemlancamento: '',
+    });
   }
 
-
   salvar() {
-     console.log('Dados do formulário:', this.objeto);
+    this.validarItens()
+  }
+
+  validarItens(): any {
+    try {
+      LancametosSchema.parse(this.objeto);
+    } catch (error) {
+      if (error instanceof ZodError) {
+        this.errorValidacao = {};
+        error.issues.forEach((e) => {
+          const value = e.path[0];
+          this.errorValidacao[String(value)] = e.message;
+        });
+      }
+    }
   }
 
   obterCentroCusto() {

@@ -27,6 +27,7 @@ export class DateCustom implements ControlValueAccessor {
   @Input() label = 'Data';
   @Input() minDate = new Date(2000, 0, 1);
   @Input() maxDate = new Date(2030, 11, 31);
+  @Input() error: string | null = null;
 
   value: Date | null = null;
 
@@ -46,12 +47,10 @@ export class DateCustom implements ControlValueAccessor {
   }
 
   onValueChange(event: any) {
-      // this.value = event?.toISOString().split('T')[0]; ;
-      this.value = event;
-      this.onChange(event);
-      this.onTouched();
-      // console.log(this.value);
+    // this.value = event?.toISOString().split('T')[0]; ;
+    this.value = event;
+    this.onChange(event);
+    this.onTouched();
+    // console.log(this.value);
   }
-
-
 }

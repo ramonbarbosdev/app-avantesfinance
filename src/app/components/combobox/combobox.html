@@ -1,4 +1,4 @@
-<div class="flex flex-col gap-1 relative">
+<div class="flex flex-col gap-3 relative">
 
   <label class="" hlmLabel>{{label}}</label>
 
@@ -55,5 +55,10 @@
     </hlm-command-list>
   </hlm-command>
 </brn-popover>
+
+ <div class="relative " *ngIf="error">
+    <hlm-hint class="text-red-600 text-sm">{{ error }}</hlm-hint> 
+  </div> 
+
 
 </div>

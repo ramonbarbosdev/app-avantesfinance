@@ -13,5 +13,9 @@
     [required]="required"
   />
 
+  <div class="relative " *ngIf="error">
+    <hlm-hint class="text-red-600 text-sm">{{ error }}</hlm-hint> 
+  </div> 
+
 
 </hlm-form-field>

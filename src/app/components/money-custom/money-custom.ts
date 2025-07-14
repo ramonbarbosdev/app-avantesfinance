@@ -28,6 +28,7 @@ export class MoneyCustom {
   @Input() inputId!: string;
   @Input() placeholder: string = '';
   @Input() required: boolean = false;
+  @Input() error: string | null = null;
 
   @Input()
   set model(val: number | null) {

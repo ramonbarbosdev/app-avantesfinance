@@ -69,6 +69,7 @@ export class Combobox implements ControlValueAccessor {
   @Input() placeholder: string = 'Selecione uma opção';
   @Input() width: string = 'w-full';
   @Output() selectedChange = new EventEmitter<string>();
+  @Input() error: string | null = null;
 
   public state = signal<'open' | 'closed'>('closed');
   private searchTerm = signal('');

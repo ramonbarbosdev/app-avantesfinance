@@ -18,6 +18,7 @@ import { CommonModule } from '@angular/common';
     NgIcon,
     HlmIconDirective,
     NgxMaskDirective,
+    HlmFormFieldModule,
   ],
   providers: [provideIcons({ lucideEye, lucideEyeClosed })],
   templateUrl: './input-custom.html',
@@ -32,8 +33,8 @@ export class InputCustom {
   @Input() inputId!: string;
   @Input() placeholder: string = '';
   @Input() required: boolean = false;
-
   @Input() mask!: string;
+  @Input() error: string | null = null;
 
   onInputChange(event: Event) {
     const value = (event.target as HTMLInputElement).value;

@@ -7,15 +7,7 @@
       [required]="true"
       [placeholder]="''"
       [(model)]="objeto.cd_lancamento"
-    ></app-input>
-
-    <app-input
-      [inputId]="'ds_lancamento'"
-      [type]="'text'"
-      [label]="'Descrição'"
-      [required]="true"
-      [placeholder]="''"
-      [(model)]="objeto.ds_lancamento"
+      [error]="errorValidacao['cd_lancamento']  || null"
     ></app-input>
 
     <app-input
@@ -25,12 +17,16 @@
       [required]="true"
       [placeholder]="''"
       [(model)]="objeto.dt_anomes"
+      [error]="errorValidacao['dt_anomes']  || null"
+
     ></app-input>
 
     <app-date-custom
       [(ngModel)]="objeto.dt_lancamento"
       name="dt_lancamento"
       label="Data do Lançamento"
+      [error]="errorValidacao['dt_lancamento']  || null"
+
     />
 
     <app-combobox
@@ -38,20 +34,29 @@
       [options]="listaCentroCusto"
       [(ngModel)]="objeto.id_centrocusto"
       name="id_centrocusto"
+      [error]="errorValidacao['id_centrocusto']  || null"
     ></app-combobox>
 
     <app-money-custom
       [label]="'Valor'"
-      [inputId]="'vl_lancamento'"
+      [inputId]="'vl_total'"
       [(model)]="objeto.vl_total"
       [required]="true"
+      [error]="errorValidacao['vl_total']  || null"
     ></app-money-custom>
 
-  </div>
-  
-  
-  <app-lancamentodetalheform [itens]="objeto.itens">
+        <app-input
+      [inputId]="'ds_lancamento'"
+      [type]="'text'"
+      [label]="'Descrição'"
+      [required]="true"
+      [placeholder]="''"
+      [(model)]="objeto.ds_lancamento"
+    ></app-input>
 
+  </div>
+
+  <app-lancamentodetalheform [itens]="objeto.itens">
   </app-lancamentodetalheform>
 
   <div hlmCardFooter class="pt-4">
