@@ -10,24 +10,21 @@
         [inputId]="'cd_itemlancamento_' + i"
         type="text"
         label="Código Item"
-        [(ngModel)]="item.cd_itemlancamento"
-        [name]="'cd_itemlancamento_' + i"
+        [(model)]="itens.cd_itemlancamento"
       ></app-input>
 
       <app-input
         [inputId]="'id_categoria_' + i"
         type="text"
         label="Categoria"
-        [(ngModel)]="item.id_categoria"
-        [name]="'id_categoria_' + i"
+        [(model)]="itens.id_categoria"
       ></app-input>
 
       <app-input
         [inputId]="'vl_itemlancamento_' + i"
         type="text"
         label="Valor"
-        [(ngModel)]="item.vl_itemlancamento"
-        [name]="'vl_itemlancamento_' + i"
+        [(model)]="itens.vl_itemlancamento"
       ></app-input>
 
       <button type="button" hlmBtn (click)="removerItem(i)">Remover</button>

@@ -23,6 +23,6 @@ export class Lancamentodetalheform {
   }
 
   removerItem(index: number) {
-    this.itens.removeAt(index);
+      this.itens.splice(index, 1);
   }
 }
