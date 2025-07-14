@@ -51,7 +51,7 @@ export class Lancamentoform {
     dt_lancamento: '',
     id_centrocusto: 0,
     vl_total: 0,
-    itens: [{ cd_itemlancamento: '', id_categoria: '', vl_itemlancamento: '' }],
+    itemlancamento: [{ cd_itemlancamento: '', id_categoria: '', vl_itemlancamento: '' }],
   };
 
   public errorValidacao: Record<string, string> = {};
@@ -65,7 +65,7 @@ export class Lancamentoform {
   }
 
   adicionarItem() {
-    this.objeto.itens.push({
+    this.objeto.itemlancamento.push({
       cd_itemlancamento: '',
       id_categoria: '',
       vl_itemlancamento: '',
@@ -73,12 +73,28 @@ export class Lancamentoform {
   }
 
   salvar() {
-    this.validarItens()
+
+    if(this.validarItens()) 
+    {
+          console.log(this.objeto);
+
+          this.service.create(this.objeto).subscribe({
+            next: (res) => {
+              console.log(res);
+            },
+          });
+
+    }
+
+
+
+
   }
 
   validarItens(): any {
     try {
       LancametosSchema.parse(this.objeto);
+      return true;
     } catch (error) {
       if (error instanceof ZodError) {
         this.errorValidacao = {};
@@ -86,6 +102,8 @@ export class Lancamentoform {
           const value = e.path[0];
           this.errorValidacao[String(value)] = e.message;
         });
+
+        return false;
       }
     }
   }
