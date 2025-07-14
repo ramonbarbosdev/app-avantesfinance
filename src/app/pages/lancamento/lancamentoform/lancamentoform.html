@@ -37,10 +37,11 @@
         [formControl]="form.controls['dt_anomes']"
       >
       </app-input>
-    
 
-      <app-date-custom formControlName="dt_lancamento" label="Data de Lançamento" />
-
+      <app-date-custom
+        formControlName="dt_lancamento"
+        label="Data de Lançamento"
+      />
 
       <app-input
         [inputId]="'id_centrocusto'"
@@ -52,24 +53,19 @@
       >
       </app-input>
 
-      <app-input
+      <app-money-custom
         [inputId]="'vl_total'"
-        [type]="'text'"
         [label]="'Valor Total'"
-        [required]="true"
-        placeholder=""
+        [placeholder]="'R$ 0,00'"
         [formControl]="form.controls['vl_total']"
-      >
-      </app-input>
-
-    
+      />
     </div>
 
- <app-lancamentodetalheform
-  [fb]="fb"
-  [form]="form"
-  [itens]="itens"
-></app-lancamentodetalheform>
+    <app-lancamentodetalheform
+      [fb]="fb"
+      [form]="form"
+      [itens]="itens"
+    ></app-lancamentodetalheform>
 
     <div hlmCardFooter class="pt-4">
       <button type="submit" hlmBtn class="w-full">Salvar Lançamento</button>

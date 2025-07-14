@@ -18,6 +18,7 @@ import {
 import { Lancamentodetalheform } from "../lancamentodetalheform/lancamentodetalheform";
 import { InputCustom } from "../../../components/input-custom/input-custom";
 import { DateCustom } from "../../../components/date-custom/date-custom";
+import { MoneyCustom } from "../../../components/money-custom/money-custom";
 
 @Component({
   selector: 'app-lancamentoform',
@@ -34,7 +35,8 @@ import { DateCustom } from "../../../components/date-custom/date-custom";
     HlmCardFooterDirective,
     Lancamentodetalheform,
     InputCustom,
-    DateCustom
+    DateCustom,
+    MoneyCustom
 ],
   templateUrl: './lancamentoform.html',
   styleUrl: './lancamentoform.scss',
