@@ -37,6 +37,12 @@
     ],
     "@spartan-ng/helm/tabs": [
       "./libs/ui/ui-tabs-helm/src/index.ts"
+    ],
+    "@spartan-ng/helm/command": [
+      "./libs/ui/ui-command-helm/src/index.ts"
+    ],
+    "@spartan-ng/helm/popover": [
+      "./libs/ui/ui-popover-helm/src/index.ts"
     ]
   },
   "nxJsonPlugins": [],
@@ -144,6 +150,62 @@
           "hash": "921711506103005204"
         },
         {
+          "file": "libs/ui/ui-command-helm/src/index.ts",
+          "hash": "15855819063071434966"
+        },
+        {
+          "file": "libs/ui/ui-command-helm/src/lib/hlm-command-dialog-close-button.directive.ts",
+          "hash": "12872222274829357701"
+        },
+        {
+          "file": "libs/ui/ui-command-helm/src/lib/hlm-command-dialog.directive.ts",
+          "hash": "13574969343858223465"
+        },
+        {
+          "file": "libs/ui/ui-command-helm/src/lib/hlm-command-empty.directive.ts",
+          "hash": "6181589053409794992"
+        },
+        {
+          "file": "libs/ui/ui-command-helm/src/lib/hlm-command-group-label.component.ts",
+          "hash": "14497440662147568000"
+        },
+        {
+          "file": "libs/ui/ui-command-helm/src/lib/hlm-command-group.component.ts",
+          "hash": "7618879999639450922"
+        },
+        {
+          "file": "libs/ui/ui-command-helm/src/lib/hlm-command-icon.directive.ts",
+          "hash": "10490798545174872732"
+        },
+        {
+          "file": "libs/ui/ui-command-helm/src/lib/hlm-command-item.component.ts",
+          "hash": "1879834465057641828"
+        },
+        {
+          "file": "libs/ui/ui-command-helm/src/lib/hlm-command-list.component.ts",
+          "hash": "7579383111298736443"
+        },
+        {
+          "file": "libs/ui/ui-command-helm/src/lib/hlm-command-search-input.component.ts",
+          "hash": "10529856208223901551"
+        },
+        {
+          "file": "libs/ui/ui-command-helm/src/lib/hlm-command-search.component.ts",
+          "hash": "12989952063702452789"
+        },
+        {
+          "file": "libs/ui/ui-command-helm/src/lib/hlm-command-separator.component.ts",
+          "hash": "2955506188756544584"
+        },
+        {
+          "file": "libs/ui/ui-command-helm/src/lib/hlm-command-shortcut.component.ts",
+          "hash": "18228147321601091896"
+        },
+        {
+          "file": "libs/ui/ui-command-helm/src/lib/hlm-command.component.ts",
+          "hash": "6389523452326023581"
+        },
+        {
           "file": "libs/ui/ui-form-field-helm/src/index.ts",
           "hash": "10129577571815628638"
         },
@@ -190,6 +252,18 @@
         {
           "file": "libs/ui/ui-label-helm/src/lib/hlm-label.directive.ts",
           "hash": "8493961916477322107"
+        },
+        {
+          "file": "libs/ui/ui-popover-helm/src/index.ts",
+          "hash": "14206434168979323056"
+        },
+        {
+          "file": "libs/ui/ui-popover-helm/src/lib/hlm-popover-close.directive.ts",
+          "hash": "6921065027108518098"
+        },
+        {
+          "file": "libs/ui/ui-popover-helm/src/lib/hlm-popover-content.directive.ts",
+          "hash": "15634766142529572905"
         },
         {
           "file": "libs/ui/ui-separator-helm/src/index.ts",
@@ -312,7 +386,7 @@
         },
         {
           "file": "src/app/app.routes.ts",
-          "hash": "4461364394809554518"
+          "hash": "7666022781205816533"
         },
         {
           "file": "src/app/app.scss",
@@ -344,7 +418,7 @@
         },
         {
           "file": "src/app/components/combobox/combobox.html",
-          "hash": "15983164497969098394"
+          "hash": "4057046511544097859"
         },
         {
           "file": "src/app/components/combobox/combobox.scss",
@@ -356,7 +430,23 @@
         },
         {
           "file": "src/app/components/combobox/combobox.ts",
-          "hash": "1637238004795115617"
+          "hash": "3104064848293762685"
+        },
+        {
+          "file": "src/app/components/date-custom/date-custom.html",
+          "hash": "2908355714969396914"
+        },
+        {
+          "file": "src/app/components/date-custom/date-custom.scss",
+          "hash": "3244421341483603138"
+        },
+        {
+          "file": "src/app/components/date-custom/date-custom.spec.ts",
+          "hash": "9570403572055773989"
+        },
+        {
+          "file": "src/app/components/date-custom/date-custom.ts",
+          "hash": "1190092215572013387"
         },
         {
           "file": "src/app/components/input-custom/input-custom.html",
@@ -391,12 +481,36 @@
           "hash": "10386260742689396129"
         },
         {
+          "file": "src/app/models/conector.spec.ts",
+          "hash": "17175919934899458650"
+        },
+        {
+          "file": "src/app/models/conector.ts",
+          "hash": "12604629495356146384"
+        },
+        {
+          "file": "src/app/models/item-lancamento.spec.ts",
+          "hash": "17862091374259254026"
+        },
+        {
+          "file": "src/app/models/item-lancamento.ts",
+          "hash": "4085789423505942455"
+        },
+        {
           "file": "src/app/models/items.spec.ts",
           "hash": "2122910200742651176"
         },
         {
           "file": "src/app/models/items.ts",
-          "hash": "6835304953748881750"
+          "hash": "17323666524832990984"
+        },
+        {
+          "file": "src/app/models/lancamento.spec.ts",
+          "hash": "11889533109249510200"
+        },
+        {
+          "file": "src/app/models/lancamento.ts",
+          "hash": "1620184296210208901"
         },
         {
           "file": "src/app/models/transacao.spec.ts",
@@ -424,7 +538,7 @@
         },
         {
           "file": "src/app/pages/config/conta/conta.html",
-          "hash": "18131880149305672740"
+          "hash": "16705235474113347760"
         },
         {
           "file": "src/app/pages/config/conta/conta.scss",
@@ -436,11 +550,11 @@
         },
         {
           "file": "src/app/pages/config/conta/conta.ts",
-          "hash": "5183777523421283352"
+          "hash": "15762703693267775456"
         },
         {
           "file": "src/app/pages/config/contaform/contaform.html",
-          "hash": "11458858770883873203"
+          "hash": "14720911947918240974"
         },
         {
           "file": "src/app/pages/config/contaform/contaform.scss",
@@ -452,7 +566,7 @@
         },
         {
           "file": "src/app/pages/config/contaform/contaform.ts",
-          "hash": "3623747562704569774"
+          "hash": "15033321393109756135"
         },
         {
           "file": "src/app/pages/home/home.html",
@@ -469,6 +583,38 @@
         {
           "file": "src/app/pages/home/home.ts",
           "hash": "17874936145473224034"
+        },
+        {
+          "file": "src/app/pages/lancamento/lancamentodetalheform/lancamentodetalheform.html",
+          "hash": "15411434946978577856"
+        },
+        {
+          "file": "src/app/pages/lancamento/lancamentodetalheform/lancamentodetalheform.scss",
+          "hash": "3244421341483603138"
+        },
+        {
+          "file": "src/app/pages/lancamento/lancamentodetalheform/lancamentodetalheform.spec.ts",
+          "hash": "9685579816532957505"
+        },
+        {
+          "file": "src/app/pages/lancamento/lancamentodetalheform/lancamentodetalheform.ts",
+          "hash": "7800186411434176052"
+        },
+        {
+          "file": "src/app/pages/lancamento/lancamentoform/lancamentoform.html",
+          "hash": "12504766818617856439"
+        },
+        {
+          "file": "src/app/pages/lancamento/lancamentoform/lancamentoform.scss",
+          "hash": "3244421341483603138"
+        },
+        {
+          "file": "src/app/pages/lancamento/lancamentoform/lancamentoform.spec.ts",
+          "hash": "6786325858354121100"
+        },
+        {
+          "file": "src/app/pages/lancamento/lancamentoform/lancamentoform.ts",
+          "hash": "17414620964362262078"
         },
         {
           "file": "src/app/pages/layout/login/login.html",
@@ -488,7 +634,7 @@
         },
         {
           "file": "src/app/pages/layout/menu/menu.html",
-          "hash": "5457883406073236984"
+          "hash": "3231884507476038857"
         },
         {
           "file": "src/app/pages/layout/menu/menu.scss",
@@ -548,7 +694,15 @@
         },
         {
           "file": "src/app/services/items.service.ts",
-          "hash": "8125340146625671580"
+          "hash": "11792631379884352440"
+        },
+        {
+          "file": "src/app/services/pluggy.service.spec.ts",
+          "hash": "11945781420110254946"
+        },
+        {
+          "file": "src/app/services/pluggy.service.ts",
+          "hash": "8246138223417492190"
         },
         {
           "file": "src/app/services/theme.service.spec.ts",
@@ -564,7 +718,7 @@
         },
         {
           "file": "src/app/services/transacao-conta.service.ts",
-          "hash": "18393956028921830313"
+          "hash": "7124803000979838510"
         },
         {
           "file": "src/environment.ts",
@@ -592,7 +746,7 @@
         },
         {
           "file": "tsconfig.json",
-          "hash": "14911887663553956645"
+          "hash": "259887025278449668"
         },
         {
           "file": "tsconfig.spec.json",

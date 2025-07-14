@@ -1,0 +1,12 @@
+<hlm-form-field class="flex flex-col gap-1 relative">
+  <label hlmLabel>{{ label }}</label>
+
+  <hlm-date-picker
+    class="w-full"
+    [min]="minDate"
+    [max]="maxDate"
+    [formControl]="internalControl"
+  >
+    <span>Escolher data</span>
+  </hlm-date-picker>
+</hlm-form-field>

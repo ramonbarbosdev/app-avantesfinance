@@ -17,6 +17,7 @@ import {
 } from '@spartan-ng/helm/card';
 import { Lancamentodetalheform } from "../lancamentodetalheform/lancamentodetalheform";
 import { InputCustom } from "../../../components/input-custom/input-custom";
+import { DateCustom } from "../../../components/date-custom/date-custom";
 
 @Component({
   selector: 'app-lancamentoform',
@@ -33,7 +34,8 @@ import { InputCustom } from "../../../components/input-custom/input-custom";
     HlmCardFooterDirective,
     Lancamentodetalheform,
     InputCustom,
-  ],
+    DateCustom
+],
   templateUrl: './lancamentoform.html',
   styleUrl: './lancamentoform.scss',
 })
@@ -52,7 +54,14 @@ export class Lancamentoform {
 
   ngOnInit() {
     // inicializar com um item
-    // this.adicionarItem();
+    this.adicionarItem();
+
+   const data = new Date();
+   const ano = data.getFullYear();
+   const mes = (data.getMonth() + 1).toString().padStart(2, '0'); 
+
+   this.form.get('dt_anomes')?.setValue(`${ano}${mes}`);
+
   }
 
   adicionarItem() {

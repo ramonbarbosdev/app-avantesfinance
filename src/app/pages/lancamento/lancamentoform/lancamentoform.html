@@ -37,15 +37,10 @@
         [formControl]="form.controls['dt_anomes']"
       >
       </app-input>
-      <app-input
-        [inputId]="'dt_lancamento'"
-        [type]="'text'"
-        [label]="'Data'"
-        [required]="true"
-        placeholder=""
-        [formControl]="form.controls['dt_lancamento']"
-      >
-      </app-input>
+    
+
+      <app-date-custom formControlName="dt_lancamento" label="Data de Lançamento" />
+
 
       <app-input
         [inputId]="'id_centrocusto'"
