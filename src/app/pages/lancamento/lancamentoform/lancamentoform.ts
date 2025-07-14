@@ -46,7 +46,7 @@ export class Lancamentoform {
     ds_lancamento: '',
     dt_anomes: '',
     dt_lancamento: '',
-    id_centrocusto: '',
+    id_centrocusto: 0,
     vl_total: 0,
     itens: [{ cd_itemlancamento: '', id_categoria: '', vl_itemlancamento: '' }],
   };

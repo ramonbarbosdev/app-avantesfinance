@@ -19,7 +19,6 @@ import {
 @Component({
   selector: 'app-login',
   imports: [
-    RouterLink,
     HlmButtonDirective,
     InputCustom,
     HlmSpinnerComponent,

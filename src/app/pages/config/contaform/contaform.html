@@ -4,7 +4,7 @@
     <p hlmCardDescription>Adicione a nova conta bancaria.</p>
   </div>
   <form
-    [formGroup]="form"
+    #f="ngForm"
     (ngSubmit)="cadastrar()"
     class="flex flex-col gap-5"
     hlmCardContent
@@ -17,9 +17,8 @@
         [label]="'Agencia: (*)'"
         [required]="true"
         placeholder="Ex: 9999"
-        [formControl]="form.controls['agency']"
+        [(model)]="objeto.agency"
         [mask]="'9999'"
-
       >
       </app-input>
       <app-input
@@ -28,7 +27,7 @@
         [label]="'Conta: (*)'"
         [required]="true"
         placeholder="Ex: 99999999-9"
-        [formControl]="form.controls['account']"
+        [(model)]="objeto.account"
       >
       </app-input>
     </div>
@@ -41,9 +40,8 @@
         [label]="'CPF: (*)'"
         [required]="true"
         placeholder="Ex: 999.999.99-99"
-        [formControl]="form.controls['cpf']"
+        [(model)]="objeto.cpf"
         [mask]="'999.999.999-99'"
-
       >
       </app-input>
       <app-input
@@ -52,7 +50,7 @@
         [label]="'Senha: (*)'"
         [required]="true"
         placeholder=""
-        [formControl]="form.controls['password']"
+        [(model)]="objeto.password"
       >
       </app-input>
     </div>
@@ -60,15 +58,16 @@
     <!-- Linha 3 -->
     <div class="flex gap-5 grid grid-cols-1 md:grid-cols-2 w-full">
       <app-combobox
-      [label]="'Conector: (*)'"
+        label="Centro de custo: (*)"
         [options]="listaConectores"
-         formControlName="connectorId"
-      >
-      </app-combobox>
+        [(ngModel)]="objeto.connectorId"
+        name="connectorId"
+      ></app-combobox>
+
     </div>
 
     <div hlmCardFooter>
-      <button [disabled]="form.invalid" hlmBtn>Salvar</button>
+      <button  hlmBtn>Salvar</button>
     </div>
   </form>
 </section>

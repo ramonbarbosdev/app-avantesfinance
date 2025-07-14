@@ -27,6 +27,7 @@ import {
 import { Combobox } from "../../../components/combobox/combobox";
 import { PluggyService } from '../../../services/pluggy.service';
 import { Conector } from '../../../models/conector';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-contaform',
@@ -41,23 +42,26 @@ import { Conector } from '../../../models/conector';
     InputCustom,
     ReactiveFormsModule,
     Combobox,
+    CommonModule,
+    FormsModule,
+
   ],
   templateUrl: './contaform.html',
   styleUrl: './contaform.scss',
 })
 export class Contaform implements OnInit {
-  fb = inject(FormBuilder);
+ 
 
   public listaConectores: Conector[] = [];
 
-  form = new FormGroup({
-    agency: new FormControl('', Validators.required),
-    account: new FormControl('', Validators.required),
-    cpf: new FormControl('', [Validators.required, Validators.minLength(11)]),
-    password: new FormControl('', Validators.required),
-    connectorId: new FormControl('', Validators.required),
-    accessToken: new FormControl(''),
-  });
+  public objeto = {
+    agency: "",
+    account: "",
+    cpf:"",
+    password:"",
+    connectorId:0,
+    accessToken:""
+  }
 
   private itemService = inject(ItemsService);
   private pluggyService = inject(PluggyService);
@@ -84,19 +88,10 @@ export class Contaform implements OnInit {
   }
 
   cadastrar() {
-    const objeto = this.form.value;
-    objeto.accessToken = this.authService.getUser().pluggy.accessToken;
 
-    console.log(this.form.value);
+    this.objeto.accessToken = this.authService.getUser().pluggy.accessToken;
 
-    if (this.form.invalid) {
-      this.form.markAllAsTouched();
-      return;
-    }
-
-
-
-    this.itemService.createItem(objeto).subscribe({
+    this.itemService.createItem(this.objeto).subscribe({
       next: (res) => {
         this.eventService.emitItemReload();
         window.location.reload();
