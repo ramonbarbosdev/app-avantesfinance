@@ -31,7 +31,8 @@ import { HlmButtonDirective } from '@spartan-ng/helm/button';
 import { HlmCommandImports } from '@spartan-ng/helm/command';
 import { HlmIconDirective } from '@spartan-ng/helm/icon';
 import { HlmPopoverContentDirective } from '@spartan-ng/helm/popover';
-
+import { HlmFormFieldModule } from '@spartan-ng/helm/form-field';
+import { HlmLabelDirective } from '@spartan-ng/helm/label';
 type Framework = { label: string; value: string };
 
 @Component({
@@ -48,6 +49,8 @@ type Framework = { label: string; value: string };
     HlmPopoverContentDirective,
     BrnPopoverContentDirective,
     CommonModule,
+    HlmFormFieldModule,
+    HlmLabelDirective,
   ],
   providers: [
     provideIcons({ lucideChevronsUpDown, lucideSearch, lucideCheck }),
@@ -61,6 +64,7 @@ type Framework = { label: string; value: string };
   styleUrl: './combobox.scss',
 })
 export class Combobox implements ControlValueAccessor {
+  @Input() label!: string;
   @Input() options: Framework[] = [];
   @Input() placeholder: string = 'Selecione uma opção';
   @Input() width: string = 'w-full';

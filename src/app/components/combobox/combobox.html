@@ -1,4 +1,10 @@
-<brn-popover
+<hlm-form-field class="flex flex-col gap-1 relative">
+
+
+  <label class="" hlmLabel>{{label}}</label>
+
+
+  <brn-popover
   [state]="state()"
   (stateChanged)="stateChanged($event)"
   sideOffset="5"
@@ -51,3 +57,5 @@
     </hlm-command-list>
   </hlm-command>
 </brn-popover>
+
+</hlm-form-field>

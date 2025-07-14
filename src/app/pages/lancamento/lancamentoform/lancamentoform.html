@@ -43,15 +43,12 @@
         label="Data de Lançamento"
       />
 
-      <app-input
-        [inputId]="'id_centrocusto'"
-        [type]="'text'"
-        [label]="'Centro de Custo'"
-        [required]="true"
-        placeholder=""
-        [formControl]="form.controls['id_centrocusto']"
+        <app-combobox
+        [label]="'Centro de custo: (*)'"
+        [options]="listaCentroCusto"
+         formControlName="id_centrocusto"
       >
-      </app-input>
+      </app-combobox>
 
       <app-money-custom
         [inputId]="'vl_total'"
