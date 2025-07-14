@@ -1,26 +1,29 @@
 <hlm-form-field class="flex flex-col gap-1 relative">
   <label class="" hlmLabel>{{label}}</label>
-  <input
-    title="Campo de entrada"
-    hlmInput
-    [type]="showPassword ? 'text' : type"
-    [id]="inputId"
-    [name]="inputId"
-    [placeholder]="placeholder"
-    [class]="width"
-    (input)="onInputChange($event)"
-    [formControl]="formControl"
-     [mask]="mask"
-  />
 
+   <input 
+    title="Campo de entrada" 
+    hlmInput 
+    [type]="type" 
+    [id]="inputId" 
+    [name]="inputId" 
+    [placeholder]="placeholder" 
+    class="w-full"   
+    (input)="onInputChange($event)"/>
+  <!-- <hlm-hint></hlm-hint> -->
   <button
     title="esconder/exibir"
     *ngIf="type === 'password'"
     type="button"
-    class="absolute right-3 top-[35px] "
+    class="absolute right-3 top-[35px]"
     (click)="togglePasswordVisibility()"
   >
-  <ng-icon *ngIf="showPassword == false" hlm size='sm' name="lucideEyeClosed" />
-  <ng-icon *ngIf="showPassword == true" hlm size='sm' name="lucideEye" />
+    <ng-icon
+      *ngIf="showPassword == false"
+      hlm
+      size="sm"
+      name="lucideEyeClosed"
+    />
+    <ng-icon *ngIf="showPassword == true" hlm size="sm" name="lucideEye" />
   </button>
 </hlm-form-field>

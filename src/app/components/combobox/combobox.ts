@@ -49,8 +49,8 @@ type Framework = { label: string; value: string };
     HlmPopoverContentDirective,
     BrnPopoverContentDirective,
     CommonModule,
-    HlmFormFieldModule,
     HlmLabelDirective,
+    HlmFormFieldModule,
   ],
   providers: [
     provideIcons({ lucideChevronsUpDown, lucideSearch, lucideCheck }),

@@ -1,10 +1,8 @@
 import { Component, inject } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, FormsModule, Validators } from '@angular/forms';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { HlmInputDirective } from '@spartan-ng/helm/input';
 import { HlmButtonDirective } from '@spartan-ng/helm/button';
-import { HlmLabelDirective } from '@spartan-ng/helm/label';
 import {
   HlmCardDirective,
   HlmCardContentDirective,
@@ -23,75 +21,55 @@ import { Combobox } from '../../../components/combobox/combobox';
 @Component({
   selector: 'app-lancamentoform',
   imports: [
+    FormsModule,
     CommonModule,
     ReactiveFormsModule,
-    HlmInputDirective,
-    HlmLabelDirective,
     HlmButtonDirective,
-    HlmCardDirective,
-    HlmCardHeaderDirective,
-    HlmCardTitleDirective,
     HlmCardContentDirective,
     HlmCardFooterDirective,
-    Lancamentodetalheform,
     InputCustom,
     DateCustom,
     MoneyCustom,
-    Combobox
+    Combobox,
+    Lancamentodetalheform
   ],
   templateUrl: './lancamentoform.html',
   styleUrl: './lancamentoform.scss',
 })
 export class Lancamentoform {
-  fb = inject(FormBuilder);
 
   public listaCentroCusto: Box[] = [];
   service = inject(LancamentoService);
 
-  form = new FormGroup({
-    cd_lancamento: new FormControl('', Validators.required),
-    ds_lancamento: new FormControl('', [Validators.required]),
-    dt_anomes: new FormControl('', [Validators.required]),
-    dt_lancamento: new FormControl('', [Validators.required]),
-    id_centrocusto: new FormControl('', [Validators.required]),
-    vl_total: new FormControl('', [Validators.required]),
-    itens: this.fb.array([]),
-  });
+  public objeto = {
+    cd_lancamento: '',
+    ds_lancamento: '',
+    dt_anomes: '',
+    dt_lancamento: '',
+    id_centrocusto: '',
+    vl_total: 0,
+    itens: [{ cd_itemlancamento: '', id_categoria: '', vl_itemlancamento: '' }],
+  };
 
   ngOnInit() {
-    // inicializar com um item
-    this.adicionarItem();
-
-    const data = new Date();
-    const ano = data.getFullYear();
-    const mes = (data.getMonth() + 1).toString().padStart(2, '0');
-
-    this.form.get('dt_anomes')?.setValue(`${ano}${mes}`);
-
-    this.obterCentroCusto();
+   const data = new Date();
+   const ano = data.getFullYear();
+   const mes = String(data.getMonth() + 1).padStart(2, '0');
+   this.objeto.dt_anomes = `${ano}${mes}`;
+   this.obterCentroCusto();
   }
 
   adicionarItem() {
-    this.itens.push(
-      this.fb.group({
-        cd_itemlancamento: [''],
-        id_categoria: [''],
-        vl_itemlancamento: [''],
-      })
-    );
+       this.objeto.itens.push({
+         cd_itemlancamento: '',
+         id_categoria: '',
+         vl_itemlancamento: '',
+       });
   }
 
-  get itens(): FormArray {
-    return this.form.get('itens') as FormArray;
-  }
 
   salvar() {
-    if (this.form.invalid) {
-      this.form.markAllAsTouched();
-      return;
-    }
-
-    console.log('Dados do formulário:', this.form.value);
+     console.log('Dados do formulário:', this.objeto);
   }
 
   obterCentroCusto() {

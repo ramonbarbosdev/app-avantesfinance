@@ -9,54 +9,43 @@ import {
 } from 'ngx-mask';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideEye, lucideEyeClosed } from '@ng-icons/lucide';
-import { HlmIconDirective } from '@spartan-ng/helm/icon';
 
 @Component({
   selector: 'app-money-custom',
   imports: [
-    NgxMaskDirective,
     HlmLabelDirective,
     HlmFormFieldModule,
     HlmInputDirective,
     CommonModule,
     ReactiveFormsModule,
-    NgIcon,
-    HlmIconDirective,
   ],
-  providers: [
-    provideIcons({ lucideEye, lucideEyeClosed }),
-
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => MoneyCustom),
-      multi: true,
-    },
-  ],
+  providers: [provideIcons({ lucideEye, lucideEyeClosed })],
   templateUrl: './money-custom.html',
   styleUrl: './money-custom.scss',
 })
 export class MoneyCustom {
-  @Input() type: any;
   @Input() label!: string;
   @Input() inputId!: string;
   @Input() placeholder: string = '';
   @Input() required: boolean = false;
-  @Input() width: string = 'w-full';
-  @Input() formControl!: FormControl;
-  @Input() mask!: string;
-  
+
   @Input()
   set model(val: number | null) {
+    if (typeof val !== 'number' && val !== null) {
+      throw new Error(
+        `[MoneyCustom] model deve ser number ou null, mas recebeu: ${typeof val}`
+      );
+    }
+
     this._model = val;
     this.valorFormatado = this.formatarValor(val);
   }
   get model(): number | null {
     return this._model;
   }
-  
-  @Output() modelChange = new EventEmitter<any>();
 
-  
+  @Output() modelChange = new EventEmitter<number | null>();
+
   _model: number | null = null;
   valorFormatado: string = '';
 
@@ -65,37 +54,15 @@ export class MoneyCustom {
     const valorRaw = input.value.replace(/[^\d]/g, '');
     const valorNumerico = parseFloat(valorRaw) / 100;
 
-    this._model = isNaN(valorNumerico) ? null : valorNumerico;
+    if (isNaN(valorNumerico)) {
+      this._model = null;
+      this.modelChange.emit(null);
+      return;
+    }
+
+    this._model = valorNumerico;
     this.valorFormatado = this.formatarValor(this._model);
     this.modelChange.emit(this._model);
-  }
-
-  showPassword = false;
-
-  togglePasswordVisibility() {
-    this.showPassword = !this.showPassword;
-  }
-
-  //Form
-  value: any = '';
-  onChange = (_: any) => {};
-  onTouched = () => {};
-
-  writeValue(value: any): void {
-    this.value = value;
-  }
-
-  registerOnChange(fn: any): void {
-    this.onChange = fn;
-  }
-
-  registerOnTouched(fn: any): void {
-    this.onTouched = fn;
-  }
-
-  onInput(value: any) {
-    this.value = value;
-    this.onChange(value);
   }
 
   private formatarValor(valor: number | null): string {

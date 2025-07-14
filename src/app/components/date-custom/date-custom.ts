@@ -1,24 +1,18 @@
-import { Component, forwardRef, Input, OnInit } from '@angular/core';
-import {
-  ControlValueAccessor,
-  NG_VALUE_ACCESSOR,
-  FormControl,
-  ReactiveFormsModule,
-} from '@angular/forms';
-import { HlmDatePickerComponent } from '@spartan-ng/helm/date-picker';
+import { Component, forwardRef, Input } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 import { HlmFormFieldModule } from '@spartan-ng/helm/form-field';
 import { HlmLabelDirective } from '@spartan-ng/helm/label';
-import { CommonModule } from '@angular/common';
+import { HlmDatePickerComponent } from '@spartan-ng/helm/date-picker';
 
 @Component({
   selector: 'app-date-custom',
   standalone: true,
   imports: [
     CommonModule,
-    HlmDatePickerComponent,
     HlmFormFieldModule,
     HlmLabelDirective,
-    ReactiveFormsModule,
+    HlmDatePickerComponent,
   ],
   providers: [
     {
@@ -29,31 +23,18 @@ import { CommonModule } from '@angular/common';
   ],
   templateUrl: './date-custom.html',
 })
-export class DateCustom implements ControlValueAccessor, OnInit {
+export class DateCustom implements ControlValueAccessor {
   @Input() label = 'Data';
   @Input() minDate = new Date(2000, 0, 1);
   @Input() maxDate = new Date(2030, 11, 31);
 
-  internalControl = new FormControl();
+  value: Date | null = null;
 
-  private onChange: (value: any) => void = () => {};
-  private onTouched: () => void = () => {};
+  private onChange = (_: any) => {};
+  private onTouched = () => {};
 
-  ngOnInit(): void {
-    this.internalControl.valueChanges.subscribe((value) => {
-      this.onChange(value);
-      this.onTouched();
-    });
-  }
-
-  writeValue(value: any): void {
-     const parsed = value ? new Date(value) : null;
-
-     if (parsed instanceof Date && !isNaN(parsed.getTime())) {
-       this.internalControl.setValue(parsed, { emitEvent: false });
-     } else {
-       this.internalControl.setValue(null, { emitEvent: false });
-     }
+  writeValue(obj: any): void {
+    this.value = obj ? new Date(obj) : null;
   }
 
   registerOnChange(fn: any): void {
@@ -64,7 +45,13 @@ export class DateCustom implements ControlValueAccessor, OnInit {
     this.onTouched = fn;
   }
 
-  setDisabledState?(isDisabled: boolean): void {
-    isDisabled ? this.internalControl.disable() : this.internalControl.enable();
+  onValueChange(event: any) {
+      // this.value = event?.toISOString().split('T')[0]; ;
+      this.value = event;
+      this.onChange(event);
+      this.onTouched();
+      // console.log(this.value);
   }
+
+
 }

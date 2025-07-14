@@ -1,35 +1,39 @@
-<hr class="my-4" />
+<!-- Itens do lançamento -->
+  <div class="pt-6 space-y-2">
+    <h4 class="text-lg font-semibold">Itens do Lançamento</h4>
 
-<div class="space-y-2">
-  <h4 class="text-lg font-semibold">Itens do Lançamento</h4>
-<div *ngFor="let item of itens.controls; let i = index" [formGroup]="getItemFormGroup(item)" class="grid md:grid-cols-3 gap-4">
-  <app-input
-    [inputId]="'cd_itemlancamento_' + i"
-    [type]="'text'"
-    [label]="'Código Item'"
-    [formControlName]="'cd_itemlancamento'"
-    
-  ></app-input>
+    <div
+      *ngFor="let item of itens; let i = index"
+      class="grid md:grid-cols-3 gap-4"
+    >
+      <app-input
+        [inputId]="'cd_itemlancamento_' + i"
+        type="text"
+        label="Código Item"
+        [(ngModel)]="item.cd_itemlancamento"
+        [name]="'cd_itemlancamento_' + i"
+      ></app-input>
 
-  <app-input
-    [inputId]="'id_categoria_' + i"
-    [type]="'text'"
-    [label]="'Categoria'"
-    [formControlName]="'id_categoria'"
-  ></app-input>
+      <app-input
+        [inputId]="'id_categoria_' + i"
+        type="text"
+        label="Categoria"
+        [(ngModel)]="item.id_categoria"
+        [name]="'id_categoria_' + i"
+      ></app-input>
 
-  <app-input
-    [inputId]="'vl_itemlancamento_' + i"
-    [type]="'text'"
-    [label]="'Valor'"
-    [formControlName]="'vl_itemlancamento'"
-  ></app-input>
+      <app-input
+        [inputId]="'vl_itemlancamento_' + i"
+        type="text"
+        label="Valor"
+        [(ngModel)]="item.vl_itemlancamento"
+        [name]="'vl_itemlancamento_' + i"
+      ></app-input>
 
-  <button type="button" hlmBtn (click)="removerItem(i)">Remover</button>
-</div>
+      <button type="button" hlmBtn (click)="removerItem(i)">Remover</button>
+    </div>
 
-<div class="pt-4">
-  <button type="button" hlmBtn (click)="adicionarItem()">Adicionar Item</button>
-</div>
-
-</div>
+    <div class="pt-4">
+      <button type="button" hlmBtn (click)="adicionarItem()">Adicionar Item</button>
+    </div>
+  </div>

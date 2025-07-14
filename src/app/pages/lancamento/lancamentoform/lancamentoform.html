@@ -1,71 +1,59 @@
-<section hlmCard class="space-y-4">
-  <div hlmCardHeader>
-    <h3 hlmCardTitle>Lançamento</h3>
+<form hlmCardContent class="space-y-4" #f="ngForm" (ngSubmit)="salvar()">
+  <div class="grid md:grid-cols-2 gap-4">
+    <app-input
+      [inputId]="'cd_lancamento'"
+      [type]="'text'"
+      [label]="'Código'"
+      [required]="true"
+      [placeholder]="''"
+      [(model)]="objeto.cd_lancamento"
+    ></app-input>
+
+    <app-input
+      [inputId]="'ds_lancamento'"
+      [type]="'text'"
+      [label]="'Descrição'"
+      [required]="true"
+      [placeholder]="''"
+      [(model)]="objeto.ds_lancamento"
+    ></app-input>
+
+    <app-input
+      [inputId]="'dt_anomes'"
+      [type]="'text'"
+      [label]="'Mês'"
+      [required]="true"
+      [placeholder]="''"
+      [(model)]="objeto.dt_anomes"
+    ></app-input>
+
+    <app-date-custom
+      [(ngModel)]="objeto.dt_lancamento"
+      name="dt_lancamento"
+      label="Data do Lançamento"
+    />
+
+    <app-combobox
+      label="Centro de custo: (*)"
+      [options]="listaCentroCusto"
+      [(ngModel)]="objeto.id_centrocusto"
+      name="id_centrocusto"
+    ></app-combobox>
+
+    <app-money-custom
+      [label]="'Valor'"
+      [inputId]="'vl_lancamento'"
+      [(model)]="objeto.vl_total"
+      [required]="true"
+    ></app-money-custom>
+    
   </div>
+  <!-- 
+  <app-lancamentodetalheform [itens]="objeto.itens">
 
-  <form
-    [formGroup]="form"
-    hlmCardContent
-    class="space-y-4"
-    (ngSubmit)="salvar()"
-  >
-    <div class="grid md:grid-cols-2 gap-4">
-      <app-input
-        [inputId]="'cd_lancamento'"
-        [type]="'text'"
-        [label]="'Codigo'"
-        [required]="true"
-        placeholder=""
-        [formControl]="form.controls['cd_lancamento']"
-      >
-      </app-input>
-      <app-input
-        [inputId]="'ds_lancamento'"
-        [type]="'text'"
-        [label]="'Descrição'"
-        [required]="true"
-        placeholder=""
-        [formControl]="form.controls['ds_lancamento']"
-      >
-      </app-input>
-      <app-input
-        [inputId]="'dt_anomes'"
-        [type]="'text'"
-        [label]="'Mês'"
-        [required]="true"
-        placeholder=""
-        [formControl]="form.controls['dt_anomes']"
-      >
-      </app-input>
+  </app-lancamentodetalheform> -->
 
-      <app-date-custom
-        formControlName="dt_lancamento"
-        label="Data de Lançamento"
-      />
-
-        <app-combobox
-        [label]="'Centro de custo: (*)'"
-        [options]="listaCentroCusto"
-         formControlName="id_centrocusto"
-      >
-      </app-combobox>
-
-      <app-money-custom
-        [inputId]="'vl_total'"
-        [label]="'Valor Total'"
-        [placeholder]="'R$ 0,00'"
-        [formControl]="form.controls['vl_total']"
-      />
-    </div>
-
-    <app-lancamentodetalheform
-      [fb]="fb"
-      [form]="form"
-      [itens]="itens"
-    ></app-lancamentodetalheform>
-
-    <div hlmCardFooter class="pt-4">
-      <button type="submit" hlmBtn class="w-full">Salvar Lançamento</button>
-    </div>
-  </form>
-</section>
+  <div hlmCardFooter class="pt-4">
+    <button type="submit" hlmBtn class="w-full">Salvar Lançamento</button>
+  </div>
+</form>

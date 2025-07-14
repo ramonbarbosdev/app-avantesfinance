@@ -2,17 +2,15 @@
     
   <label class="" hlmLabel>{{label}}</label>
   <input
-    title="Campo de entrada"
+    title="Campo de entrada number"
     hlmInput
-    [type]="showPassword ? 'text' : type"
+    type="text"
     [id]="inputId"
     [name]="inputId"
-    [placeholder]="placeholder"
-    [class]="width"
+    [value]="valorFormatado"
     (input)="onInputChange($event)"
-    [formControl]="formControl"
-     [mask]="mask"
-      [value]="valorFormatado"
+    [placeholder]="placeholder"
+    [required]="required"
   />
 
 
