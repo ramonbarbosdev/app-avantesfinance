@@ -32,11 +32,11 @@ export class MoneyCustom {
 
   @Input()
   set model(val: number | null) {
-    if (typeof val !== 'number' && val !== null) {
-      throw new Error(
-        `[MoneyCustom] model deve ser number ou null, mas recebeu: ${typeof val}`
-      );
-    }
+    // if (typeof val !== 'number' && val !== null) {
+    //   throw new Error(
+    //     `[MoneyCustom] model deve ser number ou null, mas recebeu: ${typeof val}`
+    //   );
+    // }
 
     this._model = val;
     this.valorFormatado = this.formatarValor(val);

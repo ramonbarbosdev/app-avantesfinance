@@ -1,36 +1,40 @@
 <!-- Itens do lançamento -->
-  <div class="pt-6 space-y-2">
-    <h4 class="text-lg font-semibold">Itens do Lançamento</h4>
+<div class="pt-6 space-y-2">
+  <h4 class="text-lg font-semibold">Itens do Lançamento</h4>
 
-    <div
-      *ngFor="let item of itens; let i = index"
-      class="grid md:grid-cols-3 gap-4"
-    >
-      <app-input
-        [inputId]="'cd_itemlancamento_' + i"
-        type="text"
-        label="Código Item"
-        [(model)]="itens.cd_itemlancamento"
-      ></app-input>
+  <div
+    *ngFor="let item of objeto[nomeItem]; let i = index"
+    class="grid md:grid-cols-3 gap-4"
+  >
+    <app-input
+      [inputId]="'cd_itemlancamento_' + i"
+      type="text"
+      label="Código Item"
+      [(model)]="item.cd_itemlancamento"
+    ></app-input>
 
-      <app-input
-        [inputId]="'id_categoria_' + i"
-        type="text"
-        label="Categoria"
-        [(model)]="itens.id_categoria"
-      ></app-input>
+    <app-input
+      [inputId]="'id_categoria_' + i"
+      type="text"
+      label="Categoria"
+      [(model)]="item.id_categoria"
+    ></app-input>
 
-      <app-input
-        [inputId]="'vl_itemlancamento_' + i"
-        type="text"
-        label="Valor"
-        [(model)]="itens.vl_itemlancamento"
-      ></app-input>
+    <app-money-custom
+      [label]="'Valor'"
+      [inputId]="'vl_itemlancamento_' + i"
+      [(model)]="item.vl_itemlancamento"
+      [required]="true"
+      placeholder="R$ 0,00"
+       (modelChange)="atualizarValorItem(i, $event)"
+    ></app-money-custom>
 
-      <button type="button" hlmBtn (click)="removerItem(i)">Remover</button>
-    </div>
-
-    <div class="pt-4">
-      <button type="button" hlmBtn (click)="adicionarItem()">Adicionar Item</button>
-    </div>
+    <button type="button" hlmBtn (click)="removerItem(i)">Remover</button>
   </div>
+
+  <div class="pt-4">
+    <button type="button" hlmBtn (click)="adicionarItem()">
+      Adicionar Item
+    </button>
+  </div>
+</div>

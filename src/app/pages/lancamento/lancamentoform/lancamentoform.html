@@ -8,6 +8,8 @@
       [placeholder]="''"
       [(model)]="objeto.cd_lancamento"
       [error]="errorValidacao['cd_lancamento']  || null"
+      [disabled]="true"
+      [value]="objeto.cd_lancamento"
     ></app-input>
 
     <app-input
@@ -18,7 +20,8 @@
       [placeholder]="''"
       [(model)]="objeto.dt_anomes"
       [error]="errorValidacao['dt_anomes']  || null"
-
+      [disabled]="true"
+      [value]="objeto.dt_anomes" 
     ></app-input>
 
     <app-date-custom
@@ -43,6 +46,8 @@
       [(model)]="objeto.vl_total"
       [required]="true"
       [error]="errorValidacao['vl_total']  || null"
+      placeholder="R$ 0,00"
+      
     ></app-money-custom>
 
         <app-input
@@ -50,13 +55,17 @@
       [type]="'text'"
       [label]="'Descrição'"
       [required]="true"
-      [placeholder]="''"
+      [placeholder]="'Descreca o lançamento...'"
       [(model)]="objeto.ds_lancamento"
     ></app-input>
 
   </div>
 
-  <app-lancamentodetalheform [itens]="objeto.itemlancamento">
+  <app-lancamentodetalheform 
+   [(objeto)]= "objeto"
+      [itemTemp]= "objetoItemLancamento"
+      [nomeItem]="'itens'"
+  >
   </app-lancamentodetalheform>
 
   <div hlmCardFooter class="pt-4">

@@ -1,5 +1,11 @@
 import { Component, inject } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, FormsModule, Validators } from '@angular/forms';
+import {
+  FormArray,
+  FormBuilder,
+  FormGroup,
+  FormsModule,
+  Validators,
+} from '@angular/forms';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { HlmButtonDirective } from '@spartan-ng/helm/button';
@@ -20,6 +26,8 @@ import { Combobox } from '../../../components/combobox/combobox';
 import { ZodError } from 'zod';
 import { LancametosSchema } from '../../../schema/lancamento-schema.';
 import { HlmFormFieldModule } from '@spartan-ng/helm/form-field';
+import { Lancamento } from '../../../models/lancamento';
+import { ItemLancamento } from '../../../models/item-lancamento';
 
 @Component({
   selector: 'app-lancamentoform',
@@ -44,15 +52,8 @@ export class Lancamentoform {
   public listaCentroCusto: Box[] = [];
   service = inject(LancamentoService);
 
-  public objeto = {
-    cd_lancamento: '',
-    ds_lancamento: '',
-    dt_anomes: '',
-    dt_lancamento: '',
-    id_centrocusto: 0,
-    vl_total: 0,
-    itemlancamento: [{ cd_itemlancamento: '', id_categoria: '', vl_itemlancamento: '' }],
-  };
+  public objeto: Lancamento = new Lancamento();
+  public objetoItemLancamento: ItemLancamento = new ItemLancamento();
 
   public errorValidacao: Record<string, string> = {};
 
@@ -61,34 +62,28 @@ export class Lancamentoform {
     const ano = data.getFullYear();
     const mes = String(data.getMonth() + 1).padStart(2, '0');
     this.objeto.dt_anomes = `${ano}${mes}`;
+    this.objeto.vl_total = 0;
     this.obterCentroCusto();
+    this.obterSequencia();
   }
 
-  adicionarItem() {
-    this.objeto.itemlancamento.push({
-      cd_itemlancamento: '',
-      id_categoria: '',
-      vl_itemlancamento: '',
+  obterSequencia() {
+    this.service.findSequence().subscribe({
+      next: (res) => {
+        this.objeto.cd_lancamento = res.sequencia;
+      },
     });
   }
 
+
   salvar() {
-
-    if(this.validarItens()) 
-    {
-          console.log(this.objeto);
-
-          this.service.create(this.objeto).subscribe({
-            next: (res) => {
-              console.log(res);
-            },
-          });
-
+    if (this.validarItens()) {
+      this.service.create(this.objeto).subscribe({
+        next: (res) => {
+          console.log(res);
+        },
+      });
     }
-
-
-
-
   }
 
   validarItens(): any {

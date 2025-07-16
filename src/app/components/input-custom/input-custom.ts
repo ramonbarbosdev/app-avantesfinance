@@ -35,6 +35,8 @@ export class InputCustom {
   @Input() required: boolean = false;
   @Input() mask!: string;
   @Input() error: string | null = null;
+  @Input() value: string | null = null;
+  @Input() disabled!: boolean;
 
   onInputChange(event: Event) {
     const value = (event.target as HTMLInputElement).value;
