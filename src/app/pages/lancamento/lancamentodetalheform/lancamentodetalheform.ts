@@ -4,8 +4,10 @@ import {
   EventEmitter,
   inject,
   Input,
+  OnChanges,
   OnInit,
   Output,
+  SimpleChanges,
 } from '@angular/core';
 import {
   FormArray,
@@ -20,21 +22,27 @@ import Swal from 'sweetalert2';
 import { MoneyCustom } from '../../../components/money-custom/money-custom';
 import { LancamentoService } from '../../../services/lancamento.service';
 import { Observable } from 'rxjs';
-
+import { HlmIconDirective } from '@spartan-ng/helm/icon';
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import { lucideTrash2, lucideCheck, lucideSquarePen } from '@ng-icons/lucide';
+import { HlmTableImports } from '@spartan-ng/helm/table';
 @Component({
   selector: 'app-lancamentodetalheform',
   imports: [
     CommonModule,
-    InputCustom,
     HlmButtonDirective,
     ReactiveFormsModule,
     FormsModule,
-    MoneyCustom,
+    HlmIconDirective,
+    NgIcon,
+    HlmTableImports,
   ],
+  providers: [provideIcons({ lucideTrash2, lucideCheck, lucideSquarePen })],
+
   templateUrl: './lancamentodetalheform.html',
   styleUrl: './lancamentodetalheform.scss',
 })
-export class Lancamentodetalheform implements OnInit {
+export class Lancamentodetalheform implements OnChanges, OnInit {
   @Input() objeto: any;
   @Output() objetoChange = new EventEmitter<any>();
 
@@ -44,7 +52,16 @@ export class Lancamentodetalheform implements OnInit {
 
   indexEditando: number | null = null;
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    
+    this.obterCategoria()
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['objeto']) {
+      // this.obterCategoria(this.objeto.);
+    }
+  }
 
   limparCampos() {
     this.itemTemp = {
@@ -53,6 +70,18 @@ export class Lancamentodetalheform implements OnInit {
       id_tipooperacao: null,
       vl_movimento: null,
     };
+  }
+
+  categoriasMap: Map<number, string> = new Map();
+  obterCategoria() {
+    this.service.findAll('categoria/').subscribe({
+      next: (res) => {
+
+        res.forEach((item: any) => {
+          this.categoriasMap.set(item.id_categoria, item.nm_categoria);
+        });
+      },
+    });
   }
 
   service = inject(LancamentoService);
@@ -72,9 +101,8 @@ export class Lancamentodetalheform implements OnInit {
 
     this.obterSequencia().subscribe({
       next: (res: any) => {
-        
         let novaSequencia = this.gerarSequenciaLista(res.sequencia);
-        
+
         const itemComSequencia = {
           ...this.itemTemp,
           cd_itemlancamento: String(novaSequencia).padStart(3, '0'),
@@ -96,7 +124,7 @@ export class Lancamentodetalheform implements OnInit {
     });
   }
 
-  gerarSequenciaLista(sequencia:any) {
+  gerarSequenciaLista(sequencia: any) {
     let sequenciaApi = parseInt(sequencia, 10);
 
     const maiorSequenciaLocal = this.objeto[this.nomeItem]
@@ -126,6 +154,11 @@ export class Lancamentodetalheform implements OnInit {
     this.objeto[this.nomeItem].splice(index, 1);
     this.objetoChange.emit(this.objeto);
   }
+
+  obterNomeRelacionado(id: number) {
+    return this.categoriasMap.get(id) ?? '';
+  }
+
 
   atualizarValorItem(index: number, valor: number | null) {
     this.objeto.itens[index].vl_itemlancamento = valor ?? 0;

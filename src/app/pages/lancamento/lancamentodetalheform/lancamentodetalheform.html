@@ -2,37 +2,43 @@
 <div class="pt-6 space-y-2">
   <h4 class="text-lg font-semibold">Itens do Lançamento</h4>
 
-  <div
-    *ngFor="let item of objeto[nomeItem]; let i = index"
-    class="grid md:grid-cols-3 gap-4"
-  >
-    <app-input
-      [inputId]="'cd_itemlancamento_' + i"
-      type="text"
-      label="Código Item"
-      [(model)]="item.cd_itemlancamento"
-      [value]="item.cd_itemlancamento"
-      [disabled]="true"
-    ></app-input>
-
-    <app-input
-      [inputId]="'id_categoria_' + i"
-      type="text"
-      label="Categoria"
-      [(model)]="item.id_categoria"
-    ></app-input>
-
-    <app-money-custom
-      [label]="'Valor'"
-      [inputId]="'vl_itemlancamento_' + i"
-      [(model)]="item.vl_itemlancamento"
-      [required]="true"
-      placeholder="R$ 0,00"
-       (modelChange)="atualizarValorItem(i, $event)"
-    ></app-money-custom>
-
-    <button type="button" hlmBtn (click)="removerItem(i)">Remover</button>
-  </div>
+   <section class="p-2" hlmCard>
+        <table hlmTable>
+          <caption hlmCaption>
+            Listagem de itens
+          </caption>
+          <thead hlmTHead>
+            <tr hlmTr>
+              <th hlmTh class="w-[5%]"></th>
+              <th hlmTh class="">Codigo</th>
+              <th hlmTh class="">Categoria</th>
+              <th hlmTh class="">Valor</th>
+            </tr>
+          </thead>
+          <tbody hlmTBody>
+            <tr hlmTr *ngFor="let item of objeto[nomeItem];  let i = index">
+              <td hlmTd class="flex flex-row  h-full w-full   gap-2  justify-center  items-center ">
+                <div
+                  (click)="editarItem(i)"
+                  class="flex cursor-pointer hover:scale-[1.2] transform transition-all duration-300"
+                >
+                  <ng-icon hlm size="sm" name="lucideSquarePen" />
+                </div>
+                <div
+                  (click)="removerItem(i)"
+                  class="flex cursor-pointer hover:scale-[1.2] transform transition-all duration-300"
+                >
+                  <ng-icon hlm size="sm" name="lucideTrash2" />
+                </div>
+              </td>
+              
+              <td hlmTd>{{ item.cd_itemlancamento }}</td>
+              <td hlmTd class="">{{  obterNomeRelacionado(item.id_categoria) }}</td>
+              <td hlmTd >{{ item.vl_itemlancamento }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
 
   <div class="pt-4">
     <button type="button" hlmBtn (click)="adicionarItem()">

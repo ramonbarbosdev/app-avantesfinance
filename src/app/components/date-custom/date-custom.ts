@@ -37,7 +37,6 @@ export class DateCustom implements ControlValueAccessor, OnChanges {
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['model']) {
-       console.log(this.model);
       const parsedDate = new Date(this.model + 'T00:00:00'); 
       this.data = isNaN(parsedDate.getTime()) ? undefined : parsedDate;
     }
