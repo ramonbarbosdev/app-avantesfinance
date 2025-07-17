@@ -7,6 +7,9 @@ import {
   Output,
   signal,
   computed,
+  OnInit,
+  OnChanges,
+  SimpleChanges,
 } from '@angular/core';
 import {
   ControlValueAccessor,
@@ -33,6 +36,7 @@ import { HlmIconDirective } from '@spartan-ng/helm/icon';
 import { HlmPopoverContentDirective } from '@spartan-ng/helm/popover';
 import { HlmFormFieldModule } from '@spartan-ng/helm/form-field';
 import { HlmLabelDirective } from '@spartan-ng/helm/label';
+
 type Framework = { label: string; value: string };
 
 @Component({
@@ -63,13 +67,33 @@ type Framework = { label: string; value: string };
   templateUrl: './combobox.html',
   styleUrl: './combobox.scss',
 })
-export class Combobox implements ControlValueAccessor {
+export class Combobox implements ControlValueAccessor, OnChanges {
   @Input() label!: string;
   @Input() options: Framework[] = [];
   @Input() placeholder: string = 'Selecione uma opção';
   @Input() width: string = 'w-full';
   @Output() selectedChange = new EventEmitter<string>();
   @Input() error: string | null = null;
+
+  @Input() model: any;
+  @Output() modelChange = new EventEmitter<string>();
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['model'] || changes['options']) {
+      this.tentarSelecionarValor(); 
+
+    }
+  }
+  private tentarSelecionarValor() {
+    if (!this.model || this.options.length === 0) {
+      this.currentFramework.set(undefined);
+      return;
+    }
+
+    const found = this.options.find((f) => f.value === String(this.model));
+    this.commandSelected(found);
+
+  }
 
   public state = signal<'open' | 'closed'>('closed');
   private searchTerm = signal('');
@@ -85,6 +109,9 @@ export class Combobox implements ControlValueAccessor {
   private onTouched = () => {};
 
   writeValue(value: string): void {
+    this.model = value;
+    this.tentarSelecionarValor();
+
     const found = this.options.find((f) => f.value === value);
     this.currentFramework.set(found);
   }
@@ -99,6 +126,7 @@ export class Combobox implements ControlValueAccessor {
 
   updateSearch(event: Event) {
     const value = (event.target as HTMLInputElement).value;
+
     this.searchTerm.set(value);
   }
 
@@ -106,10 +134,12 @@ export class Combobox implements ControlValueAccessor {
     this.state.set(state);
   }
 
-  commandSelected(framework: Framework) {
+  commandSelected(framework: any) {
     this.currentFramework.set(framework);
     this.state.set('closed');
+    this.model = framework.value;
     this.onChange(framework.value); // notifica o form
+    this.modelChange.emit(framework.value); // atualiza two-way binding
     this.onTouched(); // marca como tocado
     this.selectedChange.emit(framework.value); // evento externo
   }

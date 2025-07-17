@@ -6,12 +6,15 @@
     [min]="minDate"
     [max]="maxDate"
     (dateChange)="onValueChange($event)"
+    [formatDate]="formatarData"
+    [date]="data"
+
   >
     <span>Escolher data</span>
   </hlm-date-picker>
 
-   <div class="relative " *ngIf="error">
-    <hlm-hint class="text-red-600 text-sm">{{ error }}</hlm-hint> 
-  </div> 
 
+  <div class="relative" *ngIf="error">
+    <hlm-hint class="text-red-600 text-sm">{{ error }}</hlm-hint> 
+  </div>
 </div>

@@ -25,7 +25,7 @@
     ></app-input>
 
     <app-date-custom
-      [(ngModel)]="objeto.dt_lancamento"
+      [(model)]="objeto.dt_lancamento"
       name="dt_lancamento"
       label="Data do Lançamento"
       [error]="errorValidacao['dt_lancamento']  || null"
@@ -35,9 +35,10 @@
     <app-combobox
       label="Centro de custo: (*)"
       [options]="listaCentroCusto"
-      [(ngModel)]="objeto.id_centrocusto"
+      [(model)]="objeto.id_centrocusto"
       name="id_centrocusto"
       [error]="errorValidacao['id_centrocusto']  || null"
+      
     ></app-combobox>
 
     <app-money-custom

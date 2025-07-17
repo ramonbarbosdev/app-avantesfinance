@@ -1,64 +1,65 @@
 <div class="flex flex-col gap-3 relative">
-
-  <label class="" hlmLabel>{{label}}</label>
+  <label class="" hlmLabel>{{ label }}</label>
 
   <brn-popover
-  [state]="state()"
-  (stateChanged)="stateChanged($event)"
-  sideOffset="5"
->
-  <button
-    type="button"
-    class="justify-between"
-    [class]="width"
-    id="edit-profile"
-    variant="outline"
-    brnPopoverTrigger
-    (click)="state.set('open')"
-    hlmBtn
+    [state]="state()"
+    (stateChanged)="stateChanged($event)"
+    sideOffset="5"
   >
-    {{ currentFramework() ? currentFramework()?.label : 'Buscar...' }}
-    <ng-icon hlm size="sm" name="lucideChevronsUpDown" class="opacity-50" />
-  </button>
+    <button
+      type="button"
+      class="justify-between"
+      [class]="width"
+      id="edit-profile"
+      variant="outline"
+      brnPopoverTrigger
+      (click)="state.set('open')"
+      hlmBtn
+    >
+      {{ currentFramework() ? currentFramework()?.label : 'Buscar...' }}
+      <ng-icon hlm size="sm" name="lucideChevronsUpDown" class="opacity-50" />
+    </button>
 
-  <hlm-command
-    *brnPopoverContent="let ctx"
-    hlmPopoverContent
-    class="w-[200px] p-0"
-  >
-    <hlm-command-search>
-      <ng-icon hlm name="lucideSearch" />
-      <input placeholder="Buscar..." hlm-command-search-input />
-    </hlm-command-search>
+    <hlm-command
+      *brnPopoverContent="let ctx"
+      hlmPopoverContent
+      class="w-[200px] p-0"
+    >
+      <hlm-command-search>
+        <ng-icon hlm name="lucideSearch" />
+        <input
+          placeholder="Buscar..."
+          hlm-command-search-input
+          (input)="updateSearch($event)"
+        />
+      </hlm-command-search>
 
-    <div *brnCommandEmpty hlmCommandEmpty>No results found.</div>
+      <div *brnCommandEmpty hlmCommandEmpty>No results found.</div>
 
-    <hlm-command-list>
-      <hlm-command-group>
-        <button
-          *ngFor="let framework of options"
-          hlm-command-item
-          [value]="framework.label"
-          (selected)="commandSelected(framework)"
-          type="button"
-        >
-          <span>{{ framework.value }} - {{ framework.label }}</span>
-          <ng-icon
-            hlm
-            class="ml-auto"
-            [class.opacity-0]="currentFramework()?.value !== framework.value"
-            name="lucideCheck"
-            hlmCommandIcon
-          />
-        </button>
-      </hlm-command-group>
-    </hlm-command-list>
-  </hlm-command>
-</brn-popover>
+      <hlm-command-list>
+        <hlm-command-group>
+          <button
+            *ngFor="let framework of filteredOptions()"
+            hlm-command-item
+            [value]="framework.label"
+            (selected)="commandSelected(framework)"
+            type="button"
+          >
+            <span>{{ framework.value }} - {{ framework.label }}</span>
+            <ng-icon
+              hlm
+              class="ml-auto"
+              [class.opacity-0]="currentFramework()?.value !== framework.value"
+              name="lucideCheck"
+              hlmCommandIcon
+            />
+          </button>
+        </hlm-command-group>
+      </hlm-command-list>
+    </hlm-command>
+  </brn-popover>
 
- <div class="relative " *ngIf="error">
-    <hlm-hint class="text-red-600 text-sm">{{ error }}</hlm-hint> 
-  </div> 
-
-
+  <div class="relative" *ngIf="error">
+    <hlm-hint class="text-red-600 text-sm">{{ error }}</hlm-hint>
+  </div>
 </div>

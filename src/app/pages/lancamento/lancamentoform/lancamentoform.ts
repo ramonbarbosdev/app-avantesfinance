@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, inject } from '@angular/core';
 import {
   FormArray,
   FormBuilder,
@@ -28,6 +28,8 @@ import { LancametosSchema } from '../../../schema/lancamento-schema.';
 import { HlmFormFieldModule } from '@spartan-ng/helm/form-field';
 import { Lancamento } from '../../../models/lancamento';
 import { ItemLancamento } from '../../../models/item-lancamento';
+import { ActivatedRoute } from '@angular/router';
+import { formatarDataParaInput } from '../../../utils/formatarDataParaInput';
 
 @Component({
   selector: 'app-lancamentoform',
@@ -51,20 +53,48 @@ import { ItemLancamento } from '../../../models/item-lancamento';
 export class Lancamentoform {
   public listaCentroCusto: Box[] = [];
   service = inject(LancamentoService);
-
+  endpoint = 'lancamento';
   public objeto: Lancamento = new Lancamento();
   public objetoItemLancamento: ItemLancamento = new ItemLancamento();
 
   public errorValidacao: Record<string, string> = {};
 
-  ngOnInit() {
+  private route = inject(ActivatedRoute);
+  private cdr = inject(ChangeDetectorRef);
+
+  async ngOnInit() {
+    await this.onShow();
+  }
+
+  async onShow() {
+    const key = this.route.snapshot.paramMap.get('id');
+
     const data = new Date();
     const ano = data.getFullYear();
     const mes = String(data.getMonth() + 1).padStart(2, '0');
     this.objeto.dt_anomes = `${ano}${mes}`;
     this.objeto.vl_total = 0;
-    this.obterCentroCusto();
-    this.obterSequencia();
+
+    await this.obterCentroCusto();
+
+    if (!key) {
+      this.obterSequencia();
+    } else {
+      this.onEdit(key);
+    }
+  }
+
+  onEdit(id: any) {
+    if (!id) return;
+
+    this.service.findById(this.endpoint, id).subscribe({
+      next: (res: any) => {
+        res.dt_lancamento = formatarDataParaInput(res.dt_lancamento);
+        this.objeto = res;
+        this.cdr.detectChanges();
+      },
+      error: (err) => {},
+    });
   }
 
   obterSequencia() {
@@ -74,7 +104,6 @@ export class Lancamentoform {
       },
     });
   }
-
 
   salvar() {
     if (this.validarItens()) {
@@ -102,17 +131,20 @@ export class Lancamentoform {
       }
     }
   }
-
-  obterCentroCusto() {
-    this.service.findAll('centrocusto/').subscribe({
-      next: (res) => {
-        Object.values(res as any).forEach((index: any) => {
-          const item = new Box();
-          (item.value = String(index.id_centrocusto)),
-            (item.label = index.nm_centrocusto);
-          this.listaCentroCusto = [...this.listaCentroCusto, item];
-        });
-      },
+  async obterCentroCusto(): Promise<void> {
+    return new Promise((resolve, reject) => {
+      this.service.findAll('centrocusto/').subscribe({
+        next: (res) => {
+          this.listaCentroCusto = (res as any).map((index: any) => {
+            const item = new Box();
+            item.value = String(index.id_centrocusto);
+            item.label = index.nm_centrocusto;
+            return item;
+          });
+          resolve();
+        },
+        error: (err) => reject(err),
+      });
     });
   }
 }

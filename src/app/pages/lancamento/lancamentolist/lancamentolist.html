@@ -13,7 +13,6 @@
           <thead hlmTHead>
             <tr hlmTr>
               <th hlmTh class="w-[5%]"></th>
-              <th hlmTh class="w-[10%]"></th>
               <th hlmTh class="">Codigo</th>
               <th hlmTh class="">Centro de custo</th>
               <th hlmTh class="">Mês</th>
@@ -24,10 +23,10 @@
             <tr hlmTr *ngFor="let item of listagem">
               <td hlmTd class="flex flex-row  h-full w-full   gap-2  justify-center  items-center ">
                 <div
-                  (click)="editar(item.id_lancamento)"
+                  (click)="editar(item)"
                   class="flex cursor-pointer hover:scale-[1.2] transform transition-all duration-300"
                 >
-                  <ng-icon hlm size="sm" name="lucideCheck" />
+                  <ng-icon hlm size="sm" name="lucideSquarePen" />
                 </div>
                 <div
                   (click)="excluir(item.id_lancamento)"
