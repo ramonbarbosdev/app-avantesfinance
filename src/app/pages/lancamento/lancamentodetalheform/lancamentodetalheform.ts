@@ -1,5 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  inject,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
 import {
   FormArray,
   FormGroup,
@@ -11,6 +18,8 @@ import { InputCustom } from '../../../components/input-custom/input-custom';
 import { HlmButtonDirective } from '@spartan-ng/helm/button';
 import Swal from 'sweetalert2';
 import { MoneyCustom } from '../../../components/money-custom/money-custom';
+import { LancamentoService } from '../../../services/lancamento.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-lancamentodetalheform',
@@ -46,27 +55,65 @@ export class Lancamentodetalheform implements OnInit {
     };
   }
 
+  service = inject(LancamentoService);
+
   atualizarValor(valorAtualizado: any) {
     this.objeto = valorAtualizado;
     this.objetoChange.emit(this.objeto);
   }
 
-  adicionarItem() {
-    const { cd_itemlancamento, id_categoria, vl_itemlancamento } =
-      this.itemTemp || {};
+  obterSequencia(): Observable<string> {
+    let id = this.objeto.id_lancamento ? this.objeto.id_lancamento : 0;
+    return this.service.findSequenceDetalhe(id);
+  }
 
+  adicionarItem() {
     if (!this.objeto[this.nomeItem]) this.objeto[this.nomeItem] = [];
 
-    if (this.indexEditando != null) {
-      this.objeto[this.nomeItem][this.indexEditando] = { ...this.itemTemp };
-      this.indexEditando = null;
+    this.obterSequencia().subscribe({
+      next: (res: any) => {
+        
+        let novaSequencia = this.gerarSequenciaLista(res.sequencia);
+        
+        const itemComSequencia = {
+          ...this.itemTemp,
+          cd_itemlancamento: String(novaSequencia).padStart(3, '0'),
+        };
+
+        if (this.indexEditando != null) {
+          this.objeto[this.nomeItem][this.indexEditando] = itemComSequencia;
+          this.indexEditando = null;
+        } else {
+          this.objeto[this.nomeItem].push(itemComSequencia);
+        }
+
+        this.limparCampos();
+        this.objetoChange.emit(this.objeto);
+      },
+      error: (err) => {
+        console.error('Erro ao obter sequência:', err);
+      },
+    });
+  }
+
+  gerarSequenciaLista(sequencia:any) {
+    let sequenciaApi = parseInt(sequencia, 10);
+
+    const maiorSequenciaLocal = this.objeto[this.nomeItem]
+      .map((item: any) => parseInt(item.cd_itemlancamento, 10))
+      .reduce(
+        (max: any, curr: any) => (isNaN(curr) ? max : Math.max(max, curr)),
+        0
+      );
+
+    let novaSequencia = 0;
+    if (maiorSequenciaLocal == 0) {
+      novaSequencia = Math.max(sequenciaApi, maiorSequenciaLocal);
     } else {
-      this.objeto[this.nomeItem].push({ ...this.itemTemp });
+      novaSequencia = Math.max(sequenciaApi, maiorSequenciaLocal) + 1;
     }
 
-    this.limparCampos();
-
-    this.objetoChange.emit(this.objeto);
+    return novaSequencia;
   }
 
   editarItem(index: number) {

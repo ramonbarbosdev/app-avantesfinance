@@ -33,6 +33,27 @@ export class LancamentoService {
     );
   }
 
+  findSequenceDetalhe(id: number): Observable<any> {
+    const url = `${this.apiUrl}/sequencia-detalhe/${id}`;
+
+    return this.http.get<any>(url).pipe(
+      tap((res) => {
+        return res;
+      }),
+      catchError((e) => {
+        console.log(e);
+        toast(e.error.message, {
+          description: e.error.codeDescription,
+          action: {
+            label: 'Ok',
+            onClick: () => {},
+          },
+        });
+        return throwError(() => e);
+      })
+    );
+  }
+
   findAll(endpoint: string): Observable<any> {
     const url = `${environment.apiUrl}/${endpoint}`;
 
