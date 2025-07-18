@@ -41,6 +41,8 @@ import { InputCustom } from '../../../components/input-custom/input-custom';
 import { Combobox } from '../../../components/combobox/combobox';
 import { Box } from '../../../models/box';
 import { MoneyCustom } from '../../../components/money-custom/money-custom';
+import { ItemLancametoSchema } from '../../../schema/itemlancamento-schema';
+import { ZodError } from 'zod';
 @Component({
   selector: 'app-lancamentodetalheform',
   imports: [
@@ -76,10 +78,11 @@ export class Lancamentodetalheform implements OnChanges, OnInit {
   @Input() nomeItem!: string;
   @Input() relacionado: any;
 
+  categoriasMap: Map<number, string> = new Map();
   id_lancamento = 0;
   indexEditando: number | null = null;
   listaCategoria: any[] = [];
-
+  public errorValidacao: Record<string, string> = {};
   public popoverState = signal<'open' | 'closed'>('closed');
 
   onPopoverStateChange(state: 'open' | 'closed') {
@@ -121,7 +124,6 @@ export class Lancamentodetalheform implements OnChanges, OnInit {
     };
   }
 
-  categoriasMap: Map<number, string> = new Map();
   obterCategoria() {
     this.service.findAll('categoria/').subscribe({
       next: (res) => {
@@ -157,26 +159,45 @@ export class Lancamentodetalheform implements OnChanges, OnInit {
   }
 
   adicionarItem() {
-    if (!this.objeto[this.nomeItem]) this.objeto[this.nomeItem] = [];
+      if (!this.objeto[this.nomeItem]) this.objeto[this.nomeItem] = [];
+    if (this.validarItens())
+    {
+      if (this.indexEditando != null) {
+        this.objeto[this.nomeItem][this.indexEditando] = this.itemTemp;
+        this.indexEditando = null;
+      } else {
+        if (this.objeto.id_lancamento)
+          this.itemTemp.id_lancamento = this.objeto.id_lancamento;
+        this.objeto[this.nomeItem].push(this.itemTemp);
+      }
 
-    if (this.indexEditando != null) {
-      this.objeto[this.nomeItem][this.indexEditando] = this.itemTemp;
-      this.indexEditando = null;
-    } else {
-
-      if (this.objeto.id_lancamento)
-
-        this.itemTemp.id_lancamento =   this.objeto.id_lancamento;
-      this.objeto[this.nomeItem].push(this.itemTemp);
-       
-
+      this.limparCampos();
+      this.objetoChange.emit(this.objeto);
+      this.popoverState.set('closed');
+      this.atualizarValorItem();
     }
-
-    this.limparCampos();
-    this.objetoChange.emit(this.objeto);
-    this.popoverState.set('closed');
-    this.atualizarValorItem();
+      
   }
+
+  
+    validarItens(): any {
+      try {
+        ItemLancametoSchema.parse(this.objeto[this.nomeItem]);
+        return true;
+      } catch (error) {
+        if (error instanceof ZodError) {
+          this.errorValidacao = {};
+          error.issues.forEach((e) => {
+            const value = e.path[1];
+            console.log(e.message);
+            this.errorValidacao[String(value)] = e.message;
+          });
+  
+          return false;
+        }
+      }
+    }
+    
 
   gerarSequenciaLista(sequenciaApi: any) {
     const sequenciaInicial = parseInt(sequenciaApi, 10);

@@ -135,6 +135,7 @@ export class Lancamentoform {
       }
     }
   }
+  
   async obterCentroCusto(): Promise<void> {
     return new Promise((resolve, reject) => {
       this.service.findAll('centrocusto/').subscribe({

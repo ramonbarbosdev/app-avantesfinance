@@ -30,6 +30,7 @@
           [(model)]="itemTemp.cd_itemlancamento"
           [disabled]="true"
           [value]="itemTemp.cd_itemlancamento"
+          [error]="errorValidacao['cd_itemlancamento']  || null"
         ></app-input>
 
         <app-combobox
@@ -37,6 +38,7 @@
           [options]="listaCategoria"
           [(model)]="itemTemp.id_categoria"
           name="id_categoria"
+          [error]="errorValidacao['id_categoria']  || null"
         ></app-combobox>
 
         <app-money-custom
@@ -45,6 +47,7 @@
           [(model)]="itemTemp.vl_itemlancamento"
           [required]="true"
           placeholder="R$ 0,00"
+          [error]="errorValidacao['vl_itemlancamento']  || null"
         ></app-money-custom>
 
       </div>
