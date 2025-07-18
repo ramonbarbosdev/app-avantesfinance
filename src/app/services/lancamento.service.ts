@@ -123,4 +123,32 @@ export class LancamentoService {
       })
     );
   }
+
+  update(data: any): Observable<any> {
+    const url = `${this.apiUrl}/atualizar`;
+
+    return this.http.put<any>(url, data).pipe(
+      tap((res) => {
+        toast('Atualizado com sucesso!', {
+          action: {
+            label: 'Ok',
+            onClick: () => {},
+          },
+        });
+        return res;
+      }),
+      catchError((e) => {
+        console.log(e);
+
+        toast(e.error.message, {
+          description: e.error.codeDescription,
+          action: {
+            label: 'Ok',
+            onClick: () => {},
+          },
+        });
+        return throwError(() => e);
+      })
+    );
+  }
 }

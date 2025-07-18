@@ -76,6 +76,7 @@ export class Lancamentodetalheform implements OnChanges, OnInit {
   @Input() nomeItem!: string;
   @Input() relacionado: any;
 
+  id_lancamento = 0;
   indexEditando: number | null = null;
   listaCategoria: any[] = [];
 
@@ -88,11 +89,11 @@ export class Lancamentodetalheform implements OnChanges, OnInit {
   ngOnInit(): void {
     this.obterCategoria();
     this.consultarCategoria();
-    this.onSeq();
   }
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['objeto']) {
+      this.onSeq();
     }
   }
 
@@ -151,7 +152,7 @@ export class Lancamentodetalheform implements OnChanges, OnInit {
   }
 
   obterSequencia(): Observable<string> {
-    let id = this.objeto.id_lancamento ? this.objeto.id_lancamento : 0;
+    let id = this.objeto.id_lancamento ?? 0;
     return this.service.findSequenceDetalhe(id);
   }
 
@@ -162,32 +163,36 @@ export class Lancamentodetalheform implements OnChanges, OnInit {
       this.objeto[this.nomeItem][this.indexEditando] = this.itemTemp;
       this.indexEditando = null;
     } else {
+
+      if (this.objeto.id_lancamento)
+
+        this.itemTemp.id_lancamento =   this.objeto.id_lancamento;
       this.objeto[this.nomeItem].push(this.itemTemp);
+       
+
     }
+
     this.limparCampos();
     this.objetoChange.emit(this.objeto);
     this.popoverState.set('closed');
+    this.atualizarValorItem();
   }
 
-  gerarSequenciaLista(sequencia: any) {
-    let sequenciaApi = parseInt(sequencia, 10);
-    let novaSequencia = 0;
+  gerarSequenciaLista(sequenciaApi: any) {
+    const sequenciaInicial = parseInt(sequenciaApi, 10);
+    let novaSequencia = sequenciaInicial;
 
-    if (this.objeto[this.nomeItem]) {
-      const maiorSequenciaLocal = this.objeto[this.nomeItem]
+    if (
+      this.objeto[this.nomeItem] &&
+      Array.isArray(this.objeto[this.nomeItem])
+    ) {
+      const sequenciasLocais = this.objeto[this.nomeItem]
         .map((item: any) => parseInt(item.cd_itemlancamento, 10))
-        .reduce(
-          (max: any, curr: any) => (isNaN(curr) ? max : Math.max(max, curr)),
-          0
-        );
+        .filter((s: number) => !isNaN(s));
 
-      if (maiorSequenciaLocal == 0) {
-        novaSequencia = Math.max(sequenciaApi, maiorSequenciaLocal);
-      } else {
-        novaSequencia = Math.max(sequenciaApi, maiorSequenciaLocal) + 1;
+      while (sequenciasLocais.includes(novaSequencia)) {
+        novaSequencia++;
       }
-    } else {
-      novaSequencia = sequenciaApi;
     }
 
     return novaSequencia;
@@ -213,9 +218,7 @@ export class Lancamentodetalheform implements OnChanges, OnInit {
     return retorno;
   }
 
-  atualizarValorItem(index: number, valor: number | null) {
-    this.objeto.itens[index].vl_itemlancamento = valor ?? 0;
-
+  atualizarValorItem() {
     this.objeto.vl_total = this.objeto.itens
       .map((item: any) => item.vl_itemlancamento ?? 0)
       .reduce((acc: any, curr: any) => acc + curr, 0);

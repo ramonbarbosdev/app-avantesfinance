@@ -69,15 +69,16 @@ export class Lancamentoform {
   async onShow() {
     const key = this.route.snapshot.paramMap.get('id');
 
-    const data = new Date();
-    const ano = data.getFullYear();
-    const mes = String(data.getMonth() + 1).padStart(2, '0');
-    this.objeto.dt_anomes = `${ano}${mes}`;
-    this.objeto.vl_total = 0;
+    
 
     await this.obterCentroCusto();
 
     if (!key) {
+      const data = new Date();
+      const ano = data.getFullYear();
+      const mes = String(data.getMonth() + 1).padStart(2, '0');
+      this.objeto.dt_anomes = `${ano}${mes}`;
+      this.objeto.vl_total = 0;
       this.obterSequencia();
     } else {
       this.onEdit(key);
@@ -107,13 +108,15 @@ export class Lancamentoform {
   }
 
   salvar() {
-    if (this.validarItens()) {
-      this.service.create(this.objeto).subscribe({
-        next: (res) => {
-          console.log(res);
-        },
-      });
+
+    if (this.validarItens())
+    {
+       this.service.create(this.objeto).subscribe({
+         next: (res) => {},
+       });
+
     }
+
   }
 
   validarItens(): any {

@@ -3,7 +3,7 @@
     <app-input
       [inputId]="'cd_lancamento'"
       [type]="'text'"
-      [label]="'Código'"
+      [label]="'Codigo: (*)'"
       [required]="true"
       [placeholder]="''"
       [(model)]="objeto.cd_lancamento"
@@ -15,21 +15,20 @@
     <app-input
       [inputId]="'dt_anomes'"
       [type]="'text'"
-      [label]="'Mês'"
+      [label]="'Mês: (*)'"
       [required]="true"
       [placeholder]="''"
       [(model)]="objeto.dt_anomes"
       [error]="errorValidacao['dt_anomes']  || null"
       [disabled]="true"
-      [value]="objeto.dt_anomes" 
+      [value]="objeto.dt_anomes"
     ></app-input>
 
     <app-date-custom
       [(model)]="objeto.dt_lancamento"
       name="dt_lancamento"
-      label="Data do Lançamento"
+      [label]="'Data: (*)'"
       [error]="errorValidacao['dt_lancamento']  || null"
-
     />
 
     <app-combobox
@@ -41,30 +40,28 @@
     ></app-combobox>
 
     <app-money-custom
-      [label]="'Valor'"
+      [label]="'Valor: (*)'"
       [inputId]="'vl_total'"
       [(model)]="objeto.vl_total"
       [required]="true"
       [error]="errorValidacao['vl_total']  || null"
       placeholder="R$ 0,00"
-      
+      [disabled]="true"
     ></app-money-custom>
 
-        <app-input
+    <app-input
       [inputId]="'ds_lancamento'"
       [type]="'text'"
       [label]="'Descrição'"
-      [required]="true"
       [placeholder]="'Descreca o lançamento...'"
       [(model)]="objeto.ds_lancamento"
     ></app-input>
-
   </div>
 
-  <app-lancamentodetalheform 
-   [(objeto)]= "objeto"
-      [itemTemp]= "objetoItemLancamento"
-      [nomeItem]="'itens'"
+  <app-lancamentodetalheform
+    [(objeto)]="objeto"
+    [itemTemp]="objetoItemLancamento"
+    [nomeItem]="'itens'"
   >
   </app-lancamentodetalheform>
 

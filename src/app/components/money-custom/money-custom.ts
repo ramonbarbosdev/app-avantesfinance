@@ -28,6 +28,7 @@ export class MoneyCustom {
   @Input() inputId!: string;
   @Input() placeholder: string = '';
   @Input() required: boolean = false;
+  @Input() disabled!: boolean ;
   @Input() error: string | null = null;
 
   @Input()

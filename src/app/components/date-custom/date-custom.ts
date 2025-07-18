@@ -46,8 +46,6 @@ export class DateCustom implements ControlValueAccessor, OnChanges {
   private onTouched = () => {};
 
   writeValue(obj: any): void {
-    console.log(obj);
-
     this.value = obj ? new Date(obj) : null;
   }
 
@@ -60,11 +58,16 @@ export class DateCustom implements ControlValueAccessor, OnChanges {
   }
 
   onValueChange(event: any) {
+
+    const data = new Date(event);
+    const dataFormatada = data.toISOString();
     // this.value = event?.toISOString().split('T')[0]; ;
+    // const formatted = event ? event.toISOString().split('T')[0] : null;
 
     this.value = event;
     this.onChange(event);
     this.onTouched();
+    this.modelChange.emit(event ?? '');
   }
 
   formatarData = (date: Date): string => {

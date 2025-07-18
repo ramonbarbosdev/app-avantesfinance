@@ -5,7 +5,7 @@ export const formatarDataParaInput = (
 
   let dateObj: Date;
 
-  if (Array.isArray(data) && data.length === 5) {
+  if (Array.isArray(data) && data.length === 3) {
     dateObj = new Date(data[0], data[1] - 1, data[2]);
   } else if (typeof data === 'string' || data instanceof Date) {
     dateObj = new Date(data);
