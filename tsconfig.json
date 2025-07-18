@@ -60,6 +60,9 @@
       ],
       "@spartan-ng/helm/date-picker": [
         "./libs/ui/ui-date-picker-helm/src/index.ts"
+      ],
+      "@spartan-ng/helm/sheet": [
+        "./libs/ui/ui-sheet-helm/src/index.ts"
       ]
     }
   },

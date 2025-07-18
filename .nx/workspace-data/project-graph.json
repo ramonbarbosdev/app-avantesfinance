@@ -12258,6 +12258,15 @@
         "hash": "sha512-cYVsTjKl8b+FrnidjibDWskAv7UKOfcwaVZdp/it9n1s9fU3IkgDbhdIRKCW4JDsAlECJY0ytoVPT3sK6kideA=="
       }
     },
+    "npm:zod": {
+      "type": "npm",
+      "name": "npm:zod",
+      "data": {
+        "version": "4.0.5",
+        "packageName": "zod",
+        "hash": "sha512-/5UuuRPStvHXu7RS+gmvRf4NXrNxpSllGwDnCBcJZtQsKrviYXm54yDGV2KYNLT5kq0lHGcl7lqWJLgSaG+tgA=="
+      }
+    },
     "npm:zone.js": {
       "type": "npm",
       "name": "npm:zone.js",
@@ -12448,6 +12457,11 @@
       {
         "source": "app-avantesfinance",
         "target": "npm:tslib",
+        "type": "static"
+      },
+      {
+        "source": "app-avantesfinance",
+        "target": "npm:zod",
         "type": "static"
       },
       {
@@ -28103,5 +28117,5 @@
   },
   "version": "6.0",
   "errors": [],
-  "computedAt": 1752452198715
+  "computedAt": 1752870328976
 }

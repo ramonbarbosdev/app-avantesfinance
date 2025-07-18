@@ -1,48 +1,105 @@
 <!-- Itens do lançamento -->
+
 <div class="pt-6 space-y-2">
   <h4 class="text-lg font-semibold">Itens do Lançamento</h4>
 
-   <section class="p-2" hlmCard>
-        <table hlmTable>
-          <caption hlmCaption>
-            Listagem de itens
-          </caption>
-          <thead hlmTHead>
-            <tr hlmTr>
-              <th hlmTh class="w-[5%]"></th>
-              <th hlmTh class="">Codigo</th>
-              <th hlmTh class="">Categoria</th>
-              <th hlmTh class="">Valor</th>
-            </tr>
-          </thead>
-          <tbody hlmTBody>
-            <tr hlmTr *ngFor="let item of objeto[nomeItem];  let i = index">
-              <td hlmTd class="flex flex-row  h-full w-full   gap-2  justify-center  items-center ">
-                <div
-                  (click)="editarItem(i)"
-                  class="flex cursor-pointer hover:scale-[1.2] transform transition-all duration-300"
-                >
-                  <ng-icon hlm size="sm" name="lucideSquarePen" />
-                </div>
-                <div
-                  (click)="removerItem(i)"
-                  class="flex cursor-pointer hover:scale-[1.2] transform transition-all duration-300"
-                >
-                  <ng-icon hlm size="sm" name="lucideTrash2" />
-                </div>
-              </td>
-              
-              <td hlmTd>{{ item.cd_itemlancamento }}</td>
-              <td hlmTd class="">{{  obterNomeRelacionado(item.id_categoria) }}</td>
-              <td hlmTd >{{ item.vl_itemlancamento }}</td>
-            </tr>
-          </tbody>
-        </table>
-      </section>
+  <hlm-sheet [state]="popoverState()" (stateChanged)="onPopoverStateChange($event)" side="right">
+    <button
+      title="novo item"
+      id="edit-profile"
+      variant="outline"
+      brnSheetTrigger
+      hlmBtn
+      type="button"
+    >
+      Cadastrar
+    </button>
+    <hlm-sheet-content class="flex flex-col gap-5" *brnSheetContent="let ctx">
+      <hlm-sheet-header>
+        <h3 hlmSheetTitle>Novo</h3>
+        <p hlmSheetDescription>Cadastre o novo item do lançamento</p>
+      </hlm-sheet-header>
+
+      <div class="grid flex-1 auto-rows-min gap-6 px-4">
+        <app-input
+          [inputId]="'cd_itemlancamento'"
+          [type]="'text'"
+          [label]="'Código: (*)'"
+          [required]="true"
+          [placeholder]="''"
+          [(model)]="itemTemp.cd_itemlancamento"
+          [disabled]="true"
+          [value]="itemTemp.cd_itemlancamento"
+        ></app-input>
+
+        <app-combobox
+          label="Categoria: (*)"
+          [options]="listaCategoria"
+          [(model)]="itemTemp.id_categoria"
+          name="id_categoria"
+        ></app-combobox>
+
+        <app-money-custom
+          [label]="'Valor: (*)'"
+          [inputId]="'vl_itemlancamento'"
+          [(model)]="itemTemp.vl_itemlancamento"
+          [required]="true"
+          placeholder="R$ 0,00"
+        ></app-money-custom>
+
+      </div>
+
+      <hlm-sheet-footer>
+        <button hlmBtn type="button" (click)="adicionarItem()">Salvar</button>
+      </hlm-sheet-footer>
+    </hlm-sheet-content>
+  </hlm-sheet>
+
+  <section class="p-2" hlmCard>
+    <table hlmTable>
+      <caption hlmCaption>
+        Listagem de itens
+      </caption>
+      <thead hlmTHead>
+        <tr hlmTr>
+          <th hlmTh class="w-[5%]"></th>
+          <th hlmTh class="">Codigo</th>
+          <th hlmTh class="">Categoria</th>
+          <th hlmTh class="">Valor</th>
+        </tr>
+      </thead>
+      <tbody hlmTBody>
+        <tr hlmTr *ngFor="let item of objeto[nomeItem];  let i = index">
+          <td
+            hlmTd
+            class="flex flex-row h-full w-full gap-2 justify-center items-center"
+          >
+            <div
+              (click)="editarItem(i)"
+              class="flex cursor-pointer hover:scale-[1.2] transform transition-all duration-300"
+            >
+              <ng-icon hlm size="sm" name="lucideSquarePen" />
+            </div>
+            <div
+              (click)="removerItem(i)"
+              class="flex cursor-pointer hover:scale-[1.2] transform transition-all duration-300"
+            >
+              <ng-icon hlm size="sm" name="lucideTrash2" />
+            </div>
+          </td>
+
+          <td hlmTd>{{ item.cd_itemlancamento.padStart(3, '0' ) }}</td>
+          <!-- <td hlmTd class="">{{ obterNomeRelacionado(item.id_categoria) }}</td> -->
+          <td hlmTd class="">{{item.id_categoria}}</td>
+          <td hlmTd>{{ item.vl_itemlancamento | currency:'BRL' }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
 
   <div class="pt-4">
-    <button type="button" hlmBtn (click)="adicionarItem()">
+    <!-- <button type="button" hlmBtn (click)="adicionarItem()">
       Adicionar Item
-    </button>
+    </button> -->
   </div>
 </div>

@@ -43,6 +43,12 @@
     ],
     "@spartan-ng/helm/popover": [
       "./libs/ui/ui-popover-helm/src/index.ts"
+    ],
+    "@spartan-ng/helm/calendar": [
+      "./libs/ui/ui-calendar-helm/src/index.ts"
+    ],
+    "@spartan-ng/helm/date-picker": [
+      "./libs/ui/ui-date-picker-helm/src/index.ts"
     ]
   },
   "nxJsonPlugins": [],
@@ -83,251 +89,283 @@
         },
         {
           "file": "components.json",
-          "hash": "9084201805420329269"
+          "hash": "3089158842223537119"
         },
         {
           "file": "libs/ui/ui-avatar-helm/src/index.ts",
-          "hash": "16736995820373190439"
+          "hash": "16111783170664857174"
         },
         {
           "file": "libs/ui/ui-avatar-helm/src/lib/fallback/hlm-avatar-fallback.directive.ts",
-          "hash": "13794440585281679831"
+          "hash": "9706148422578954883"
         },
         {
           "file": "libs/ui/ui-avatar-helm/src/lib/fallback/index.ts",
-          "hash": "2491894272027367345"
+          "hash": "4095308081400682735"
         },
         {
           "file": "libs/ui/ui-avatar-helm/src/lib/hlm-avatar.component.ts",
-          "hash": "5837441477500166082"
+          "hash": "4868380216372325457"
         },
         {
           "file": "libs/ui/ui-avatar-helm/src/lib/image/hlm-avatar-image.directive.ts",
-          "hash": "6606736087897715010"
+          "hash": "16008148414497210613"
         },
         {
           "file": "libs/ui/ui-avatar-helm/src/lib/image/index.ts",
-          "hash": "10159333293712460252"
+          "hash": "725402389627633520"
         },
         {
           "file": "libs/ui/ui-button-helm/src/index.ts",
-          "hash": "6820636755422809420"
+          "hash": "17251273102492170138"
         },
         {
           "file": "libs/ui/ui-button-helm/src/lib/hlm-button.directive.ts",
-          "hash": "9139637389626871184"
+          "hash": "17519370046722011180"
         },
         {
           "file": "libs/ui/ui-button-helm/src/lib/hlm-button.token.ts",
-          "hash": "15400945862735069611"
+          "hash": "7896754714560199098"
+        },
+        {
+          "file": "libs/ui/ui-calendar-helm/src/index.ts",
+          "hash": "15927446307248350452"
+        },
+        {
+          "file": "libs/ui/ui-calendar-helm/src/lib/hlm-calendar-multi.component.ts",
+          "hash": "11918184925097635759"
+        },
+        {
+          "file": "libs/ui/ui-calendar-helm/src/lib/hlm-calendar.component.ts",
+          "hash": "18114462707690486379"
         },
         {
           "file": "libs/ui/ui-card-helm/src/index.ts",
-          "hash": "895144886741349159"
+          "hash": "16562238750490677596"
         },
         {
           "file": "libs/ui/ui-card-helm/src/lib/hlm-card-content.directive.ts",
-          "hash": "14592364685221066923"
+          "hash": "2241978593063701181"
         },
         {
           "file": "libs/ui/ui-card-helm/src/lib/hlm-card-description.directive.ts",
-          "hash": "15229664618486875245"
+          "hash": "3375352256698616519"
         },
         {
           "file": "libs/ui/ui-card-helm/src/lib/hlm-card-footer.directive.ts",
-          "hash": "2267192391169573049"
+          "hash": "13775159643905451947"
         },
         {
           "file": "libs/ui/ui-card-helm/src/lib/hlm-card-header.directive.ts",
-          "hash": "455078193508790945"
+          "hash": "3354393413451312220"
         },
         {
           "file": "libs/ui/ui-card-helm/src/lib/hlm-card-title.directive.ts",
-          "hash": "7508461481943549290"
+          "hash": "2586391697655473486"
         },
         {
           "file": "libs/ui/ui-card-helm/src/lib/hlm-card.directive.ts",
-          "hash": "921711506103005204"
+          "hash": "16880677397194262778"
         },
         {
           "file": "libs/ui/ui-command-helm/src/index.ts",
-          "hash": "15855819063071434966"
+          "hash": "10239960564619087581"
         },
         {
           "file": "libs/ui/ui-command-helm/src/lib/hlm-command-dialog-close-button.directive.ts",
-          "hash": "12872222274829357701"
+          "hash": "737518645264208938"
         },
         {
           "file": "libs/ui/ui-command-helm/src/lib/hlm-command-dialog.directive.ts",
-          "hash": "13574969343858223465"
+          "hash": "7065892563389140045"
         },
         {
           "file": "libs/ui/ui-command-helm/src/lib/hlm-command-empty.directive.ts",
-          "hash": "6181589053409794992"
+          "hash": "3845466986012289015"
         },
         {
           "file": "libs/ui/ui-command-helm/src/lib/hlm-command-group-label.component.ts",
-          "hash": "14497440662147568000"
+          "hash": "15439494513898275777"
         },
         {
           "file": "libs/ui/ui-command-helm/src/lib/hlm-command-group.component.ts",
-          "hash": "7618879999639450922"
+          "hash": "14992986990887451540"
         },
         {
           "file": "libs/ui/ui-command-helm/src/lib/hlm-command-icon.directive.ts",
-          "hash": "10490798545174872732"
+          "hash": "18066303310300137721"
         },
         {
           "file": "libs/ui/ui-command-helm/src/lib/hlm-command-item.component.ts",
-          "hash": "1879834465057641828"
+          "hash": "7515756593434021506"
         },
         {
           "file": "libs/ui/ui-command-helm/src/lib/hlm-command-list.component.ts",
-          "hash": "7579383111298736443"
+          "hash": "16973822134760218008"
         },
         {
           "file": "libs/ui/ui-command-helm/src/lib/hlm-command-search-input.component.ts",
-          "hash": "10529856208223901551"
+          "hash": "14026540287829849553"
         },
         {
           "file": "libs/ui/ui-command-helm/src/lib/hlm-command-search.component.ts",
-          "hash": "12989952063702452789"
+          "hash": "12352770046448117180"
         },
         {
           "file": "libs/ui/ui-command-helm/src/lib/hlm-command-separator.component.ts",
-          "hash": "2955506188756544584"
+          "hash": "9786613626562710988"
         },
         {
           "file": "libs/ui/ui-command-helm/src/lib/hlm-command-shortcut.component.ts",
-          "hash": "18228147321601091896"
+          "hash": "662956563209820708"
         },
         {
           "file": "libs/ui/ui-command-helm/src/lib/hlm-command.component.ts",
-          "hash": "6389523452326023581"
+          "hash": "13380948430324330042"
+        },
+        {
+          "file": "libs/ui/ui-date-picker-helm/src/index.ts",
+          "hash": "18186246603271765413"
+        },
+        {
+          "file": "libs/ui/ui-date-picker-helm/src/lib/hlm-date-picker-multi.component.ts",
+          "hash": "11336588335998448578"
+        },
+        {
+          "file": "libs/ui/ui-date-picker-helm/src/lib/hlm-date-picker-multi.token.ts",
+          "hash": "16137763523835878459"
+        },
+        {
+          "file": "libs/ui/ui-date-picker-helm/src/lib/hlm-date-picker.component.ts",
+          "hash": "10474819152814937828"
+        },
+        {
+          "file": "libs/ui/ui-date-picker-helm/src/lib/hlm-date-picker.token.ts",
+          "hash": "5842878607988103212"
         },
         {
           "file": "libs/ui/ui-form-field-helm/src/index.ts",
-          "hash": "10129577571815628638"
+          "hash": "1379682831294187538"
         },
         {
           "file": "libs/ui/ui-form-field-helm/src/lib/hlm-error.directive.ts",
-          "hash": "11264665092716197097"
+          "hash": "2852168629488756221"
         },
         {
           "file": "libs/ui/ui-form-field-helm/src/lib/hlm-form-field.component.ts",
-          "hash": "1796725728278480198"
+          "hash": "5626429513457717011"
         },
         {
           "file": "libs/ui/ui-form-field-helm/src/lib/hlm-hint.directive.ts",
-          "hash": "8210394095771585904"
+          "hash": "9821852661970092349"
         },
         {
           "file": "libs/ui/ui-icon-helm/src/index.ts",
-          "hash": "15861921324411002203"
+          "hash": "13072002477516072914"
         },
         {
           "file": "libs/ui/ui-icon-helm/src/lib/hlm-icon.directive.ts",
-          "hash": "16844985678509437664"
+          "hash": "3510781170031678997"
         },
         {
           "file": "libs/ui/ui-icon-helm/src/lib/hlm-icon.token.ts",
-          "hash": "11722829991660298489"
+          "hash": "1780499468245078594"
         },
         {
           "file": "libs/ui/ui-input-helm/src/index.ts",
-          "hash": "17755648424496072041"
+          "hash": "487913567356772959"
         },
         {
           "file": "libs/ui/ui-input-helm/src/lib/hlm-input-error.directive.ts",
-          "hash": "16417154695727878480"
+          "hash": "13447628399259260926"
         },
         {
           "file": "libs/ui/ui-input-helm/src/lib/hlm-input.directive.ts",
-          "hash": "12368949813348382853"
+          "hash": "14900656319479633125"
         },
         {
           "file": "libs/ui/ui-label-helm/src/index.ts",
-          "hash": "7741314033207451738"
+          "hash": "11520514252818889827"
         },
         {
           "file": "libs/ui/ui-label-helm/src/lib/hlm-label.directive.ts",
-          "hash": "8493961916477322107"
+          "hash": "765508867691155004"
         },
         {
           "file": "libs/ui/ui-popover-helm/src/index.ts",
-          "hash": "14206434168979323056"
+          "hash": "11609425880810050350"
         },
         {
           "file": "libs/ui/ui-popover-helm/src/lib/hlm-popover-close.directive.ts",
-          "hash": "6921065027108518098"
+          "hash": "7922601436691157746"
         },
         {
           "file": "libs/ui/ui-popover-helm/src/lib/hlm-popover-content.directive.ts",
-          "hash": "15634766142529572905"
+          "hash": "6163188091727537256"
         },
         {
           "file": "libs/ui/ui-separator-helm/src/index.ts",
-          "hash": "11009445571986260606"
+          "hash": "13300388446266607194"
         },
         {
           "file": "libs/ui/ui-separator-helm/src/lib/hlm-separator.directive.ts",
-          "hash": "2464010032711328603"
+          "hash": "7510258857404404435"
         },
         {
           "file": "libs/ui/ui-sonner-helm/src/index.ts",
-          "hash": "3266071164489127345"
+          "hash": "12424025842879436072"
         },
         {
           "file": "libs/ui/ui-sonner-helm/src/lib/hlm-toaster.component.ts",
-          "hash": "17267968514933975336"
+          "hash": "13169636621480346537"
         },
         {
           "file": "libs/ui/ui-spinner-helm/src/index.ts",
-          "hash": "3453496058067922973"
+          "hash": "9931764571277820309"
         },
         {
           "file": "libs/ui/ui-spinner-helm/src/lib/hlm-spinner.component.ts",
-          "hash": "5288402413592090485"
+          "hash": "7549535118845348337"
         },
         {
           "file": "libs/ui/ui-table-helm/src/index.ts",
-          "hash": "2193161049644973640"
+          "hash": "8452144163037679671"
         },
         {
           "file": "libs/ui/ui-table-helm/src/lib/hlm-table.directive.ts",
-          "hash": "10680595868471722302"
+          "hash": "16231210418346237043"
         },
         {
           "file": "libs/ui/ui-tabs-helm/src/index.ts",
-          "hash": "1841781438202689908"
+          "hash": "16088151772553844212"
         },
         {
           "file": "libs/ui/ui-tabs-helm/src/lib/hlm-tabs-content.directive.ts",
-          "hash": "8927557154086463300"
+          "hash": "3828478829745388299"
         },
         {
           "file": "libs/ui/ui-tabs-helm/src/lib/hlm-tabs-list.component.ts",
-          "hash": "14892854569602514053"
+          "hash": "8554920777194669074"
         },
         {
           "file": "libs/ui/ui-tabs-helm/src/lib/hlm-tabs-paginated-list.component.ts",
-          "hash": "10736562458068632451"
+          "hash": "2800170128141531387"
         },
         {
           "file": "libs/ui/ui-tabs-helm/src/lib/hlm-tabs-trigger.directive.ts",
-          "hash": "2257725193585397058"
+          "hash": "10482844891929168279"
         },
         {
           "file": "libs/ui/ui-tabs-helm/src/lib/hlm-tabs.component.ts",
-          "hash": "8734509706191799990"
+          "hash": "13033204562380086858"
         },
         {
           "file": "package-lock.json",
-          "hash": "5991036061966188146"
+          "hash": "17957309890250729930"
         },
         {
           "file": "package.json",
-          "hash": "12837196707175528107",
+          "hash": "5441729862042925364",
           "deps": [
             "npm:@angular/build",
             "npm:@angular/cli",
@@ -365,6 +403,7 @@
             "npm:rxjs",
             "npm:sweetalert2",
             "npm:tslib",
+            "npm:zod",
             "npm:zone.js"
           ]
         },
@@ -386,7 +425,7 @@
         },
         {
           "file": "src/app/app.routes.ts",
-          "hash": "7666022781205816533"
+          "hash": "1084629861264242648"
         },
         {
           "file": "src/app/app.scss",
@@ -418,7 +457,7 @@
         },
         {
           "file": "src/app/components/combobox/combobox.html",
-          "hash": "4057046511544097859"
+          "hash": "16228382414142927920"
         },
         {
           "file": "src/app/components/combobox/combobox.scss",
@@ -430,11 +469,11 @@
         },
         {
           "file": "src/app/components/combobox/combobox.ts",
-          "hash": "3104064848293762685"
+          "hash": "8498544818224290410"
         },
         {
           "file": "src/app/components/date-custom/date-custom.html",
-          "hash": "2908355714969396914"
+          "hash": "8673631093864234299"
         },
         {
           "file": "src/app/components/date-custom/date-custom.scss",
@@ -446,11 +485,11 @@
         },
         {
           "file": "src/app/components/date-custom/date-custom.ts",
-          "hash": "1190092215572013387"
+          "hash": "7655506345333423214"
         },
         {
           "file": "src/app/components/input-custom/input-custom.html",
-          "hash": "3088715704653395809"
+          "hash": "7611833465835394554"
         },
         {
           "file": "src/app/components/input-custom/input-custom.scss",
@@ -462,7 +501,23 @@
         },
         {
           "file": "src/app/components/input-custom/input-custom.ts",
-          "hash": "7389009227432935874"
+          "hash": "10670796732787611035"
+        },
+        {
+          "file": "src/app/components/money-custom/money-custom.html",
+          "hash": "18015119338501713332"
+        },
+        {
+          "file": "src/app/components/money-custom/money-custom.scss",
+          "hash": "3244421341483603138"
+        },
+        {
+          "file": "src/app/components/money-custom/money-custom.spec.ts",
+          "hash": "9867448157835577728"
+        },
+        {
+          "file": "src/app/components/money-custom/money-custom.ts",
+          "hash": "6161205018293840927"
         },
         {
           "file": "src/app/components/table-transacao-conta/table-transacao-conta.html",
@@ -479,6 +534,14 @@
         {
           "file": "src/app/components/table-transacao-conta/table-transacao-conta.ts",
           "hash": "10386260742689396129"
+        },
+        {
+          "file": "src/app/models/box.spec.ts",
+          "hash": "7915110131928706872"
+        },
+        {
+          "file": "src/app/models/box.ts",
+          "hash": "361432481314524890"
         },
         {
           "file": "src/app/models/conector.spec.ts",
@@ -554,7 +617,7 @@
         },
         {
           "file": "src/app/pages/config/contaform/contaform.html",
-          "hash": "14720911947918240974"
+          "hash": "5183535063103505345"
         },
         {
           "file": "src/app/pages/config/contaform/contaform.scss",
@@ -566,7 +629,7 @@
         },
         {
           "file": "src/app/pages/config/contaform/contaform.ts",
-          "hash": "15033321393109756135"
+          "hash": "4551776367908117553"
         },
         {
           "file": "src/app/pages/home/home.html",
@@ -586,7 +649,7 @@
         },
         {
           "file": "src/app/pages/lancamento/lancamentodetalheform/lancamentodetalheform.html",
-          "hash": "15411434946978577856"
+          "hash": "3422238748574948941"
         },
         {
           "file": "src/app/pages/lancamento/lancamentodetalheform/lancamentodetalheform.scss",
@@ -598,11 +661,11 @@
         },
         {
           "file": "src/app/pages/lancamento/lancamentodetalheform/lancamentodetalheform.ts",
-          "hash": "7800186411434176052"
+          "hash": "2988319543830615489"
         },
         {
           "file": "src/app/pages/lancamento/lancamentoform/lancamentoform.html",
-          "hash": "12504766818617856439"
+          "hash": "17233257940109671043"
         },
         {
           "file": "src/app/pages/lancamento/lancamentoform/lancamentoform.scss",
@@ -614,11 +677,27 @@
         },
         {
           "file": "src/app/pages/lancamento/lancamentoform/lancamentoform.ts",
-          "hash": "17414620964362262078"
+          "hash": "10205834481762066149"
+        },
+        {
+          "file": "src/app/pages/lancamento/lancamentolist/lancamentolist.html",
+          "hash": "7860240801384817584"
+        },
+        {
+          "file": "src/app/pages/lancamento/lancamentolist/lancamentolist.scss",
+          "hash": "3244421341483603138"
+        },
+        {
+          "file": "src/app/pages/lancamento/lancamentolist/lancamentolist.spec.ts",
+          "hash": "9924350074236553966"
+        },
+        {
+          "file": "src/app/pages/lancamento/lancamentolist/lancamentolist.ts",
+          "hash": "4371019038432794562"
         },
         {
           "file": "src/app/pages/layout/login/login.html",
-          "hash": "6013015407552852858"
+          "hash": "17334099953475725550"
         },
         {
           "file": "src/app/pages/layout/login/login.scss",
@@ -630,7 +709,7 @@
         },
         {
           "file": "src/app/pages/layout/login/login.ts",
-          "hash": "9142842194561048343"
+          "hash": "8887474402789401398"
         },
         {
           "file": "src/app/pages/layout/menu/menu.html",
@@ -681,6 +760,10 @@
           "hash": "758443956855333705"
         },
         {
+          "file": "src/app/schema/lancamento-schema..ts",
+          "hash": "5725933225415100311"
+        },
+        {
           "file": "src/app/services/event.service.spec.ts",
           "hash": "15677305065685012993"
         },
@@ -695,6 +778,14 @@
         {
           "file": "src/app/services/items.service.ts",
           "hash": "11792631379884352440"
+        },
+        {
+          "file": "src/app/services/lancamento.service.spec.ts",
+          "hash": "15334137748720762335"
+        },
+        {
+          "file": "src/app/services/lancamento.service.ts",
+          "hash": "9362950385867154408"
         },
         {
           "file": "src/app/services/pluggy.service.spec.ts",
@@ -718,7 +809,11 @@
         },
         {
           "file": "src/app/services/transacao-conta.service.ts",
-          "hash": "7124803000979838510"
+          "hash": "18393956028921830313"
+        },
+        {
+          "file": "src/app/utils/formatarDataParaInput.ts",
+          "hash": "14825939362178670709"
         },
         {
           "file": "src/environment.ts",
@@ -746,7 +841,7 @@
         },
         {
           "file": "tsconfig.json",
-          "hash": "259887025278449668"
+          "hash": "553852541563595283"
         },
         {
           "file": "tsconfig.spec.json",
