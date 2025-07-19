@@ -98,7 +98,7 @@ export class Lancamentodetalheform implements OnChanges, OnInit {
   ngOnChanges(changes: SimpleChanges) {
     if (changes['objeto']) {
       this.onSeq();
-      console.log(this.objeto)
+      // console.log(this.objeto)
     }
   }
 

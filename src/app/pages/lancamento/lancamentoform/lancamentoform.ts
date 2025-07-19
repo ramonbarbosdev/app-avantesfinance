@@ -70,6 +70,8 @@ export class Lancamentoform {
   }
 
   registroLancamento() {
+
+    let fl_registro = false;
     this.route.queryParams.subscribe((params) => {
       const registro = params['data'];
       if (registro) {
@@ -79,18 +81,25 @@ export class Lancamentoform {
           this.objeto = obj.objeto;
 
           this.cdr.detectChanges();
-          return; // se veio via queryParams, não faz o resto
+
+          fl_registro = true;
+          this.fl_edicao = true;
+          return ;
         } catch (e) {
           console.error('Erro ao parsear JSON:', e);
         }
       }
     });
+
+    return fl_registro;
   }
 
   async onShow() {
     const key = this.route.snapshot.paramMap.get('id');
 
     await this.obterCentroCusto();
+
+    if(this.registroLancamento()) return
 
     if (!key) {
       const data = new Date();
@@ -103,7 +112,6 @@ export class Lancamentoform {
       this.onEdit(key);
     }
 
-    this.registroLancamento();
   }
 
   onEdit(id: any) {
@@ -136,6 +144,7 @@ export class Lancamentoform {
         next: (res) => {
           if (this.fl_edicao) this.router.navigate(['admin/lancamento']);
           if (!this.fl_edicao) window.location.reload();
+          
         },
       });
     }
