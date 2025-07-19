@@ -19,7 +19,8 @@ export const routes: Routes = [
       { path: 'ajustes', component: Ajustes },
       { path: 'conta', component: Conta },
       { path: 'lancamento', component: Lancamentolist },
-      { path: 'lancamentoform/:id', component: Lancamentoform }
+      { path: 'lancamentoform/:id', component: Lancamentoform },
+      { path: 'lancamentoform', component: Lancamentoform },
       
     ],
   },

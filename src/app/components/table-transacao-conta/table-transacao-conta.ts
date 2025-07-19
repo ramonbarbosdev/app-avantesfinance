@@ -11,25 +11,32 @@ import { Transacao } from '../../models/transacao';
 import { TransacaoContaService } from '../../services/transacao-conta.service';
 import { AuthService } from '../../auth/auth.service';
 import { HlmTableImports } from '@spartan-ng/helm/table';
-
+import { HlmIconDirective } from '@spartan-ng/helm/icon';
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import { lucideTrash2, lucideCheck, lucideSquarePen } from '@ng-icons/lucide';
+import { Lancamento } from '../../models/lancamento';
+import { ItemLancamento } from '../../models/item-lancamento';
+import { Router } from '@angular/router';
+import { formatarDataParaInput } from '../../utils/formatarDataParaInput';
+import { Lancamentodetalheform } from '../../pages/lancamento/lancamentodetalheform/lancamentodetalheform';
 @Component({
   selector: 'app-table-transacao-conta',
   imports: [
     CommonModule,
     HlmCardDirective,
-    HlmCardHeaderDirective,
-    HlmCardTitleDirective,
-    HlmCardContentDirective,
     HlmTableImports,
+    HlmIconDirective,
+    NgIcon,
   ],
+  providers: [provideIcons({ lucideTrash2, lucideCheck, lucideSquarePen })],
   templateUrl: './table-transacao-conta.html',
   styleUrl: './table-transacao-conta.scss',
 })
 export class TableTransacaoConta implements OnInit {
   public lista: Transacao[] = [];
-
   service = inject(TransacaoContaService);
   authService = inject(AuthService);
+  router = inject(Router);
 
   ngOnInit(): void {
     this.obterTransacao();
@@ -68,5 +75,30 @@ export class TableTransacaoConta implements OnInit {
     };
   }
 
-  formataData(descricao: string) {}
+  registrar(item: any) {
+    let objeto = new Lancamento();
+    let itens = new ItemLancamento();
+
+     const data = new Date();
+     const ano = data.getFullYear();
+     const mes = String(data.getMonth() + 1).padStart(2, '0');
+
+    objeto.ds_lancamento = item.description;
+    objeto.dt_lancamento = formatarDataParaInput(item.date);
+    objeto.dt_anomes = `${ano}${mes}`;
+    objeto.id_centrocusto = 1;
+    
+
+    itens.cd_itemlancamento ="001";
+    itens.id_categoria = item.type == 'CREDIT' ? 1 : 2;
+    itens.vl_itemlancamento = item.amount;
+
+    objeto.itens = [itens];
+
+      this.router.navigate(['/admin/lancamentoform'], {
+        queryParams: {
+          data: JSON.stringify({ objeto }),
+        },
+      });
+  }
 }

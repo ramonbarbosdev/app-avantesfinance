@@ -69,6 +69,24 @@ export class Lancamentoform {
     await this.onShow();
   }
 
+  registroLancamento() {
+    this.route.queryParams.subscribe((params) => {
+      const registro = params['data'];
+      if (registro) {
+        try {
+          const obj = JSON.parse(registro);
+
+          this.objeto = obj.objeto;
+
+          this.cdr.detectChanges();
+          return; // se veio via queryParams, não faz o resto
+        } catch (e) {
+          console.error('Erro ao parsear JSON:', e);
+        }
+      }
+    });
+  }
+
   async onShow() {
     const key = this.route.snapshot.paramMap.get('id');
 
@@ -84,6 +102,8 @@ export class Lancamentoform {
     } else {
       this.onEdit(key);
     }
+
+    this.registroLancamento();
   }
 
   onEdit(id: any) {
@@ -92,6 +112,7 @@ export class Lancamentoform {
 
     this.service.findById(this.endpoint, id).subscribe({
       next: (res: any) => {
+        // console.log(res);
         res.dt_lancamento = formatarDataParaInput(res.dt_lancamento);
         res.cd_lancamento = String(res.cd_lancamento).padStart(3, '0');
         this.objeto = res;
@@ -114,8 +135,7 @@ export class Lancamentoform {
       this.service.create(this.objeto).subscribe({
         next: (res) => {
           if (this.fl_edicao) this.router.navigate(['admin/lancamento']);
-          if (!this.fl_edicao)  window.location.reload();
-         
+          if (!this.fl_edicao) window.location.reload();
         },
       });
     }

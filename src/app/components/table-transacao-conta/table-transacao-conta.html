@@ -1,28 +1,39 @@
-  <!-- Lista de Transações Recentes -->
-  <div hlmCard>
-    <div hlmCardHeader>
-      <h3 hlmCardTitle>Movimentação Conta Nubank</h3>
-    </div>
-    <div hlmCardContent>
-    <table hlmTable>
-       <thead hlmTHead>
+<!-- Lista de Transações Recentes -->
+<section class="flex p-2"  hlmCard>
+      <table hlmTable>
+        <caption hlmCaption>
+          Listagem de ançamentos
+        </caption>
+        <thead hlmTHead>
           <tr hlmTr>
-            <th hlmTh class="w-[25%]">Descrição</th>
-            <th hlmTh class="w-[25%]"  >Destinatario</th>
-            <th hlmTh class="w-[25%]" >Data</th>
-            <th hlmTh class="w-[25%]" >Valor</th>
+            <th hlmTh >Descrição</th>
+            <th hlmTh >Tipo</th>
+            <th hlmTh>Data</th>
+            <th hlmTh>Valor</th>
+            <th hlmTh >Registrar</th>
           </tr>
         </thead>
-          <tbody hlmTBody>
-          <tr hlmTr *ngFor="let item of lista" >
-            <td hlmTd >{{ item.description }}</td>
-            <td hlmTd >{{ item.recipien }}</td>
-            <td hlmTd >{{ item.date | date: 'dd/MM/yyyy HH:mm' : 'UTC' }}</td>
-            <td hlmTd  [class.text-green-600]="item.type === 'CREDIT'" [class.text-red-600]="item.type === 'DEBIT'">
+        <tbody hlmTBody>
+          <tr hlmTr *ngFor="let item of lista">
+            <td hlmTd>{{ item.description }}</td>
+            <td hlmTd>{{ item.type }}</td>
+            <td hlmTd>{{ item.date | date: 'dd/MM/yyyy HH:mm' : 'UTC' }}</td>
+            <td
+              hlmTd
+              [class.text-green-600]="item.type === 'CREDIT'"
+              [class.text-red-600]="item.type === 'DEBIT'"
+            >
               R$ {{item.amount | number: '1.2-2' }}
+            </td>
+            <td hlmTd>
+              <div
+                (click)="registrar(item)"
+                class="flex justify-center cursor-pointer hover:scale-[1.2] transform transition-all duration-300"
+              >
+                <ng-icon hlm size="sm" name="lucideSquarePen" />
+              </div>
             </td>
           </tr>
         </tbody>
       </table>
-    </div>
-  </div>
+    </section>

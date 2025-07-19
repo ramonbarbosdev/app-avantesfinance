@@ -49,13 +49,25 @@
       [disabled]="true"
     ></app-money-custom>
 
-    <app-input
+    <!-- <app-input
       [inputId]="'ds_lancamento'"
       [type]="'text'"
       [label]="'Descrição'"
       [placeholder]="'Descreca o lançamento...'"
       [(model)]="objeto.ds_lancamento"
+    ></app-input> -->
+
+     <app-input
+      [inputId]="'ds_lancamento'"
+      [type]="'text'"
+      [label]="'Descrição'"
+      [required]="true"
+      [placeholder]="'Descreva...'"
+      [(model)]="objeto.ds_lancamento"
+      [disabled]="false"
+      [value]="objeto.ds_lancamento"
     ></app-input>
+
   </div>
 
   <app-lancamentodetalheform

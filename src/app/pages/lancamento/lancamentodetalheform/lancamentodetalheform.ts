@@ -98,10 +98,11 @@ export class Lancamentodetalheform implements OnChanges, OnInit {
   ngOnChanges(changes: SimpleChanges) {
     if (changes['objeto']) {
       this.onSeq();
+      console.log(this.objeto)
     }
   }
 
-  onSeq() {
+  onSeq(): any {
     this.obterSequencia().subscribe({
       next: (res: any) => {
         let novaSequencia = this.gerarSequenciaLista(res.sequencia);
@@ -109,6 +110,7 @@ export class Lancamentodetalheform implements OnChanges, OnInit {
           3,
           '0'
         );
+        return novaSequencia;
       },
       error: (err) => {
         console.error('Erro ao obter sequência:', err);
