@@ -12,9 +12,13 @@ export class TransacaoContaService {
 
   constructor(private http: HttpClient) {}
 
-  findTransacao(id_account: string, apiKey: string): Observable<any> {
-    
-    const url = `${this.apiUrl}/${id_account}/${apiKey}`;
+  findTransacao(
+    id_account: string,
+    apiKey: string,
+    page: number,
+    pageSize: number
+  ): Observable<any> {
+    const url = `${this.apiUrl}/${id_account}/${apiKey}/${pageSize}/${page}`;
 
     return this.http.get<any>(url).pipe(
       tap((res) => {

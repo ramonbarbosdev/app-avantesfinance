@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 import { HlmButtonDirective } from '@spartan-ng/helm/button';
 import {
   HlmCardContentDirective,
@@ -68,6 +68,7 @@ export class TableTransacaoConta implements OnInit {
   authService = inject(AuthService);
   router = inject(Router);
   lancamentoService = inject(LancamentoService);
+  private cdr = inject(ChangeDetectorRef);
 
   public id_centrocusto!: number;
   public errorValidacao: Record<string, string> = {};
@@ -77,29 +78,62 @@ export class TableTransacaoConta implements OnInit {
     this.obterCentroCusto();
   }
 
+  // Exemplo de paginação simples
+  paginaAtual = 1;
+  itensPorPagina = 10;
+  totalPaginas = 0;
+  totalItens = 0;
+
+
+  proximaPagina() {
+    if (this.paginaAtual < this.totalPaginas) {
+      this.irParaPagina(this.paginaAtual + 1);
+    }
+  }
+
+  paginaAnterior() {
+    if (this.paginaAtual > 1) {
+      this.irParaPagina(this.paginaAtual - 1);
+    }
+  }
+
+  irParaPagina(pagina: number) {
+    if (pagina >= 1 && pagina <= this.totalPaginas) {
+      this.paginaAtual = pagina;
+      this.obterTransacao();
+    }
+  }
+
   obterTransacao() {
     let apiKey = this.authService.getUser().pluggy.apiKey;
     let id_account = '91b3c6db-31ef-404b-9208-72e3e091a56a';
 
-    this.service.findTransacao(id_account, apiKey).subscribe({
-      next: (res) => {
-        this.lista = [];
-        Object.values(res as any).forEach((index: any) => {
-          const item = new Transacao();
-          item.accountId = index.accountId;
-          item.amount = index.amount;
-          item.category = index.category;
-          item.type = index.type;
-          item.operationType = index.operationType;
-          item.description = this.formatarDescricao(index.description).tipo;
-          item.recipien = this.formatarDescricao(
-            index.description
-          ).destinatario;
-          item.date = index.date;
-          this.lista = [...this.lista, item];
-        });
-      },
-    });
+    this.service
+      .findTransacao(id_account, apiKey, this.paginaAtual, this.itensPorPagina)
+      .subscribe({
+        next: (res) => {
+          this.totalPaginas = res.totalPages;
+          this.totalItens = res.total;
+          console.log(res);
+
+          this.lista = res.results.map((index: any) => {
+            const item = new Transacao();
+            item.accountId = index.accountId;
+            item.amount = index.amount;
+            item.category = index.category;
+            item.type = index.type;
+            item.operationType = index.operationType;
+            item.description = this.formatarDescricao(index.description).tipo;
+            item.recipien = this.formatarDescricao(
+              index.description
+            ).destinatario;
+            item.date = index.date;
+            return item;
+          });
+
+           this.cdr.detectChanges();
+        },
+      });
   }
 
   formatarDescricao(descricao: string) {
@@ -118,7 +152,7 @@ export class TableTransacaoConta implements OnInit {
     const ano = data.getFullYear();
     const mes = String(data.getMonth() + 1).padStart(2, '0');
 
-    if(!this.validarItens()) return;
+    if (!this.validarItens()) return;
 
     let anomes = `${ano}${mes}`;
     let centrocusto = this.id_centrocusto;
@@ -164,22 +198,22 @@ export class TableTransacaoConta implements OnInit {
   }
 
   validarItens(): any {
-      try {
+    try {
       RegistrarItensSchema.parse([{ id_centrocusto: this.id_centrocusto }]);
-        return true;
-      } catch (error) {
-        if (error instanceof ZodError) {
-          this.errorValidacao = {};
-          error.issues.forEach((e) => {
-            const value = e.path[0];
-            console.log(e);
-            this.errorValidacao[String(value)] = e.message;
-          });
-  
-          return false;
-        }
+      return true;
+    } catch (error) {
+      if (error instanceof ZodError) {
+        this.errorValidacao = {};
+        error.issues.forEach((e) => {
+          const value = e.path[0];
+          console.log(e);
+          this.errorValidacao[String(value)] = e.message;
+        });
+
+        return false;
       }
     }
+  }
 
   async obterLancamentoExistente(
     id_centrocusto: number,
