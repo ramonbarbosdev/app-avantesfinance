@@ -80,7 +80,7 @@ export class TableTransacaoConta implements OnInit {
 
   // Exemplo de paginação simples
   paginaAtual = 1;
-  itensPorPagina = 10;
+  itensPorPagina = 20;
   totalPaginas = 0;
   totalItens = 0;
 
@@ -106,10 +106,9 @@ export class TableTransacaoConta implements OnInit {
 
   obterTransacao() {
     let apiKey = this.authService.getUser().pluggy.apiKey;
-    let id_account = '91b3c6db-31ef-404b-9208-72e3e091a56a';
 
     this.service
-      .findTransacao(id_account, apiKey, this.paginaAtual, this.itensPorPagina)
+      .findTransacao( apiKey, this.paginaAtual, this.itensPorPagina)
       .subscribe({
         next: (res) => {
           this.totalPaginas = res.totalPages;
