@@ -41,8 +41,6 @@ export class TableTransacaoConta implements OnInit {
   router = inject(Router);
   lancamentoService = inject(LancamentoService);
 
-
-
   ngOnInit(): void {
     this.obterTransacao();
   }
@@ -80,7 +78,7 @@ export class TableTransacaoConta implements OnInit {
     };
   }
 
- async  registrar(item: any) {
+  async registrar(item: any) {
     let objeto = new Lancamento();
     let itens = new ItemLancamento();
 
@@ -91,26 +89,26 @@ export class TableTransacaoConta implements OnInit {
     let anomes = `${ano}${mes}`;
     let centrocusto = 1;
 
-    let lancamento = new Lancamento();  
-    
-     lancamento = await this.obterLancamentoExistente(centrocusto, anomes);
+    let lancamento = new Lancamento();
+
+    lancamento = await this.obterLancamentoExistente(centrocusto, anomes);
 
     if (lancamento) {
       objeto = lancamento;
       objeto.dt_lancamento = formatarDataParaInput(lancamento.dt_lancamento);
 
-       let ultimaPosicao = lancamento.itens[lancamento.itens.length  - 1];
-       let novasequencia = Number(ultimaPosicao.cd_itemlancamento) + 1;
+      let ultimaPosicao = lancamento.itens[lancamento.itens.length - 1];
+      let novasequencia = Number(ultimaPosicao.cd_itemlancamento) + 1;
 
       itens.cd_itemlancamento =
-      lancamento != null ? String(novasequencia) : '001';
+        lancamento != null ? String(novasequencia) : '001';
       itens.id_categoria = item.type == 'CREDIT' ? 1 : 2;
       itens.vl_itemlancamento = item.amount;
 
       objeto.itens.push(itens);
-
     } else {
-      objeto.cd_lancamento = '001';
+      let res =  await this.obterSequencia();
+      objeto.cd_lancamento = res.sequencia ;
       objeto.ds_lancamento = item.description;
       objeto.dt_lancamento = formatarDataParaInput(item.date);
       objeto.id_centrocusto = 1;
@@ -145,13 +143,14 @@ export class TableTransacaoConta implements OnInit {
     }
   }
 
-  // obterLancamentoExistente(id_centrocusto: number, dt_anomes: string) {
-  //   this.lancamentoService
-  //     .findByCentroCustoByMes(id_centrocusto, dt_anomes)
-  //     .subscribe({
-  //       next: (res) => {
-  //         this.lancamento = res;
-  //       },
-  //     });
-  // }
+  async obterSequencia( ): Promise<any> {
+    try {
+      return await firstValueFrom(this.lancamentoService.findSequence());
+    } catch (error) {
+      console.error('Erro ao obter lançamento:', error);
+      return null;
+    }
+  }
+
+
 }
