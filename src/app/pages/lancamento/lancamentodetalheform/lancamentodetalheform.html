@@ -3,7 +3,11 @@
 <div class="pt-6 space-y-2">
   <h4 class="text-lg font-semibold">Itens do Lançamento</h4>
 
-  <hlm-sheet [state]="popoverState()" (stateChanged)="onPopoverStateChange($event)" side="right">
+  <hlm-sheet
+    [state]="popoverState()"
+    (stateChanged)="onPopoverStateChange($event)"
+    side="right"
+  >
     <button
       title="novo item"
       id="edit-profile"
@@ -49,7 +53,6 @@
           placeholder="R$ 0,00"
           [error]="errorValidacao['vl_itemlancamento']  || null"
         ></app-money-custom>
-
       </div>
 
       <hlm-sheet-footer>
@@ -92,8 +95,7 @@
           </td>
 
           <td hlmTd>{{ item.cd_itemlancamento.padStart(3, '0' ) }}</td>
-          <!-- <td hlmTd class="">{{ obterNomeRelacionado(item.id_categoria) }}</td> -->
-          <td hlmTd class="">{{item.categoria.nm_categoria}}</td>
+          <td hlmTd>{{ getCategoriaLabel(item.id_categoria) }}</td>
           <td hlmTd>{{ item.vl_itemlancamento | currency:'BRL' }}</td>
         </tr>
       </tbody>

@@ -65,10 +65,8 @@ export class Lancamentoform {
 
   async ngOnInit() {
     await this.onShow();
-  
   }
 
- 
   async onShow() {
     const key = this.route.snapshot.paramMap.get('id');
 
@@ -112,6 +110,7 @@ export class Lancamentoform {
     if (this.validarItens()) {
       this.service.create(this.objeto).subscribe({
         next: (res) => {
+          window.location.reload();
           this.router.navigate(['admin/lancamento']);
         },
       });

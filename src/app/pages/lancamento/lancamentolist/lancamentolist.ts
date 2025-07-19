@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 import { HlmTableImports } from '@spartan-ng/helm/table';
 import { CommonModule } from '@angular/common';
 import { HlmIconDirective } from '@spartan-ng/helm/icon';
@@ -57,7 +57,7 @@ export class Lancamentolist implements OnInit {
   onShow() {
     this.service.findAll(`${this.endpoint}/`).subscribe({
       next: (res) => {
-        this.listagem = [];
+           const novaListagem: Lancamento[] = [];
         Object.values(res as any).forEach((index: any) => {
           const item = new Lancamento();
           item.id_lancamento = index.id_lancamento;
@@ -67,11 +67,21 @@ export class Lancamentolist implements OnInit {
           item.dt_lancamento = index.dt_lancamento;
           item.id_centrocusto = index.centroCusto.nm_centrocusto;
           item.vl_total = index.vl_total;
-          this.listagem = [...this.listagem, item];
+         novaListagem.push(item);
         });
+        this.listagem = novaListagem;
+      //  this.cdr.markForCheck();
+
       },
     });
   }
 
-  excluir(id: any) {}
+  excluir(id: any) {
+    this.service.deleteById('deletar', id).subscribe({
+      next: (res) => {
+
+        this.onShow()
+      },
+    });
+  }
 }

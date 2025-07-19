@@ -140,6 +140,13 @@ export class Lancamentodetalheform implements OnChanges, OnInit {
     });
   }
 
+  getCategoriaLabel(id_categoria: number | string): string {
+    const categoria = this.listaCategoria.find(
+      (c) => c.value == String(id_categoria)
+    );
+    return categoria ? categoria.label : 'Sem categoria';
+  }
+
   service = inject(LancamentoService);
 
   atualizarValor(valorAtualizado: any) {
@@ -221,6 +228,7 @@ export class Lancamentodetalheform implements OnChanges, OnInit {
     this.limparCampos();
     this.objeto[this.nomeItem].splice(index, 1);
     this.objetoChange.emit(this.objeto);
+    this.atualizarValorItem()
   }
 
   atualizarValorItem() {

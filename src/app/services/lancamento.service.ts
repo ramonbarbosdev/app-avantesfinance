@@ -151,4 +151,30 @@ export class LancamentoService {
       })
     );
   }
+
+  deleteById(endpoint: string, id: number): Observable<any> {
+    const url = `${this.apiUrl}/${endpoint}/${id}`;
+
+    return this.http.delete<any>(url).pipe(
+      tap((res) => {
+         toast(res.message, {
+           action: {
+             label: 'Ok',
+             onClick: () => {},
+           },
+         });
+        return res;
+      }),
+      catchError((e) => {
+        toast(e.error.message, {
+          description: e.error.codeDescription,
+          action: {
+            label: 'Ok',
+            onClick: () => {},
+          },
+        });
+        return throwError(() => e);
+      })
+    );
+  }
 }
