@@ -1,39 +1,67 @@
 <!-- Lista de Transações Recentes -->
-<section class="flex p-2"  hlmCard>
-      <table hlmTable>
-        <caption hlmCaption>
-          Listagem de ançamentos
-        </caption>
-        <thead hlmTHead>
-          <tr hlmTr>
-            <th hlmTh >Descrição</th>
-            <th hlmTh >Tipo</th>
-            <th hlmTh>Data</th>
-            <th hlmTh>Valor</th>
-            <th hlmTh >Registrar</th>
-          </tr>
-        </thead>
-        <tbody hlmTBody>
-          <tr hlmTr *ngFor="let item of lista">
-            <td hlmTd>{{ item.description }}</td>
-            <td hlmTd>{{ item.type }}</td>
-            <td hlmTd>{{ item.date | date: 'dd/MM/yyyy HH:mm' : 'UTC' }}</td>
-            <td
-              hlmTd
-              [class.text-green-600]="item.type === 'CREDIT'"
-              [class.text-red-600]="item.type === 'DEBIT'"
-            >
-              R$ {{item.amount | number: '1.2-2' }}
-            </td>
-            <td hlmTd>
-              <div
-                (click)="registrar(item)"
-                class="flex justify-center cursor-pointer hover:scale-[1.2] transform transition-all duration-300"
-              >
-                <ng-icon hlm size="sm" name="lucideSquarePen" />
+<section class="flex p-2" hlmCard>
+  <table hlmTable>
+    <caption hlmCaption>
+      Listagem de ançamentos
+    </caption>
+    <thead hlmTHead>
+      <tr hlmTr>
+        <th hlmTh>Descrição</th>
+        <th hlmTh>Tipo</th>
+        <th hlmTh>Data</th>
+        <th hlmTh>Valor</th>
+        <th hlmTh>Registrar</th>
+      </tr>
+    </thead>
+    <tbody hlmTBody>
+      <tr hlmTr *ngFor="let item of lista">
+        <td hlmTd>{{ item.description }}</td>
+        <td hlmTd>{{ item.type }}</td>
+        <td hlmTd>{{ item.date | date: 'dd/MM/yyyy HH:mm' : 'UTC' }}</td>
+        <td
+          hlmTd
+          [class.text-green-600]="item.type === 'CREDIT'"
+          [class.text-red-600]="item.type === 'DEBIT'"
+        >
+          R$ {{item.amount | number: '1.2-2' }}
+        </td>
+        <td hlmTd>
+          <!-- Dialogo -->
+
+          <hlm-dialog
+            class="flex justify-center cursor-pointer hover:scale-[1.2] transform transition-all duration-300"
+          >
+            <button title="registrar" brnDialogTrigger hlmBtn variant="ghost">
+              <ng-icon hlm size="sm" name="lucideSquarePen" />
+            </button>
+            <hlm-dialog-content *brnDialogContent="let ctx">
+              <hlm-dialog-header>
+                <h3 hlmDialogTitle>Novo registro</h3>
+                <p hlmDialogDescription>
+                  Essa ação é um atalho para registrar o item ao lançamento.
+                  Escolha um centro de custo:
+                </p>
+              </hlm-dialog-header>
+
+              <div>
+                <app-combobox
+                  label="Centro de custo: (*)"
+                  [options]="listaCentroCusto"
+                  [(model)]="id_centrocusto"
+                  name="id_centrocusto"
+                  [error]="errorValidacao['id_centrocusto']  || null"
+                ></app-combobox>
               </div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </section>
+
+              <hlm-dialog-footer>
+                <button hlmBtn type="button" (click)="registrar(item)">
+                  Registrar
+                </button>
+              </hlm-dialog-footer>
+            </hlm-dialog-content>
+          </hlm-dialog>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</section>

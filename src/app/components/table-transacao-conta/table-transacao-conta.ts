@@ -18,9 +18,26 @@ import { Lancamento } from '../../models/lancamento';
 import { ItemLancamento } from '../../models/item-lancamento';
 import { Router } from '@angular/router';
 import { formatarDataParaInput } from '../../utils/formatarDataParaInput';
-import { Lancamentodetalheform } from '../../pages/lancamento/lancamentodetalheform/lancamentodetalheform';
 import { LancamentoService } from '../../services/lancamento.service';
 import { firstValueFrom, lastValueFrom } from 'rxjs';
+
+import {
+  BrnDialogContentDirective,
+  BrnDialogTriggerDirective,
+} from '@spartan-ng/brain/dialog';
+import {
+  HlmDialogComponent,
+  HlmDialogContentComponent,
+  HlmDialogDescriptionDirective,
+  HlmDialogFooterComponent,
+  HlmDialogHeaderComponent,
+  HlmDialogTitleDirective,
+} from '@spartan-ng/helm/dialog';
+import { Box } from '../../models/box';
+import { Combobox } from '../combobox/combobox';
+import { LancametosSchema } from '../../schema/lancamento-schema.';
+import { ZodError } from 'zod';
+import { RegistrarItemSchema, RegistrarItensSchema } from '../../schema/registrarItem-schema';
 @Component({
   selector: 'app-table-transacao-conta',
   imports: [
@@ -29,20 +46,35 @@ import { firstValueFrom, lastValueFrom } from 'rxjs';
     HlmTableImports,
     HlmIconDirective,
     NgIcon,
+    HlmDialogComponent,
+    HlmDialogContentComponent,
+    HlmDialogDescriptionDirective,
+    HlmDialogFooterComponent,
+    HlmDialogHeaderComponent,
+    HlmDialogTitleDirective,
+    BrnDialogContentDirective,
+    BrnDialogTriggerDirective,
+    HlmButtonDirective,
+    Combobox,
   ],
   providers: [provideIcons({ lucideTrash2, lucideCheck, lucideSquarePen })],
   templateUrl: './table-transacao-conta.html',
   styleUrl: './table-transacao-conta.scss',
 })
 export class TableTransacaoConta implements OnInit {
+  public listaCentroCusto: Box[] = [];
   public lista: Transacao[] = [];
   service = inject(TransacaoContaService);
   authService = inject(AuthService);
   router = inject(Router);
   lancamentoService = inject(LancamentoService);
 
+  public id_centrocusto!: number;
+  public errorValidacao: Record<string, string> = {};
+
   ngOnInit(): void {
     this.obterTransacao();
+    this.obterCentroCusto();
   }
 
   obterTransacao() {
@@ -86,8 +118,10 @@ export class TableTransacaoConta implements OnInit {
     const ano = data.getFullYear();
     const mes = String(data.getMonth() + 1).padStart(2, '0');
 
+    if(!this.validarItens()) return;
+
     let anomes = `${ano}${mes}`;
-    let centrocusto = 1;
+    let centrocusto = this.id_centrocusto;
 
     let lancamento = new Lancamento();
 
@@ -106,10 +140,9 @@ export class TableTransacaoConta implements OnInit {
       itens.vl_itemlancamento = item.amount;
 
       objeto.itens.push(itens);
-
     } else {
-      let res =  await this.obterSequencia();
-      objeto.cd_lancamento = res.sequencia ;
+      let res = await this.obterSequencia();
+      objeto.cd_lancamento = res.sequencia;
       objeto.ds_lancamento = item.description;
       objeto.dt_lancamento = formatarDataParaInput(item.date);
       objeto.id_centrocusto = 1;
@@ -130,6 +163,24 @@ export class TableTransacaoConta implements OnInit {
     });
   }
 
+  validarItens(): any {
+      try {
+      RegistrarItensSchema.parse([{ id_centrocusto: this.id_centrocusto }]);
+        return true;
+      } catch (error) {
+        if (error instanceof ZodError) {
+          this.errorValidacao = {};
+          error.issues.forEach((e) => {
+            const value = e.path[0];
+            console.log(e);
+            this.errorValidacao[String(value)] = e.message;
+          });
+  
+          return false;
+        }
+      }
+    }
+
   async obterLancamentoExistente(
     id_centrocusto: number,
     dt_anomes: string
@@ -144,7 +195,7 @@ export class TableTransacaoConta implements OnInit {
     }
   }
 
-  async obterSequencia( ): Promise<any> {
+  async obterSequencia(): Promise<any> {
     try {
       return await firstValueFrom(this.lancamentoService.findSequence());
     } catch (error) {
@@ -153,5 +204,20 @@ export class TableTransacaoConta implements OnInit {
     }
   }
 
-
+  async obterCentroCusto(): Promise<void> {
+    return new Promise((resolve, reject) => {
+      this.lancamentoService.findAll('centrocusto/').subscribe({
+        next: (res) => {
+          this.listaCentroCusto = (res as any).map((index: any) => {
+            const item = new Box();
+            item.value = String(index.id_centrocusto);
+            item.label = index.nm_centrocusto;
+            return item;
+          });
+          resolve();
+        },
+        error: (err) => reject(err),
+      });
+    });
+  }
 }
