@@ -15,7 +15,7 @@ export const LancametosSchema = z.object({
     if (typeof val === 'string') return new Date(val);
     return val;
   }, z.date('Data é obrigatória')),
-  vl_total: z.number().positive('Valor deve ser maior que 0'),
+  // vl_total: z.number().positive('Valor deve ser maior que 0'),
 });
 
 export const LancametoSchema = z.array(LancametosSchema);

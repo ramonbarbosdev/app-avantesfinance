@@ -98,7 +98,7 @@ export class Lancamentodetalheform implements OnChanges, OnInit {
   ngOnChanges(changes: SimpleChanges) {
     if (changes['objeto']) {
       this.onSeq();
-      // console.log(this.objeto)
+      this.atualizarValorItem();
     }
   }
 
@@ -230,10 +230,12 @@ export class Lancamentodetalheform implements OnChanges, OnInit {
     this.limparCampos();
     this.objeto[this.nomeItem].splice(index, 1);
     this.objetoChange.emit(this.objeto);
-    this.atualizarValorItem()
+    this.atualizarValorItem();
   }
 
   atualizarValorItem() {
+    if (!this.objeto.itens) return;
+
     this.objeto.vl_total = this.objeto.itens
       .map((item: any) => item.vl_itemlancamento ?? 0)
       .reduce((acc: any, curr: any) => acc + curr, 0);

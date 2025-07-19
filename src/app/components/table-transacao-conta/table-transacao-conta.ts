@@ -95,7 +95,7 @@ export class TableTransacaoConta implements OnInit {
 
     if (lancamento) {
       objeto = lancamento;
-      objeto.dt_lancamento = formatarDataParaInput(lancamento.dt_lancamento);
+      objeto.dt_lancamento = formatarDataParaInput(objeto.dt_lancamento);
 
       let ultimaPosicao = lancamento.itens[lancamento.itens.length - 1];
       let novasequencia = Number(ultimaPosicao.cd_itemlancamento) + 1;
@@ -106,6 +106,7 @@ export class TableTransacaoConta implements OnInit {
       itens.vl_itemlancamento = item.amount;
 
       objeto.itens.push(itens);
+
     } else {
       let res =  await this.obterSequencia();
       objeto.cd_lancamento = res.sequencia ;
