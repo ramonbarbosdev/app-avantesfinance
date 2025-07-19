@@ -59,6 +59,8 @@ export class Lancamentoform {
 
   public errorValidacao: Record<string, string> = {};
 
+  fl_edicao = false;
+
   private route = inject(ActivatedRoute);
   private cdr = inject(ChangeDetectorRef);
   router = inject(Router);
@@ -86,6 +88,7 @@ export class Lancamentoform {
 
   onEdit(id: any) {
     if (!id) return;
+    this.fl_edicao = true;
 
     this.service.findById(this.endpoint, id).subscribe({
       next: (res: any) => {
@@ -110,8 +113,9 @@ export class Lancamentoform {
     if (this.validarItens()) {
       this.service.create(this.objeto).subscribe({
         next: (res) => {
-          window.location.reload();
-          this.router.navigate(['admin/lancamento']);
+          if (this.fl_edicao) this.router.navigate(['admin/lancamento']);
+          if (!this.fl_edicao)  window.location.reload();
+         
         },
       });
     }
