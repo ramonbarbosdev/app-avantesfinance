@@ -45,7 +45,10 @@ export class Lancamentolist implements OnInit {
 
   editar(item: any) {
     if (item && item.id_lancamento) {
-      this.router.navigate([`admin/${this.endpoint}form`, item[this.primaryKey]]);
+      this.router.navigate([
+        `admin/${this.endpoint}form`,
+        item[this.primaryKey],
+      ]);
     } else {
       console.error('ID do lançamento está indefinido');
     }
@@ -62,7 +65,7 @@ export class Lancamentolist implements OnInit {
           item.ds_lancamento = index.ds_lancamento;
           item.dt_anomes = index.dt_anomes;
           item.dt_lancamento = index.dt_lancamento;
-          item.id_centrocusto = index.id_centrocusto;
+          item.id_centrocusto = index.centroCusto.nm_centrocusto;
           item.vl_total = index.vl_total;
           this.listagem = [...this.listagem, item];
         });

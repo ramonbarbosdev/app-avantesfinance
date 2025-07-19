@@ -28,7 +28,7 @@ import { LancametosSchema } from '../../../schema/lancamento-schema.';
 import { HlmFormFieldModule } from '@spartan-ng/helm/form-field';
 import { Lancamento } from '../../../models/lancamento';
 import { ItemLancamento } from '../../../models/item-lancamento';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { formatarDataParaInput } from '../../../utils/formatarDataParaInput';
 
 @Component({
@@ -61,15 +61,16 @@ export class Lancamentoform {
 
   private route = inject(ActivatedRoute);
   private cdr = inject(ChangeDetectorRef);
+  router = inject(Router);
 
   async ngOnInit() {
     await this.onShow();
+  
   }
 
+ 
   async onShow() {
     const key = this.route.snapshot.paramMap.get('id');
-
-    
 
     await this.obterCentroCusto();
 
@@ -108,15 +109,13 @@ export class Lancamentoform {
   }
 
   salvar() {
-
-    if (this.validarItens())
-    {
-       this.service.create(this.objeto).subscribe({
-         next: (res) => {},
-       });
-
+    if (this.validarItens()) {
+      this.service.create(this.objeto).subscribe({
+        next: (res) => {
+          this.router.navigate(['admin/lancamento']);
+        },
+      });
     }
-
   }
 
   validarItens(): any {
@@ -135,7 +134,7 @@ export class Lancamentoform {
       }
     }
   }
-  
+
   async obterCentroCusto(): Promise<void> {
     return new Promise((resolve, reject) => {
       this.service.findAll('centrocusto/').subscribe({

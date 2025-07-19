@@ -93,7 +93,7 @@
 
           <td hlmTd>{{ item.cd_itemlancamento.padStart(3, '0' ) }}</td>
           <!-- <td hlmTd class="">{{ obterNomeRelacionado(item.id_categoria) }}</td> -->
-          <td hlmTd class="">{{item.id_categoria}}</td>
+          <td hlmTd class="">{{item.categoria.nm_categoria}}</td>
           <td hlmTd>{{ item.vl_itemlancamento | currency:'BRL' }}</td>
         </tr>
       </tbody>

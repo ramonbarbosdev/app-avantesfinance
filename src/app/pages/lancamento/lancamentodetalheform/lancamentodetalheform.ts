@@ -87,11 +87,11 @@ export class Lancamentodetalheform implements OnChanges, OnInit {
   public popoverState = signal<'open' | 'closed'>('closed');
 
   onPopoverStateChange(state: 'open' | 'closed') {
+    if (state == 'closed') this.limparCampos();
     this.popoverState.set(state);
   }
 
   ngOnInit(): void {
-    this.obterCategoria();
     this.consultarCategoria();
   }
 
@@ -119,20 +119,14 @@ export class Lancamentodetalheform implements OnChanges, OnInit {
   limparCampos() {
     this.itemTemp = {
       ...this.itemTemp,
+      id_itemlancamento: 0,
+      id_lancamento: 0,
       id_categoria: 0,
       vl_itemlancamento: 0,
     };
+    this.onSeq();
   }
 
-  obterCategoria() {
-    this.service.findAll('categoria/').subscribe({
-      next: (res) => {
-        res.forEach((item: any) => {
-          this.categoriasMap.set(item.id_categoria, item.nm_categoria);
-        });
-      },
-    });
-  }
   consultarCategoria() {
     this.service.findAll('categoria/').subscribe({
       next: (res) => {
@@ -227,11 +221,6 @@ export class Lancamentodetalheform implements OnChanges, OnInit {
     this.limparCampos();
     this.objeto[this.nomeItem].splice(index, 1);
     this.objetoChange.emit(this.objeto);
-  }
-
-  obterNomeRelacionado(id: number) {
-    let retorno = this.categoriasMap.get(id) ?? '';
-    return retorno;
   }
 
   atualizarValorItem() {
