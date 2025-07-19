@@ -43,6 +43,7 @@ import { Box } from '../../../models/box';
 import { MoneyCustom } from '../../../components/money-custom/money-custom';
 import { ItemLancametoSchema } from '../../../schema/itemlancamento-schema';
 import { ZodError } from 'zod';
+import { ItemLancamento } from '../../../models/item-lancamento';
 @Component({
   selector: 'app-lancamentodetalheform',
   imports: [
@@ -74,7 +75,7 @@ export class Lancamentodetalheform implements OnChanges, OnInit {
   @Input() objeto: any;
   @Output() objetoChange = new EventEmitter<any>();
 
-  @Input() itemTemp: any;
+  @Input() itemTemp: ItemLancamento = new ItemLancamento();
   @Input() nomeItem!: string;
   @Input() relacionado: any;
 
@@ -117,10 +118,9 @@ export class Lancamentodetalheform implements OnChanges, OnInit {
 
   limparCampos() {
     this.itemTemp = {
-      id_categoria: null,
-      id_metodopagamento: null,
-      id_tipooperacao: null,
-      vl_movimento: null,
+      ...this.itemTemp,
+      id_categoria: 0,
+      vl_itemlancamento: 0,
     };
   }
 
@@ -159,9 +159,8 @@ export class Lancamentodetalheform implements OnChanges, OnInit {
   }
 
   adicionarItem() {
-      if (!this.objeto[this.nomeItem]) this.objeto[this.nomeItem] = [];
-    if (this.validarItens())
-    {
+    if (!this.objeto[this.nomeItem]) this.objeto[this.nomeItem] = [];
+    if (this.validarItens()) {
       if (this.indexEditando != null) {
         this.objeto[this.nomeItem][this.indexEditando] = this.itemTemp;
         this.indexEditando = null;
@@ -176,28 +175,24 @@ export class Lancamentodetalheform implements OnChanges, OnInit {
       this.popoverState.set('closed');
       this.atualizarValorItem();
     }
-      
   }
 
-  
-    validarItens(): any {
-      try {
-        ItemLancametoSchema.parse(this.objeto[this.nomeItem]);
-        return true;
-      } catch (error) {
-        if (error instanceof ZodError) {
-          this.errorValidacao = {};
-          error.issues.forEach((e) => {
-            const value = e.path[1];
-            console.log(e.message);
-            this.errorValidacao[String(value)] = e.message;
-          });
-  
-          return false;
-        }
+  validarItens(): any {
+    try {
+      ItemLancametoSchema.parse([this.itemTemp]);
+      return true;
+    } catch (error) {
+      if (error instanceof ZodError) {
+        this.errorValidacao = {};
+        error.issues.forEach((e) => {
+          const value = e.path[1];
+          this.errorValidacao[String(value)] = e.message;
+        });
+
+        return false;
       }
     }
-    
+  }
 
   gerarSequenciaLista(sequenciaApi: any) {
     const sequenciaInicial = parseInt(sequenciaApi, 10);
