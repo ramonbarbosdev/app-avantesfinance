@@ -80,7 +80,7 @@ export class TableTransacaoConta implements OnInit {
 
   // Exemplo de paginação simples
   paginaAtual = 1;
-  itensPorPagina = 20;
+  itensPorPagina = 10;
   totalPaginas = 0;
   totalItens = 0;
 
