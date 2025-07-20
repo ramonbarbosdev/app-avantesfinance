@@ -25,7 +25,6 @@ export class TableMovimentacao  implements OnInit{
   obterMovimentacaoGeral() {
     this.service.findAll().subscribe({
       next: (res) => {
-        console.log(res)
         this.objeto = res.map((index: any) => {
           const item = new MovimentacaoLancamento();
           item.id_movimentacao = index.id_movimentacao;

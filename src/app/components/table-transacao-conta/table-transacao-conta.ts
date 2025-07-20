@@ -77,12 +77,10 @@ export class TableTransacaoConta implements OnInit {
     this.obterCentroCusto();
   }
 
-  // Exemplo de paginação simples
   paginaAtual = 1;
   itensPorPagina = 10;
   totalPaginas = 0;
   totalItens = 0;
-
 
   proximaPagina() {
     if (this.paginaAtual < this.totalPaginas) {
@@ -107,7 +105,7 @@ export class TableTransacaoConta implements OnInit {
     let apiKey = this.authService.getUser().pluggy.apiKey;
 
     this.service
-      .findTransacao( apiKey, this.paginaAtual, this.itensPorPagina)
+      .findTransacao(apiKey, this.paginaAtual, this.itensPorPagina)
       .subscribe({
         next: (res) => {
           this.totalPaginas = res.totalPages;
@@ -128,7 +126,7 @@ export class TableTransacaoConta implements OnInit {
             return item;
           });
 
-           this.cdr.detectChanges();
+          this.cdr.detectChanges();
         },
       });
   }
@@ -148,6 +146,7 @@ export class TableTransacaoConta implements OnInit {
     const data = new Date();
     const ano = data.getFullYear();
     const mes = String(data.getMonth() + 1).padStart(2, '0');
+    const dia = data.getDate();
 
     if (!this.validarItens()) return;
 
@@ -169,6 +168,7 @@ export class TableTransacaoConta implements OnInit {
         lancamento != null ? String(novasequencia) : '001';
       itens.id_categoria = item.type == 'CREDIT' ? 1 : 2;
       itens.vl_itemlancamento = Math.abs(item.amount);
+      itens.dt_itemlancamento = `${ano}-${mes}-${dia}`;
 
       objeto.itens.push(itens);
     } else {
@@ -182,7 +182,8 @@ export class TableTransacaoConta implements OnInit {
 
       itens.cd_itemlancamento = '001';
       itens.id_categoria = item.type == 'CREDIT' ? 1 : 2;
-      itens.vl_itemlancamento = item.amount;
+      itens.vl_itemlancamento = Math.abs(item.amount);
+      itens.dt_itemlancamento = `${ano}-${mes}-${dia}`;
 
       objeto.itens = [itens];
     }
