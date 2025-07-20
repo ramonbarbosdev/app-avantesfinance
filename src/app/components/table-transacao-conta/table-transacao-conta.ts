@@ -35,9 +35,8 @@ import {
 } from '@spartan-ng/helm/dialog';
 import { Box } from '../../models/box';
 import { Combobox } from '../combobox/combobox';
-import { LancametosSchema } from '../../schema/lancamento-schema.';
 import { ZodError } from 'zod';
-import { RegistrarItemSchema, RegistrarItensSchema } from '../../schema/registrarItem-schema';
+import { RegistrarItensSchema } from '../../schema/registrarItem-schema';
 @Component({
   selector: 'app-table-transacao-conta',
   imports: [
@@ -113,7 +112,6 @@ export class TableTransacaoConta implements OnInit {
         next: (res) => {
           this.totalPaginas = res.totalPages;
           this.totalItens = res.total;
-          console.log(res);
 
           this.lista = res.results.map((index: any) => {
             const item = new Transacao();
@@ -170,7 +168,7 @@ export class TableTransacaoConta implements OnInit {
       itens.cd_itemlancamento =
         lancamento != null ? String(novasequencia) : '001';
       itens.id_categoria = item.type == 'CREDIT' ? 1 : 2;
-      itens.vl_itemlancamento = item.amount;
+      itens.vl_itemlancamento = Math.abs(item.amount);
 
       objeto.itens.push(itens);
     } else {

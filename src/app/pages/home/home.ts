@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { HlmButtonDirective } from '@spartan-ng/helm/button';
 import { HlmCardContentDirective, HlmCardDirective, HlmCardHeaderDirective, HlmCardTitleDirective } from '@spartan-ng/helm/card';
 import { TableTransacaoConta } from '../../components/table-transacao-conta/table-transacao-conta';
+import { TableMovimentacao } from "../../components/table-movimentacao/table-movimentacao";
 
 @Component({
   selector: 'app-home',
@@ -13,8 +14,9 @@ import { TableTransacaoConta } from '../../components/table-transacao-conta/tabl
     HlmCardTitleDirective,
     HlmCardContentDirective,
     HlmButtonDirective,
-    TableTransacaoConta
-  ],
+    TableTransacaoConta,
+    TableMovimentacao
+],
   templateUrl: './home.html',
   styleUrl: './home.scss',
 })

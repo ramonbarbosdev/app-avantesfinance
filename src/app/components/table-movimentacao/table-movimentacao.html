@@ -1,0 +1,26 @@
+<div
+  class="w-full p-5 overflow-x-auto rounded-lg shadow-sm border border-border"
+>
+  <table hlmTable>
+    <caption hlmCaption>
+      Movimentação de lançamento
+    </caption>
+    <thead hlmTHead>
+      <tr hlmTr>
+        <th hlmTh class="w-[100px]">Mês</th>
+        <th hlmTh>Ultimo movimento</th>
+        <th hlmTh>Centro de custo</th>
+        <th hlmTh >Saldo</th>
+      </tr>
+    </thead>
+    <tbody hlmTBody>
+      <tr hlmTr *ngFor="let item of objeto">
+        <td  hlmTd>{{ item.dt_anomes }}</td>
+        <td  hlmTd>{{ item.dt_movimento | date: 'dd/MM/yyyy' }}</td>
+        <td  hlmTd>{{ item.id_centrocusto }}</td>
+        <td  hlmTd>{{ item.vl_saldo  | currency:'BRL' }}</td>
+      </tr>
+    </tbody>
+    
+  </table>
+</div>
