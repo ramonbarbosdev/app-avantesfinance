@@ -37,6 +37,14 @@
           [error]="errorValidacao['cd_itemlancamento']  || null"
         ></app-input>
 
+        <app-date-custom
+          [(model)]="itemTemp.dt_itemlancamento"
+          name="dt_itemlancamento"
+          [label]="'Data: (*)'"
+          [error]="errorValidacao['dt_itemlancamento']  || null"
+        >
+        </app-date-custom>
+
         <app-combobox
           label="Categoria: (*)"
           [options]="listaCategoria"
@@ -70,6 +78,7 @@
         <tr hlmTr>
           <th hlmTh class="w-[5%]"></th>
           <th hlmTh class="">Codigo</th>
+          <th hlmTh class="">Data</th>
           <th hlmTh class="">Categoria</th>
           <th hlmTh class="">Valor</th>
         </tr>
@@ -95,6 +104,7 @@
           </td>
 
           <td hlmTd>{{ item.cd_itemlancamento.padStart(3, '0' ) }}</td>
+          <td hlmTd>{{ item.dt_itemlancamento | date: 'dd/MM/yyyy' }}</td>
           <td hlmTd>{{ getCategoriaLabel(item.id_categoria) }}</td>
           <td hlmTd>{{ item.vl_itemlancamento | currency:'BRL' }}</td>
         </tr>

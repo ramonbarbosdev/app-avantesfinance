@@ -44,6 +44,8 @@ import { MoneyCustom } from '../../../components/money-custom/money-custom';
 import { ItemLancametoSchema } from '../../../schema/itemlancamento-schema';
 import { ZodError } from 'zod';
 import { ItemLancamento } from '../../../models/item-lancamento';
+import { DateCustom } from '../../../components/date-custom/date-custom';
+import { formatarDataParaInput } from '../../../utils/formatarDataParaInput';
 @Component({
   selector: 'app-lancamentodetalheform',
   imports: [
@@ -65,6 +67,7 @@ import { ItemLancamento } from '../../../models/item-lancamento';
     InputCustom,
     Combobox,
     MoneyCustom,
+    DateCustom
   ],
   providers: [provideIcons({ lucideTrash2, lucideCheck, lucideSquarePen })],
 
@@ -123,6 +126,7 @@ export class Lancamentodetalheform implements OnChanges, OnInit {
       ...this.itemTemp,
       id_itemlancamento: 0,
       id_lancamento: 0,
+      dt_itemlancamento: "",
       id_categoria: 0,
       vl_itemlancamento: 0,
     };
@@ -163,6 +167,8 @@ export class Lancamentodetalheform implements OnChanges, OnInit {
 
   adicionarItem() {
     if (!this.objeto[this.nomeItem]) this.objeto[this.nomeItem] = [];
+
+
     if (this.validarItens()) {
       if (this.indexEditando != null) {
         this.objeto[this.nomeItem][this.indexEditando] = this.itemTemp;
@@ -224,6 +230,9 @@ export class Lancamentodetalheform implements OnChanges, OnInit {
     this.itemTemp.cd_itemlancamento = String(
       this.itemTemp.cd_itemlancamento
     ).padStart(3, '0');
+    this.itemTemp.dt_itemlancamento = formatarDataParaInput(
+      this.itemTemp.dt_itemlancamento
+    );
   }
 
   removerItem(index: number) {

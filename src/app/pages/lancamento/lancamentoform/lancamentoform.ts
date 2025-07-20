@@ -120,7 +120,6 @@ export class Lancamentoform {
 
     this.service.findById(this.endpoint, id).subscribe({
       next: (res: any) => {
-        // console.log(res);
         res.dt_lancamento = formatarDataParaInput(res.dt_lancamento);
         res.cd_lancamento = String(res.cd_lancamento).padStart(3, '0');
         this.objeto = res;
