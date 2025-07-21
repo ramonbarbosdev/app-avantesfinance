@@ -1,7 +1,19 @@
-FROM node:22
+FROM node:lts-alpine
+
+# Create and change to the app directory.
 WORKDIR /app
-COPY . .
-RUN npm install
-RUN npm install @angular/cli -g
-EXPOSE 4200
-CMD ["ng", "serve", "--host", "0.0.0.0"]
+
+# Copy the files to the container image
+COPY package*.json ./
+
+# Install packages
+RUN npm ci
+
+# Copy local code to the container image.
+COPY . ./
+
+# Build the app.
+RUN npm run build
+
+# Serve the app
+CMD ["npm", "run", "start"]
