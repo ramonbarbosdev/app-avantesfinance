@@ -1,5 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
-@import "tailwindcss";
+@use "tailwindcss";
 @import '@spartan-ng/brain/hlm-tailwind-preset.css';
 @import '@angular/cdk/overlay-prebuilt.css';
 

@@ -17,7 +17,6 @@ import { CommonModule } from '@angular/common';
     CommonModule,
     NgIcon,
     HlmIconDirective,
-    NgxMaskDirective,
     HlmFormFieldModule,
   ],
   providers: [provideIcons({ lucideEye, lucideEyeClosed })],

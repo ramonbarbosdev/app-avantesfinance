@@ -9,10 +9,6 @@ import { TableMovimentacao } from "../../components/table-movimentacao/table-mov
   selector: 'app-home',
   imports: [
     CommonModule,
-    HlmCardDirective,
-    HlmCardHeaderDirective,
-    HlmCardTitleDirective,
-    HlmCardContentDirective,
     HlmButtonDirective,
     TableTransacaoConta,
     TableMovimentacao

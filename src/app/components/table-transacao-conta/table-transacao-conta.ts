@@ -41,7 +41,6 @@ import { RegistrarItensSchema } from '../../schema/registrarItem-schema';
   selector: 'app-table-transacao-conta',
   imports: [
     CommonModule,
-    HlmCardDirective,
     HlmTableImports,
     HlmIconDirective,
     NgIcon,
