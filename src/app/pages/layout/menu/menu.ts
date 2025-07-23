@@ -7,19 +7,37 @@ import { HlmAvatarImageDirective, HlmAvatarComponent, HlmAvatarFallbackDirective
 import { lucidePanelLeftClose , lucidePanelRightClose, lucideBolt, lucideLogOut, lucideSunMoon} from '@ng-icons/lucide';
 import { ThemeService } from '../../../services/theme.service';
 import { AuthService } from '../../../auth/auth.service';
+import { formatarInicialNome } from '../../../utils/InicialNome';
 
 
 @Component({
   selector: 'app-menu',
-  imports: [RouterOutlet, NgIcon, HlmIconDirective, CommonModule, HlmAvatarImageDirective, HlmAvatarComponent, HlmAvatarFallbackDirective, RouterLink],
-  providers: [provideIcons({ lucidePanelLeftClose,lucidePanelRightClose, lucideBolt, lucideLogOut,lucideSunMoon })],
+  imports: [
+    RouterOutlet,
+    NgIcon,
+    HlmIconDirective,
+    CommonModule,
+    HlmAvatarImageDirective,
+    HlmAvatarComponent,
+    HlmAvatarFallbackDirective,
+    RouterLink,
+  ],
+  providers: [
+    provideIcons({
+      lucidePanelLeftClose,
+      lucidePanelRightClose,
+      lucideBolt,
+      lucideLogOut,
+      lucideSunMoon,
+    }),
+  ],
   templateUrl: './menu.html',
-  styleUrl: './menu.scss'
+  styleUrl: './menu.scss',
 })
 export class Menu implements OnInit {
-
-  auth =  inject(AuthService);
-
+  auth = inject(AuthService);
+  nm_usuario = 'Usuario';
+  nm_inicial = 'U';
   constructor(public themeService: ThemeService) {}
 
   sidebarOpen = false;
@@ -32,22 +50,20 @@ export class Menu implements OnInit {
 
     this.checkIfMobile();
     window.addEventListener('resize', () => this.checkIfMobile());
+
+    this.nm_usuario = this.auth.getUser()?.nm_usuario || 'Usuário';
+    this.nm_inicial = formatarInicialNome(this.nm_usuario);
   }
 
   checkIfMobile(): void {
     this.isMobile = window.innerWidth < 768;
   }
 
-
   toggleSidebar() {
     this.sidebarOpen = !this.sidebarOpen;
   }
 
-  
   sair() {
     this.auth.logout();
   }
-
-   
-
 }
