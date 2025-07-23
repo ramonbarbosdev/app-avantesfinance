@@ -7,6 +7,7 @@ import { Conta } from './pages/config/conta/conta';
 import { Ajustes } from './pages/config/ajustes/ajustes';
 import { Lancamentoform } from './pages/lancamento/lancamentoform/lancamentoform';
 import { Lancamentolist } from './pages/lancamento/lancamentolist/lancamentolist';
+import { Perfil } from './pages/config/perfil/perfil';
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: Login },
@@ -17,6 +18,7 @@ export const routes: Routes = [
     children: [
       { path: 'home', component: Home },
       { path: 'ajustes', component: Ajustes },
+      { path: 'perfil', component: Perfil },
       { path: 'conta', component: Conta },
       { path: 'lancamento', component: Lancamentolist },
       { path: 'lancamentoform/:id', component: Lancamentoform },
