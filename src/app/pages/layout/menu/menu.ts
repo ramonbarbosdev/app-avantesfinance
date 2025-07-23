@@ -36,8 +36,8 @@ import { formatarInicialNome } from '../../../utils/InicialNome';
 })
 export class Menu implements OnInit {
   auth = inject(AuthService);
-  nm_usuario = 'Usuario';
-  nm_inicial = 'U';
+  nm_usuario = '';
+  nm_inicial = '';
   constructor(public themeService: ThemeService) {}
 
   sidebarOpen = false;
@@ -51,7 +51,7 @@ export class Menu implements OnInit {
     this.checkIfMobile();
     window.addEventListener('resize', () => this.checkIfMobile());
 
-    this.nm_usuario = this.auth.getUser()?.nm_usuario || 'Usuário';
+    this.nm_usuario = this.auth.getUser().nm_usuario ;
     this.nm_inicial = formatarInicialNome(this.nm_usuario);
   }
 
