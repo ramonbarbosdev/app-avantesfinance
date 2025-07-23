@@ -1,9 +1,11 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { BehaviorSubject, catchError, firstValueFrom, map, Observable, throwError } from 'rxjs';
+import { BehaviorSubject, catchError, firstValueFrom, map, Observable, tap, throwError } from 'rxjs';
 import { environment } from '../../environment';
 import Swal from 'sweetalert2';
+import { toast } from 'ngx-sonner';
+import { Usuario } from '../models/usuario';
 
 @Injectable({
   providedIn: 'root',
@@ -13,6 +15,77 @@ export class AuthService {
 
   private router = inject(Router);
   constructor(private http: HttpClient) {}
+
+  findById(id: number): Observable<any> {
+    const url = `${this.apiUrl}/usuario/${id}`;
+
+    return this.http.get<any>(url).pipe(
+      tap((res) => {
+        return res;
+      }),
+      catchError((e) => {
+        console.log(e);
+        toast(e.error.message, {
+          description: e.error.codeDescription,
+          action: {
+            label: 'Ok',
+            onClick: () => {},
+          },
+        });
+        return throwError(() => e);
+      })
+    );
+  }
+
+  updateUser( data: any): Observable<any> {
+
+    const url = `${this.apiUrl}/usuario/perfil/`;
+
+    return this.http.post<any>(url, data).pipe(
+      tap((res) => {
+         toast(res.message, {
+           description: "",
+           action: {
+             label: 'Ok',
+             onClick: () => {},
+           },
+         });
+        return res;
+      }),
+      catchError((e) => {
+        console.log(e);
+        toast(e.error.message, {
+          description: e.error.codeDescription,
+          action: {
+            label: 'Ok',
+            onClick: () => {},
+          },
+        });
+        return throwError(() => e);
+      })
+    );
+  }
+
+  uploadFotoPerfil(id: number, data: any): Observable<any> {
+    const url = `${this.apiUrl}/usuario/${id}/upload-foto`;
+
+    return this.http.post<any>(url, data).pipe(
+      tap((res) => {
+        return res;
+      }),
+      catchError((e) => {
+        console.log(e);
+        toast(e.error.message, {
+          description: e.error.codeDescription,
+          action: {
+            label: 'Ok',
+            onClick: () => {},
+          },
+        });
+        return throwError(() => e);
+      })
+    );
+  }
 
   login(credenciais: any) {
     return this.http.post(`${this.apiUrl}/auth/login`, credenciais, {
@@ -68,6 +141,7 @@ export class AuthService {
       id_usuario: info.id_usuario,
       nm_usuario: info.nm_usuario,
       login: info.login,
+      img: info.img,
       pluggy: retorno,
     };
     sessionStorage.setItem('user', JSON.stringify(objeto));

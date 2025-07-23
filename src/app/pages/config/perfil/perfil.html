@@ -1,34 +1,65 @@
 <div class="p-10 flex flex-col gap-5">
-  <h2 class="text-2xl font-semibold">Personalizar Perfil</h2>
+  <h2 class="text-2xl font-semibold">Editar Perfil</h2>
 
-  <!-- Imagem de Perfil -->
-  <div class="flex items-center space-x-4">
-    <img [src]="imagemPerfil || 'https://i.pravatar.cc/150?u=usuario'" alt="Avatar"
-      class="w-16 h-16 rounded-full object-cover border">
-    <input type="text" class="input w-full" placeholder="URL da imagem de perfil" [(ngModel)]="imagemPerfil">
+  <div class="flex justify-center items-center w-full">
+    <img
+      *ngIf="imagemPerfil || objeto.img"
+      [src]="imagemPerfil || 'https://i.pravatar.cc/150?u=usuario'"
+      alt="Avatar"
+      class="w-40 h-40 rounded-full object-cover border cursor-pointer"
+      (click)="selecionarNovaImagem()"
+    />
+
+    <input
+      type="file"
+      accept="image/*"
+      hidden
+      #fileInput
+      (change)="carregarImagem($event)"
+    />
   </div>
 
-  <!-- Nome do Usuário -->
-  <div>
-    <!-- <app-input
-    [inputId]="'nm_usuario'"
-      [type]="'text'"
-      [label]="'Codigo: (*)'"
-      [required]="true"
-      [placeholder]="''"
-      [(model)]="objeto.nm_usuario"
-      [error]="errorValidacao['nm_usuario']  || null"
-      [disabled]="true"
-      [value]="objeto.nm_usuario"
-    >
+  <form hlmCardContent #f="ngForm" (ngSubmit)="onSalvar()">
+    <div class="grid md:grid-cols-2 gap-4">
+      <app-input
+        [inputId]="'senha'"
+        [type]="'text'"
+        [label]="'Login: (*)'"
+        [required]="true"
+        placeholder="login"
+        [error]="errorValidacao['login']  || null"
+        [(model)]="objeto.login"
+        [value]="objeto.login"
+        [disabled]="true"
 
-    </app-input> -->
-  </div>
+      ></app-input>
 
- 
+      <app-input
+        [inputId]="'nome'"
+        [type]="'text'"
+        [label]="'Nome: (*)'"
+        [required]="true"
+        placeholder="nome"
+        [error]="errorValidacao['nome']  || null"
+        [(model)]="objeto.nome"
+      [value]="objeto.nome"
 
-  <!-- Botão de Salvar -->
-  <div class="text-right">
-    <button class="btn btn-primary" (click)="onSalvar()">Salvar Alterações</button>
-  </div>
+      ></app-input>
+
+      <app-input
+        [inputId]="'role'"
+        [type]="'text'"
+        [label]="'Permissão: (*)'"
+        [required]="true"
+        placeholder="permissão"
+        [error]="errorValidacao['role']  || null"
+        [(model)]="objeto.role"
+        [value]="objeto.role"
+        [disabled]="false"
+      ></app-input>
+    </div>
+    <div class="text-right">
+      <button hlmBtn type="submit">Salvar</button>
+    </div>
+  </form>
 </div>
