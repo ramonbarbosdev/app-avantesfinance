@@ -1,19 +1,13 @@
-FROM node:lts-alpine
+FROM node:lts
 
-# Create and change to the app directory.
 WORKDIR /app
 
-# Copy the files to the container image
 COPY package*.json ./
 
-# Install packages
 RUN npm ci
 
-# Copy local code to the container image.
-COPY . ./
+COPY . .
 
-# Build the app.
 RUN npm run build
 
-# Serve the app
 CMD ["npm", "run", "start"]
