@@ -58,6 +58,7 @@ export class AuthService {
       .get(url, { headers: new HttpHeaders({ Authorization: `${token}` }) })
       .pipe(catchError((error) => throwError(() => error)));
   }
+  
 
   async setUser(info: any) {
     const retorno = await firstValueFrom(
