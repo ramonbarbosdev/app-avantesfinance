@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { catchError, firstValueFrom, map, Observable, throwError } from 'rxjs';
+import { BehaviorSubject, catchError, firstValueFrom, map, Observable, throwError } from 'rxjs';
 import { environment } from '../../environment';
 import Swal from 'sweetalert2';
 
@@ -58,20 +58,21 @@ export class AuthService {
       .get(url, { headers: new HttpHeaders({ Authorization: `${token}` }) })
       .pipe(catchError((error) => throwError(() => error)));
   }
-  
 
   async setUser(info: any) {
     const retorno = await firstValueFrom(
       this.obterChave(info.id_usuario, info.Authorization)
     );
-    
+
     let objeto = {
       id_usuario: info.id_usuario,
       nm_usuario: info.nm_usuario,
       login: info.login,
-      pluggy: retorno
+      pluggy: retorno,
     };
     sessionStorage.setItem('user', JSON.stringify(objeto));
+
+    this.userSubject.next(objeto);
   }
 
   setToken(token: string) {
@@ -93,6 +94,10 @@ export class AuthService {
     return objeto;
   }
 
+  getUserSubbject() {
+    return this.userSubject.value;
+  }
+
   isAuthenticated(): boolean {
     return !!this.getToken();
   }
@@ -103,4 +108,7 @@ export class AuthService {
       Authorization: `${token}`,
     });
   }
+
+  private userSubject = new BehaviorSubject<any | null>(null);
+  user$ = this.userSubject.asObservable();
 }
