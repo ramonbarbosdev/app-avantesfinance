@@ -10,4 +10,4 @@ COPY . ./
 
 RUN npm run build
 
-CMD ["npm", "run", "start"]
+CMD ["serve", "-s", "dist/app-avantesfinance/browser", "-l", "8080"]
