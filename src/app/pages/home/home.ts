@@ -10,7 +10,6 @@ import { TableMovimentacao } from "../../components/table-movimentacao/table-mov
   imports: [
     CommonModule,
     HlmButtonDirective,
-    TableTransacaoConta,
     TableMovimentacao
 ],
   templateUrl: './home.html',
