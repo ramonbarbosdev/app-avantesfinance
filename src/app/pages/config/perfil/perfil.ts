@@ -120,7 +120,7 @@ export class Perfil implements OnInit {
         this.atualizarFoto();
         this.eventService.emitUserReload(this.objeto.id);
         // window.location.reload();
-        // this.router.navigate(['admin/ajustes']);
+        this.router.navigate(['admin/ajustes']);
       },
     });
   }
