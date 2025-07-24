@@ -5,9 +5,9 @@ export const PerfisSchema = z.object({
 
   login: z.string('O Login é obrigatório').min(1, 'O Login é obrigatório'),
 
-  role: z
-    .string('A Permissão é obrigatória')
-    .min(1, 'A Permissão é obrigatória'),
+  // roles: z
+  //   .string('A Permissão é obrigatória')
+  //   .min(1, 'A Permissão é obrigatória'),
 });
 
 export const PerfilSchema = z.array(PerfisSchema);

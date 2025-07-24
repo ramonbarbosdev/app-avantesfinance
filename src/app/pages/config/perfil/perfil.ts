@@ -17,6 +17,8 @@ import {
   HlmAvatarFallbackDirective,
 } from '@spartan-ng/helm/avatar';
 import { formatarInicialNome } from '../../../utils/InicialNome';
+import { Combobox } from '../../../components/combobox/combobox';
+import { Box } from '../../../models/box';
 
 
 
@@ -28,14 +30,16 @@ import { formatarInicialNome } from '../../../utils/InicialNome';
     FormsModule,
     HlmButtonDirective,
     HlmAvatarImageDirective,
+    Combobox,
   ],
   templateUrl: './perfil.html',
   styleUrl: './perfil.scss',
 })
 export class Perfil implements OnInit {
   imagemPerfil: string = '';
-  nm_inicial: string = ''; 
+  nm_inicial: string = '';
   selectedFile: File | null = null;
+  public listaRole: Box[] = [];
   public urlBase = `${environment.apiUrl}`;
 
   public errorValidacao: Record<string, string> = {};
@@ -47,6 +51,7 @@ export class Perfil implements OnInit {
 
   ngOnInit(): void {
     this.objeto.id = this.auth.getUser()?.id_usuario;
+    if (!this.objeto.roles) this.objeto.roles = [];
     this.obterUsuarioLogado();
   }
 
@@ -59,6 +64,15 @@ export class Perfil implements OnInit {
         this.nm_inicial = formatarInicialNome(res.userNome);
         this.objeto.img = res.userImg;
         this.imagemPerfil = `${this.urlBase}${this.objeto.img}`;
+        this.objeto.role= res.roles[0]
+
+        this.listaRole = (res.roles as any).map((index: any) => {
+          const item = new Box();
+          item.value = String(index);
+          item.label = index;
+          return item;
+        });
+
       },
     });
   }
@@ -105,7 +119,8 @@ export class Perfil implements OnInit {
       next: (res) => {
         this.atualizarFoto();
         this.eventService.emitUserReload(this.objeto.id);
-        this.router.navigate(['/ajustes']);
+        // window.location.reload();
+        // this.router.navigate(['admin/ajustes']);
       },
     });
   }

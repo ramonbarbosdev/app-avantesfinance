@@ -74,14 +74,14 @@ export class Combobox implements ControlValueAccessor, OnChanges {
   @Input() width: string = 'w-full';
   @Output() selectedChange = new EventEmitter<string>();
   @Input() error: string | null = null;
-
+  @Input() disabled = false;
+  
   @Input() model: any;
   @Output() modelChange = new EventEmitter<string>();
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['model'] || changes['options']) {
-      this.tentarSelecionarValor(); 
-
+      this.tentarSelecionarValor();
     }
   }
   private tentarSelecionarValor() {
@@ -92,7 +92,6 @@ export class Combobox implements ControlValueAccessor, OnChanges {
 
     const found = this.options.find((f) => f.value === String(this.model));
     this.commandSelected(found);
-
   }
 
   public state = signal<'open' | 'closed'>('closed');

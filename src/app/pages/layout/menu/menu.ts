@@ -1,4 +1,5 @@
 import {
+  ChangeDetectorRef,
   Component,
   inject,
   Inject,
@@ -64,6 +65,7 @@ export class Menu implements OnInit {
   public objeto: Usuario = new Usuario();
   private eventService = inject(EventService);
   constructor(public themeService: ThemeService) {}
+  private cdRef = inject(ChangeDetectorRef);
 
   sidebarOpen = false;
   isMobile = false;
@@ -72,13 +74,18 @@ export class Menu implements OnInit {
     this.auth.user$.subscribe((user) => {
       if (user) {
         this.obterUsuarioLogado(user.id_usuario);
+        
       }
     });
 
-     this.obterUsuarioLogado(this.auth.getUser()?.id_usuario);
+    if (this.auth.getUser()?.id_usuario)
+      this.obterUsuarioLogado(this.auth.getUser()?.id_usuario);
 
     this.eventService.userReload$.subscribe((id: number) => {
       this.obterUsuarioLogado(id);
+      this.cdRef.detectChanges();
+      // window.location.reload();
+
     });
 
     window.innerWidth < 768

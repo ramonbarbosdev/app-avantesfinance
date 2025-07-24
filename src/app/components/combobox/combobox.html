@@ -13,13 +13,13 @@
       id="edit-profile"
       variant="outline"
       brnPopoverTrigger
-      (click)="state.set('open')"
+      (click)="!disabled && state.set('open')"
+      [disabled]="disabled"
       hlmBtn
     >
       {{ currentFramework() ? currentFramework()?.label : 'Buscar...' }}
       <ng-icon hlm size="sm" name="lucideChevronsUpDown" class="opacity-50" />
     </button>
-
     <hlm-command
       *brnPopoverContent="let ctx"
       hlmPopoverContent
@@ -42,8 +42,9 @@
             *ngFor="let framework of filteredOptions()"
             hlm-command-item
             [value]="framework.label"
-            (selected)="commandSelected(framework)"
+            (selected)="!disabled && commandSelected(framework)"
             type="button"
+            [disabled]="disabled"
           >
             <span>{{ framework.value }} - {{ framework.label }}</span>
             <ng-icon
