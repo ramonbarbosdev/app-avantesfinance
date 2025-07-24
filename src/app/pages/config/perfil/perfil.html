@@ -2,14 +2,15 @@
   <h2 class="text-2xl font-semibold">Editar Perfil</h2>
 
   <div class="flex justify-center items-center w-full">
-    <img
-      *ngIf="imagemPerfil || objeto.img"
-      [src]="imagemPerfil || 'https://i.pravatar.cc/150?u=usuario'"
-      alt="Avatar"
-      class="w-40 h-40 rounded-full object-cover border cursor-pointer"
-      (click)="selecionarNovaImagem()"
-    />
-
+     <img
+        *ngIf="imagemPerfil || objeto.img"
+        [src]="imagemPerfil || 'https://i.pravatar.cc/150?u=usuario'"
+        alt="Avatar"
+        class="w-40 h-40 rounded-full object-cover border cursor-pointer"
+        (click)="selecionarNovaImagem()"
+        hlmAvatarImage
+      />
+      
     <input
       type="file"
       accept="image/*"
@@ -31,7 +32,6 @@
         [(model)]="objeto.login"
         [value]="objeto.login"
         [disabled]="true"
-
       ></app-input>
 
       <app-input
@@ -42,8 +42,7 @@
         placeholder="nome"
         [error]="errorValidacao['nome']  || null"
         [(model)]="objeto.nome"
-      [value]="objeto.nome"
-
+        [value]="objeto.nome"
       ></app-input>
 
       <app-input

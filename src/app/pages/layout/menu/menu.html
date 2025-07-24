@@ -14,7 +14,7 @@
         <div class="flex items-center justify-between p-4 border-gray-700" *ngIf="sidebarOpen">
             <div class="flex">
                 <hlm-avatar variant="large">
-                    <img src="" alt="Avatar" hlmAvatarImage />
+                    <img  [src]="imagemPerfil" alt="Avatar" hlmAvatarImage   *ngIf="objeto.img" />
                     <span class="bg-[hsl(var(--foreground))] text-[hsl(var(--background))] " hlmAvatarFallback>{{nm_inicial}}</span>
                 </hlm-avatar>
                 <div class="flex flex-col ml-2">

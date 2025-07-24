@@ -28,6 +28,7 @@ import { formatarInicialNome } from '../../../utils/InicialNome';
 import { BehaviorSubject } from 'rxjs';
 import { Usuario } from '../../../models/usuario';
 import { EventService } from '../../../services/event.service';
+import { environment } from '../../../../environment';
 
 @Component({
   selector: 'app-menu',
@@ -56,9 +57,12 @@ import { EventService } from '../../../services/event.service';
 export class Menu implements OnInit {
   nm_inicial = '';
   id_usuario = 0;
+  imagemPerfil: string = '';
+  public urlBase = `${environment.apiUrl}`;
+
   private auth = inject(AuthService);
   public objeto: Usuario = new Usuario();
-  private eventService = inject(EventService)
+  private eventService = inject(EventService);
   constructor(public themeService: ThemeService) {}
 
   sidebarOpen = false;
@@ -71,7 +75,9 @@ export class Menu implements OnInit {
       }
     });
 
-    this.eventService.userReload$.subscribe((id:number) => {
+     this.obterUsuarioLogado(this.auth.getUser()?.id_usuario);
+
+    this.eventService.userReload$.subscribe((id: number) => {
       this.obterUsuarioLogado(id);
     });
 
@@ -91,6 +97,7 @@ export class Menu implements OnInit {
         this.objeto.nome = res.userNome;
         this.nm_inicial = formatarInicialNome(res.userNome);
         this.objeto.img = res.userImg;
+        this.imagemPerfil = `${this.urlBase}${this.objeto.img}`;
       },
     });
   }

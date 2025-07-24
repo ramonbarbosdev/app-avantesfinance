@@ -10,44 +10,59 @@ import { ZodError } from 'zod';
 import { Usuario } from '../../../models/usuario';
 import { environment } from '../../../../environment';
 import { EventService } from '../../../services/event.service';
+import { Router } from '@angular/router';
+import {
+  HlmAvatarImageDirective,
+  HlmAvatarComponent,
+  HlmAvatarFallbackDirective,
+} from '@spartan-ng/helm/avatar';
+import { formatarInicialNome } from '../../../utils/InicialNome';
+
+
 
 @Component({
   selector: 'app-perfil',
-  imports: [InputCustom, CommonModule, FormsModule, HlmButtonDirective],
+  imports: [
+    InputCustom,
+    CommonModule,
+    FormsModule,
+    HlmButtonDirective,
+    HlmAvatarImageDirective,
+    HlmAvatarComponent,
+    HlmAvatarFallbackDirective,
+  ],
   templateUrl: './perfil.html',
   styleUrl: './perfil.scss',
 })
 export class Perfil implements OnInit {
   imagemPerfil: string = '';
+  nm_inicial: string = ''; 
   selectedFile: File | null = null;
-
-  public  urlBase = `${environment.apiUrl}`;
+  public urlBase = `${environment.apiUrl}`;
 
   public errorValidacao: Record<string, string> = {};
   public objeto: Usuario = new Usuario();
-  private eventService = inject(EventService)
+  private eventService = inject(EventService);
 
   private auth = inject(AuthService);
+  private router = inject(Router);
 
   ngOnInit(): void {
-
-     this.obterUsuarioLogado()
+    this.objeto.id = this.auth.getUser()?.id_usuario;
+    this.obterUsuarioLogado();
   }
 
-  obterUsuarioLogado()
-  {
-    this.auth.findById(1).subscribe({
-      next: (res) =>
-      {
+  obterUsuarioLogado() {
+    this.auth.findById(this.objeto.id).subscribe({
+      next: (res) => {
         this.objeto.id = res.userId;
         this.objeto.login = res.userLogin;
         this.objeto.nome = res.userNome;
-        this.objeto.nome = res.userNome;
+        this.nm_inicial = formatarInicialNome(res.userNome);
         this.objeto.img = res.userImg;
         this.imagemPerfil = `${this.urlBase}${this.objeto.img}`;
-      }
-
-    })
+      },
+    });
   }
 
   @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
@@ -80,22 +95,20 @@ export class Perfil implements OnInit {
     const formData = new FormData();
     formData.append('file', this.selectedFile);
 
-    this.auth.uploadFotoPerfil(1, formData).subscribe({
-      next: (res) => {
-      },
+    this.auth.uploadFotoPerfil(this.objeto.id, formData).subscribe({
+      next: (res) => {},
     });
   }
 
   onSalvar(): void {
     if (!this.validarItens()) return;
 
-
     this.auth.updateUser(this.objeto).subscribe({
-      next: (res) =>
-      {
-        this.atualizarFoto(); 
+      next: (res) => {
+        this.atualizarFoto();
         this.eventService.emitUserReload(this.objeto.id);
-      }
+        this.router.navigate(['/ajustes']);
+      },
     });
   }
 
