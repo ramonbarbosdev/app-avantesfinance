@@ -9,6 +9,7 @@ import { PerfilSchema } from '../../../schema/perfil-schema';
 import { ZodError } from 'zod';
 import { Usuario } from '../../../models/usuario';
 import { environment } from '../../../../environment';
+import { EventService } from '../../../services/event.service';
 
 @Component({
   selector: 'app-perfil',
@@ -24,6 +25,7 @@ export class Perfil implements OnInit {
 
   public errorValidacao: Record<string, string> = {};
   public objeto: Usuario = new Usuario();
+  private eventService = inject(EventService)
 
   private auth = inject(AuthService);
 
@@ -92,6 +94,7 @@ export class Perfil implements OnInit {
       next: (res) =>
       {
         this.atualizarFoto(); 
+        this.eventService.emitUserReload(this.objeto.id);
       }
     });
   }
