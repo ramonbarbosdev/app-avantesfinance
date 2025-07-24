@@ -28,8 +28,6 @@ import { formatarInicialNome } from '../../../utils/InicialNome';
     FormsModule,
     HlmButtonDirective,
     HlmAvatarImageDirective,
-    HlmAvatarComponent,
-    HlmAvatarFallbackDirective,
   ],
   templateUrl: './perfil.html',
   styleUrl: './perfil.scss',
