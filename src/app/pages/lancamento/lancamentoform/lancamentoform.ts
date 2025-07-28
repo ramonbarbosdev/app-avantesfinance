@@ -30,6 +30,7 @@ import { Lancamento } from '../../../models/lancamento';
 import { ItemLancamento } from '../../../models/item-lancamento';
 import { ActivatedRoute, Router } from '@angular/router';
 import { formatarDataParaInput } from '../../../utils/formatarDataParaInput';
+import { BaseService } from '../../../services/base.service';
 
 @Component({
   selector: 'app-lancamentoform',
@@ -53,6 +54,7 @@ import { formatarDataParaInput } from '../../../utils/formatarDataParaInput';
 export class Lancamentoform {
   public listaCentroCusto: Box[] = [];
   service = inject(LancamentoService);
+  baseService = inject(BaseService);
   endpoint = 'lancamento';
   public objeto: Lancamento = new Lancamento();
   public objetoItemLancamento: ItemLancamento = new ItemLancamento();
@@ -118,7 +120,7 @@ export class Lancamentoform {
     if (!id) return;
     this.fl_edicao = true;
 
-    this.service.findById(this.endpoint, id).subscribe({
+    this.baseService.findById(this.endpoint, id).subscribe({
       next: (res: any) => {
         res.dt_lancamento = formatarDataParaInput(res.dt_lancamento);
         res.cd_lancamento = String(res.cd_lancamento).padStart(3, '0');
@@ -130,7 +132,7 @@ export class Lancamentoform {
   }
 
   obterSequencia() {
-    this.service.findSequence().subscribe({
+    this.baseService.findSequence("lancamento").subscribe({
       next: (res) => {
         this.objeto.cd_lancamento = res.sequencia;
       },
@@ -139,13 +141,14 @@ export class Lancamentoform {
 
   salvar() {
     if (this.validarItens()) {
-      this.service.create(this.objeto).subscribe({
-        next: (res) => {
-          if (this.fl_edicao) this.router.navigate(['client/lancamento']);
-          if (!this.fl_edicao) window.location.reload();
-          
-        },
-      });
+      this.baseService
+        .createMestreDetalhe(this.endpoint, this.objeto)
+        .subscribe({
+          next: (res) => {
+            if (this.fl_edicao) this.router.navigate(['client/lancamento']);
+            if (!this.fl_edicao) window.location.reload();
+          },
+        });
     }
   }
 
@@ -168,7 +171,7 @@ export class Lancamentoform {
 
   async obterCentroCusto(): Promise<void> {
     return new Promise((resolve, reject) => {
-      this.service.findAll('centrocusto/').subscribe({
+      this.baseService.findAll('centrocusto/').subscribe({
         next: (res) => {
           this.listaCentroCusto = (res as any).map((index: any) => {
             const item = new Box();

@@ -37,6 +37,7 @@ import { Box } from '../../models/box';
 import { Combobox } from '../combobox/combobox';
 import { ZodError } from 'zod';
 import { RegistrarItensSchema } from '../../schema/registrarItem-schema';
+import { BaseService } from '../../services/base.service';
 @Component({
   selector: 'app-table-transacao-conta',
   imports: [
@@ -66,6 +67,7 @@ export class TableTransacaoConta implements OnInit {
   authService = inject(AuthService);
   router = inject(Router);
   lancamentoService = inject(LancamentoService);
+  baseService = inject(BaseService);
   private cdr = inject(ChangeDetectorRef);
 
   public id_centrocusto!: number;
@@ -228,7 +230,7 @@ export class TableTransacaoConta implements OnInit {
 
   async obterSequencia(): Promise<any> {
     try {
-      return await firstValueFrom(this.lancamentoService.findSequence());
+      return await firstValueFrom(this.baseService.findSequence("lancamento"));
     } catch (error) {
       console.error('Erro ao obter lançamento:', error);
       return null;
@@ -237,7 +239,7 @@ export class TableTransacaoConta implements OnInit {
 
   async obterCentroCusto(): Promise<void> {
     return new Promise((resolve, reject) => {
-      this.lancamentoService.findAll('centrocusto/').subscribe({
+      this.baseService.findAll('centrocusto/').subscribe({
         next: (res) => {
           this.listaCentroCusto = (res as any).map((index: any) => {
             const item = new Box();

@@ -1,22 +1,17 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
-import { HlmTableImports } from '@spartan-ng/helm/table';
 import { CommonModule } from '@angular/common';
-import { HlmIconDirective } from '@spartan-ng/helm/icon';
+import { Component, inject, OnInit } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
-import { lucideTrash2, lucideCheck, lucideSquarePen } from '@ng-icons/lucide';
-import {
-  HlmTabsComponent,
-  HlmTabsContentDirective,
-  HlmTabsListComponent,
-  HlmTabsTriggerDirective,
-} from '@spartan-ng/helm/tabs';
-import { Lancamento } from '../../../models/lancamento';
-import { Lancamentoform } from "../lancamentoform/lancamentoform";
-import { LancamentoService } from '../../../services/lancamento.service';
+import { lucideCheck, lucideSquarePen, lucideTrash2 } from '@ng-icons/lucide';
+import { HlmIconDirective } from '@spartan-ng/helm/icon';
+import { HlmTableImports } from '@spartan-ng/helm/table';
+import { HlmTabsComponent, HlmTabsContentDirective, HlmTabsListComponent, HlmTabsTriggerDirective } from '@spartan-ng/helm/tabs';
+import { Emprestimo } from '../../../models/emprestimo';
 import { Router } from '@angular/router';
+import { EmprestimoService } from '../../../services/emprestimo.service';
 import { BaseService } from '../../../services/base.service';
+
 @Component({
-  selector: 'app-lancamentolist',
+  selector: 'app-emprestimolist',
   imports: [
     HlmTableImports,
     CommonModule,
@@ -26,17 +21,16 @@ import { BaseService } from '../../../services/base.service';
     HlmTabsContentDirective,
     HlmTabsListComponent,
     HlmTabsTriggerDirective,
-    Lancamentoform,
   ],
   providers: [provideIcons({ lucideTrash2, lucideCheck, lucideSquarePen })],
-  templateUrl: './lancamentolist.html',
-  styleUrl: './lancamentolist.scss',
+  templateUrl: './emprestimolist.html',
+  styleUrl: './emprestimolist.scss',
 })
-export class Lancamentolist implements OnInit {
-  public listagem: Lancamento[] = [];
-  endpoint = 'lancamento';
-  primaryKey = 'id_lancamento';
-  public service = inject(LancamentoService);
+export class Emprestimolist implements OnInit {
+  public listagem: Emprestimo[] = [];
+  endpoint = 'emprestimo';
+  primaryKey = 'id_emprestimo';
+  public service = inject(EmprestimoService);
   public baseService = inject(BaseService);
 
   router = inject(Router);
@@ -59,15 +53,16 @@ export class Lancamentolist implements OnInit {
   onShow() {
     this.baseService.findAll(`${this.endpoint}/`).subscribe({
       next: (res) => {
-        const novaListagem: Lancamento[] = [];
+        const novaListagem: Emprestimo[] = [];
         Object.values(res as any).forEach((index: any) => {
-          const item = new Lancamento();
-          item.id_lancamento = index.id_lancamento;
-          item.cd_lancamento = index.cd_lancamento;
-          item.ds_lancamento = index.ds_lancamento;
-          item.dt_anomes = index.dt_anomes;
-          item.dt_lancamento = index.dt_lancamento;
+          const item = new Emprestimo();
+          item.id_emprestimo = index.id_emprestimo;
+          item.cd_emprestimo = index.cd_emprestimo;
+          item.ds_observacao = index.ds_observacao;
+          item.dt_emprestimo = index.dt_emprestimo;
           item.id_centrocusto = index.centroCusto.nm_centrocusto;
+          item.tp_emprestimo = index.tp_emprestimo;
+          item.tp_status = index.tp_status;
           item.vl_total = index.vl_total;
           novaListagem.push(item);
         });

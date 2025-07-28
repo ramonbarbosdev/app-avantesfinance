@@ -7,13 +7,13 @@ import { toast } from 'ngx-sonner';
 @Injectable({
   providedIn: 'root',
 })
-export class LancamentoService {
-  private readonly apiUrl = `${environment.apiUrl}/lancamento`;
+export class BaseService {
+  private readonly apiUrl = `${environment.apiUrl}`;
 
   constructor(private http: HttpClient) {}
 
-  findSequenceDetalhe(id: number): Observable<any> {
-    const url = `${this.apiUrl}/sequencia-detalhe/${id}`;
+  findSequence(endpoint: string): Observable<any> {
+    const url = `${this.apiUrl}/${endpoint}/sequencia`;
 
     return this.http.get<any>(url).pipe(
       tap((res) => {
@@ -33,14 +33,8 @@ export class LancamentoService {
     );
   }
 
-
- 
-
-  findByCentroCustoByMes(
-    id_centrocusto: number,
-    dt_anomes: string
-  ): Observable<any> {
-    const url = `${this.apiUrl}/lancamento-existente/${id_centrocusto}/${dt_anomes}`;
+  findAll(endpoint: string): Observable<any> {
+    const url = `${this.apiUrl}/${endpoint}`;
 
     return this.http.get<any>(url).pipe(
       tap((res) => {
@@ -60,8 +54,29 @@ export class LancamentoService {
     );
   }
 
-  create(data: any): Observable<any> {
-    const url = `${this.apiUrl}/cadastrar`;
+  findById(endpoint: string, id: number): Observable<any> {
+    const url = `${this.apiUrl}/${endpoint}/${id}`;
+
+    return this.http.get<any>(url).pipe(
+      tap((res) => {
+        return res;
+      }),
+      catchError((e) => {
+        console.log(e);
+        toast(e.error.message, {
+          description: e.error.codeDescription,
+          action: {
+            label: 'Ok',
+            onClick: () => {},
+          },
+        });
+        return throwError(() => e);
+      })
+    );
+  }
+
+  createMestreDetalhe(endpoint: string, data: any): Observable<any> {
+    const url = `${this.apiUrl}/${endpoint}/cadastrar`;
 
     return this.http.post<any>(url, data).pipe(
       tap((res) => {
@@ -88,12 +103,12 @@ export class LancamentoService {
     );
   }
 
-  update(data: any): Observable<any> {
-    const url = `${this.apiUrl}/atualizar`;
+  deleteById(endpoint: string, id: number): Observable<any> {
+    const url = `${this.apiUrl}/${endpoint}/${id}`;
 
-    return this.http.put<any>(url, data).pipe(
+    return this.http.delete<any>(url).pipe(
       tap((res) => {
-        toast('Atualizado com sucesso!', {
+        toast(res.message, {
           action: {
             label: 'Ok',
             onClick: () => {},
@@ -102,8 +117,6 @@ export class LancamentoService {
         return res;
       }),
       catchError((e) => {
-        console.log(e);
-
         toast(e.error.message, {
           description: e.error.codeDescription,
           action: {
@@ -115,6 +128,4 @@ export class LancamentoService {
       })
     );
   }
-
- 
 }

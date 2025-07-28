@@ -46,6 +46,7 @@ import { ZodError } from 'zod';
 import { ItemLancamento } from '../../../models/item-lancamento';
 import { DateCustom } from '../../../components/date-custom/date-custom';
 import { formatarDataParaInput } from '../../../utils/formatarDataParaInput';
+import { BaseService } from '../../../services/base.service';
 @Component({
   selector: 'app-lancamentodetalheform',
   imports: [
@@ -67,7 +68,7 @@ import { formatarDataParaInput } from '../../../utils/formatarDataParaInput';
     InputCustom,
     Combobox,
     MoneyCustom,
-    DateCustom
+    DateCustom,
   ],
   providers: [provideIcons({ lucideTrash2, lucideCheck, lucideSquarePen })],
 
@@ -88,6 +89,8 @@ export class Lancamentodetalheform implements OnChanges, OnInit {
   listaCategoria: any[] = [];
   public errorValidacao: Record<string, string> = {};
   public popoverState = signal<'open' | 'closed'>('closed');
+  service = inject(LancamentoService);
+  baseService = inject(BaseService);
 
   onPopoverStateChange(state: 'open' | 'closed') {
     if (state == 'closed') this.limparCampos();
@@ -126,7 +129,7 @@ export class Lancamentodetalheform implements OnChanges, OnInit {
       ...this.itemTemp,
       id_itemlancamento: 0,
       id_lancamento: 0,
-      dt_itemlancamento: "",
+      dt_itemlancamento: '',
       id_categoria: 0,
       vl_itemlancamento: 0,
     };
@@ -134,7 +137,7 @@ export class Lancamentodetalheform implements OnChanges, OnInit {
   }
 
   consultarCategoria() {
-    this.service.findAll('categoria/').subscribe({
+    this.baseService.findAll('categoria/').subscribe({
       next: (res) => {
         this.listaCategoria = (res as any).map((index: any) => {
           const item = new Box();
@@ -153,8 +156,6 @@ export class Lancamentodetalheform implements OnChanges, OnInit {
     return categoria ? categoria.label : 'Sem categoria';
   }
 
-  service = inject(LancamentoService);
-
   atualizarValor(valorAtualizado: any) {
     this.objeto = valorAtualizado;
     this.objetoChange.emit(this.objeto);
@@ -167,7 +168,6 @@ export class Lancamentodetalheform implements OnChanges, OnInit {
 
   adicionarItem() {
     if (!this.objeto[this.nomeItem]) this.objeto[this.nomeItem] = [];
-
 
     if (this.validarItens()) {
       if (this.indexEditando != null) {
