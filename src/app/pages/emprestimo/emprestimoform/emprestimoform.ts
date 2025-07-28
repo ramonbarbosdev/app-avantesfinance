@@ -64,6 +64,7 @@ export class Emprestimoform implements OnInit {
 
     if (!key) {
       this.objeto.vl_total = 0;
+      this.objeto.ds_observacao = "";
       this.obterSequencia();
     } else {
       this.onEdit(key);

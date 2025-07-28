@@ -28,11 +28,12 @@
     ></app-combobox>
 
     <app-combobox
-      label="Status: (*)"
+      label="Status:"
       [options]="listaStatusEmprestimo"
       [(model)]="objeto.tp_status"
       name="tp_status"
       [error]="errorValidacao['tp_status']  || null"
+      [disabled]="true"
     ></app-combobox>
 
     <app-combobox
@@ -52,10 +53,12 @@
       placeholder="R$ 0,00"
       [disabled]="true"
     ></app-money-custom>
+  </div>
 
-     <app-input
+  <div class="grid md:grid-cols-1 gap-4">
+    <app-input
       [inputId]="'ds_observacao'"
-      [type]="'text'"
+      [type]="'textarea'"
       [label]="'Descrição'"
       [required]="true"
       [placeholder]="'Descreva...'"
@@ -63,18 +66,14 @@
       [disabled]="false"
       [value]="objeto.ds_observacao"
     ></app-input>
-
   </div>
-  
+
   <app-emprestimodetalheform
-      [(objeto)]="objeto"
+    [(objeto)]="objeto"
     [itemTemp]="objetoItem"
     [nomeItem]="'itens'"
   >
-
   </app-emprestimodetalheform>
-
-
 
   <div hlmCardFooter class="pt-4">
     <button type="submit" hlmBtn class="w-full">Salvar</button>

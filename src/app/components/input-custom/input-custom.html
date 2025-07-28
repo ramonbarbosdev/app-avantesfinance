@@ -1,37 +1,54 @@
 <hlm-form-field class="flex flex-col gap-1 relative">
   <label class="" hlmLabel>{{label}}</label>
 
-  <input
-    title="Campo de entrada"
-    hlmInput
-    [type]="type"
-    [id]="inputId"
-    [name]="inputId"
-    [placeholder]="placeholder"
-    class="w-full"
-    (input)="onInputChange($event)"
-    [disabled]="disabled"
-    [value]="value"
-  />
-
-  <button
-    title="esconder/exibir"
-    *ngIf="type === 'password'"
-    type="button"
-    class="absolute right-3 top-[35px]"
-    (click)="togglePasswordVisibility()"
-  >
-    <ng-icon
-      *ngIf="showPassword == false"
-      hlm
-      size="sm"
-      name="lucideEyeClosed"
+  <div *ngIf="type != 'textarea'">
+    <input
+      title="Campo de entrada"
+      hlmInput
+      [type]="type"
+      [id]="inputId"
+      [name]="inputId"
+      [placeholder]="placeholder"
+      class="w-full"
+      (input)="onInputChange($event)"
+      [disabled]="disabled"
+      [value]="value"
     />
-    <ng-icon *ngIf="showPassword == true" hlm size="sm" name="lucideEye" />
-  </button>
 
-  <div class="relative " *ngIf="error">
-    <hlm-hint class="text-red-600 text-sm">{{ error }}</hlm-hint> 
-  </div> 
+    <button
+      title="esconder/exibir"
+      *ngIf="type === 'password'"
+      type="button"
+      class="absolute right-3 top-[35px]"
+      (click)="togglePasswordVisibility()"
+    >
+      <ng-icon
+        *ngIf="showPassword == false"
+        hlm
+        size="sm"
+        name="lucideEyeClosed"
+      />
+      <ng-icon *ngIf="showPassword == true" hlm size="sm" name="lucideEye" />
+    </button>
+  </div>
 
+  <div *ngIf="type == 'textarea'">
+    <textarea
+      hlmInput
+      title="Campo de entrada"
+      hlmInput
+      [id]="inputId"
+      [name]="inputId"
+      [placeholder]="placeholder"
+      class="w-full"
+      (input)="onInputChange($event)"
+      [disabled]="disabled"
+      [value]="value"
+    >
+    </textarea>
+  </div>
+
+  <div class="relative" *ngIf="error">
+    <hlm-hint class="text-red-600 text-sm">{{ error }}</hlm-hint>
+  </div>
 </hlm-form-field>

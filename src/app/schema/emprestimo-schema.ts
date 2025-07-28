@@ -18,9 +18,9 @@ export const EmprestimosSchema = z.object({
   tp_emprestimo: z
     .string('O Tipo de emprestimo é obrigatória')
     .min(1, 'O Tipo de emprestimo é obrigatória'),
-  tp_status: z
-    .string('O Tipo de status é obrigatória')
-    .min(1, 'O Tipo de status é obrigatória'),
+  // tp_status: z
+  //   .string('O Tipo de status é obrigatória')
+  //   .min(1, 'O Tipo de status é obrigatória'),
 });
 
 export const EmprestimoSchema = z.array(EmprestimosSchema);

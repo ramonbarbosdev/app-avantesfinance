@@ -32,7 +32,7 @@ import {
   HlmSheetTitleDirective,
 } from '@spartan-ng/helm/sheet';
 import { HlmTableImports } from '@spartan-ng/helm/table';
-import { NgIcon } from '@ng-icons/core';
+import { NgIcon, provideIcons } from '@ng-icons/core';
 import { HlmIconDirective } from '@spartan-ng/helm/icon';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HlmButtonDirective } from '@spartan-ng/helm/button';
@@ -40,6 +40,7 @@ import { CommonModule } from '@angular/common';
 import { Box } from '../../../models/box';
 import { ItemLancametoSchema } from '../../../schema/itemlancamento-schema';
 import { ItemEmprestimoSchema } from '../../../schema/itememprestimo-schema';
+import { lucideCheck, lucideSquarePen, lucideTrash2 } from '@ng-icons/lucide';
 
 @Component({
   selector: 'app-emprestimodetalheform',
@@ -64,6 +65,7 @@ import { ItemEmprestimoSchema } from '../../../schema/itememprestimo-schema';
     MoneyCustom,
     DateCustom,
   ],
+    providers: [provideIcons({ lucideTrash2, lucideCheck, lucideSquarePen })],
   templateUrl: './emprestimodetalheform.html',
   styleUrl: './emprestimodetalheform.scss',
 })
@@ -172,6 +174,7 @@ export class Emprestimodetalheform implements OnChanges, OnInit {
         this.errorValidacao = {};
         error.issues.forEach((e) => {
           const value = e.path[1];
+          console.log(value)
           this.errorValidacao[String(value)] = e.message;
         });
 
