@@ -187,7 +187,7 @@ export class TableTransacaoConta implements OnInit {
       objeto.itens = [itens];
     }
 
-    this.router.navigate(['/admin/lancamentoform'], {
+    this.router.navigate(['/client/lancamentoform'], {
       queryParams: {
         data: JSON.stringify({ objeto }),
       },

@@ -46,7 +46,7 @@ export class Lancamentolist implements OnInit {
   editar(item: any) {
     if (item && item.id_lancamento) {
       this.router.navigate([
-        `admin/${this.endpoint}form`,
+        `client/${this.endpoint}form`,
         item[this.primaryKey],
       ]);
     } else {

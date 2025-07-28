@@ -51,7 +51,7 @@ export class Login {
         this.loading = false;
         this.auth.setUser(res);
         this.auth.setToken(res.Authorization);
-        this.router.navigate(['admin/home']);
+        this.router.navigate(['client/home']);
       },
       error: (err) => {
         this.loading = false;

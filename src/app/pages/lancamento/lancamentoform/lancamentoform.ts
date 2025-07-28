@@ -141,7 +141,7 @@ export class Lancamentoform {
     if (this.validarItens()) {
       this.service.create(this.objeto).subscribe({
         next: (res) => {
-          if (this.fl_edicao) this.router.navigate(['admin/lancamento']);
+          if (this.fl_edicao) this.router.navigate(['client/lancamento']);
           if (!this.fl_edicao) window.location.reload();
           
         },

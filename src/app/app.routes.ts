@@ -12,7 +12,7 @@ export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: Login },
   {
-    path: 'admin',
+    path: 'client',
     component: Principal,
     canActivateChild: [authGuard],
     children: [
@@ -23,6 +23,7 @@ export const routes: Routes = [
       { path: 'lancamento', component: Lancamentolist },
       { path: 'lancamentoform/:id', component: Lancamentoform },
       { path: 'lancamentoform', component: Lancamentoform },
+      { path: 'relatorio', component: Lancamentoform },
       
     ],
   },
