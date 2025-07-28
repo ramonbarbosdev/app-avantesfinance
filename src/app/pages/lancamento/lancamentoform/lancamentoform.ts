@@ -104,11 +104,8 @@ export class Lancamentoform {
     if(this.registroLancamento()) return
 
     if (!key) {
-      const data = new Date();
-      const ano = data.getFullYear();
-      const mes = String(data.getMonth() + 1).padStart(2, '0');
-      this.objeto.dt_anomes = `${ano}${mes}`;
       this.objeto.vl_total = 0;
+      this.objeto.ds_lancamento = "";
       this.obterSequencia();
     } else {
       this.onEdit(key);

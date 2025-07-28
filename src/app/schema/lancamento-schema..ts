@@ -2,7 +2,6 @@ import { z } from 'zod';
 
 export const LancametosSchema = z.object({
   cd_lancamento: z.string().min(1, 'Código é obrigatório'),
-  dt_anomes: z.string().min(1, 'Mês é obrigatório'),
   id_centrocusto: z.preprocess((val) => {
     if (typeof val === 'string') {
       const num = Number(val);

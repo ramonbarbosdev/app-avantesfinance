@@ -12,18 +12,6 @@
       [value]="objeto.cd_lancamento"
     ></app-input>
 
-    <app-input
-      [inputId]="'dt_anomes'"
-      [type]="'text'"
-      [label]="'Mês: (*)'"
-      [required]="true"
-      [placeholder]="''"
-      [(model)]="objeto.dt_anomes"
-      [error]="errorValidacao['dt_anomes']  || null"
-      [disabled]="true"
-      [value]="objeto.dt_anomes"
-    ></app-input>
-
     <app-date-custom
       [(model)]="objeto.dt_lancamento"
       name="dt_lancamento"
@@ -49,18 +37,21 @@
       [disabled]="true"
     ></app-money-custom>
 
-     <app-input
-      [inputId]="'ds_lancamento'"
-      [type]="'text'"
-      [label]="'Descrição'"
-      [required]="true"
-      [placeholder]="'Descreva...'"
-      [(model)]="objeto.ds_lancamento"
-      [disabled]="false"
-      [value]="objeto.ds_lancamento"
-    ></app-input>
-
+    
   </div>
+
+  <div class="grid md:grid-cols-1 gap-4">
+      <app-input
+        [inputId]="'ds_lancamento'"
+        [type]="'textarea'"
+        [label]="'Descrição'"
+        [required]="true"
+        [placeholder]="'Descreva...'"
+        [(model)]="objeto.ds_lancamento"
+        [disabled]="false"
+        [value]="objeto.ds_lancamento"
+      ></app-input>
+    </div>
 
   <app-lancamentodetalheform
     [(objeto)]="objeto"
