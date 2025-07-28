@@ -8,6 +8,7 @@ import { Ajustes } from './pages/config/ajustes/ajustes';
 import { Lancamentoform } from './pages/lancamento/lancamentoform/lancamentoform';
 import { Lancamentolist } from './pages/lancamento/lancamentolist/lancamentolist';
 import { Perfil } from './pages/config/perfil/perfil';
+import { Relatoriolist } from './pages/relatorios/relatoriolist/relatoriolist';
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: Login },
@@ -23,7 +24,7 @@ export const routes: Routes = [
       { path: 'lancamento', component: Lancamentolist },
       { path: 'lancamentoform/:id', component: Lancamentoform },
       { path: 'lancamentoform', component: Lancamentoform },
-      { path: 'relatorio', component: Lancamentoform },
+      { path: 'relatorios', component: Relatoriolist },
       
     ],
   },

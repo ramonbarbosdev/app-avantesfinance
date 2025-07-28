@@ -1,1 +1,44 @@
-<p>fluxo-caixa-mensal works!</p>
+<div
+  class="w-full p-5 overflow-x-auto rounded-lg shadow-sm border border-border"
+>
+  <table hlmTable *ngIf="fl_detalhar == false">
+    <caption hlmCaption>
+      Fluxo de Caixa Mensal
+    </caption>
+    <thead hlmTHead>
+      <tr hlmTr>
+        <th hlmTh class="w-[100px]">Mês</th>
+        <th hlmTh>Centro de custo</th>
+        <th hlmTh>Saldo</th>
+        <th hlmTh>Detalhar</th>
+      </tr>
+    </thead>
+    <tbody hlmTBody>
+      <tr hlmTr *ngFor="let item of objeto">
+        <td hlmTd>{{ item.mesAno }}</td>
+        <td hlmTd>{{ item.nm_centrocusto }}</td>
+        <td hlmTd>{{ item.saldo | currency:'BRL' }}</td>
+        <td hlmTd class="flex flex-row h-full w-full gap-2 items-center">
+          <div
+            (click)="detalharRegistro(item)"
+              class="p-1 rounded hover:bg-muted transition"
+          >
+            <ng-icon hlm size="sm" name="lucideExternalLink" />
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="fl_detalhar == true"  >
+    <div class="flex cursor-pointer hover:scale-[1.01] transform transition-all duration-300 "
+      (click)="detalharRegistro()"
+    >
+      <ng-icon hlm size="sm" name="lucideArrowLeft" />
+    </div>
+    <app-fluxo-caixa-diario
+        [item]="itemSelecionado"
+    >
+    </app-fluxo-caixa-diario>
+  </div>
+</div>

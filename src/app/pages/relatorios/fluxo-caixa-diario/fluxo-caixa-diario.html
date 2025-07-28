@@ -1,1 +1,23 @@
-<p>fluxo-caixa-diario works!</p>
+
+<table hlmTable >
+    <caption hlmCaption>
+      Fluxo de Caixa Diario
+    </caption>
+    <thead hlmTHead>
+      <tr hlmTr>
+        <th hlmTh class="w-[100px]">Data</th>
+        <th hlmTh>Receita</th>
+        <th hlmTh>Despesa</th>
+        <th hlmTh>Saldo</th>
+      </tr>
+    </thead>
+    <tbody hlmTBody>
+      <tr hlmTr *ngFor="let item of objeto">
+        <td hlmTd>{{ item.dt_movimento | date: 'dd/MM/yyyy'  }}</td>
+        <td hlmTd>{{ item.receita| currency:'BRL'}}</td>
+        <td hlmTd>{{ item.despesa | currency:'BRL'}}</td>
+        <td hlmTd>{{ item.saldo | currency:'BRL' }}</td>
+       
+      </tr>
+    </tbody>
+  </table>
