@@ -38,6 +38,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HlmButtonDirective } from '@spartan-ng/helm/button';
 import { CommonModule } from '@angular/common';
 import { Box } from '../../../models/box';
+import { ItemLancametoSchema } from '../../../schema/itemlancamento-schema';
+import { ItemEmprestimoSchema } from '../../../schema/itememprestimo-schema';
 
 @Component({
   selector: 'app-emprestimodetalheform',
@@ -154,8 +156,6 @@ export class Emprestimodetalheform implements OnChanges, OnInit {
           this.objeto[this.nomeItem].push(this.itemTemp);
         }
 
-        console.log(this.objeto);
-
         this.limparCampos();
         this.objetoChange.emit(this.objeto);
         this.popoverState.set('closed');
@@ -165,7 +165,7 @@ export class Emprestimodetalheform implements OnChanges, OnInit {
 
   validarItens(): any {
     try {
-      // ItemLancametoSchema.parse([this.itemTemp]);
+      ItemEmprestimoSchema.parse([this.itemTemp]);
       return true;
     } catch (error) {
       if (error instanceof ZodError) {
@@ -226,7 +226,7 @@ export class Emprestimodetalheform implements OnChanges, OnInit {
     if (!this.objeto.itens) return;
 
     this.objeto.vl_total = this.objeto.itens
-      .map((item: any) => item.vl_itemlancamento ?? 0)
+      .map((item: any) => item.vl_emprestimo ?? 0)
       .reduce((acc: any, curr: any) => acc + curr, 0);
   }
 

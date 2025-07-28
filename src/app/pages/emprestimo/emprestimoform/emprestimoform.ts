@@ -94,7 +94,6 @@ export class Emprestimoform implements OnInit {
   }
 
   salvar() {
-    console.log(this.objeto);
     if (this.validarItens()) {
       this.baseService
         .createMestreDetalhe(this.endpoint, this.objeto)

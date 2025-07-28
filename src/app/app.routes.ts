@@ -10,6 +10,7 @@ import { Lancamentolist } from './pages/lancamento/lancamentolist/lancamentolist
 import { Perfil } from './pages/config/perfil/perfil';
 import { Relatoriolist } from './pages/relatorios/relatoriolist/relatoriolist';
 import { Emprestimolist } from './pages/emprestimo/emprestimolist/emprestimolist';
+import { Emprestimoform } from './pages/emprestimo/emprestimoform/emprestimoform';
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: Login },
@@ -27,7 +28,7 @@ export const routes: Routes = [
       { path: 'lancamentoform', component: Lancamentoform },
       { path: 'relatorios', component: Relatoriolist },
       { path: 'emprestimo', component: Emprestimolist },
-      
+      { path: 'emprestimoform/:id', component: Emprestimoform },
     ],
   },
 ];

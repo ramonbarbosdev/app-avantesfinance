@@ -62,7 +62,6 @@ export class BaseService {
         return res;
       }),
       catchError((e) => {
-        console.log(e);
         toast(e.error.message, {
           description: e.error.codeDescription,
           action: {

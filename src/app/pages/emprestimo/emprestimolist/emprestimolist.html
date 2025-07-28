@@ -38,7 +38,7 @@
         
               <td hlmTd>{{ item.cd_emprestimo }}</td>
               <td hlmTd class="">{{ item.id_centrocusto }}</td>
-              <td hlmTd class="">{{ item.dt_emprestimo }}</td>
+              <td hlmTd class="">{{ item.dt_emprestimo  | date: 'dd/MM/yyyy'  }}</td>
                <td hlmTd>{{ item.vl_total | currency:'BRL' }}</td>
             </tr>
           </tbody>

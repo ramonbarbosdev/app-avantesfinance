@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 import { EmprestimoService } from '../../../services/emprestimo.service';
 import { BaseService } from '../../../services/base.service';
 import { Emprestimoform } from "../emprestimoform/emprestimoform";
+import { formatarDataParaInput } from '../../../utils/formatarDataParaInput';
 
 @Component({
   selector: 'app-emprestimolist',
@@ -61,7 +62,7 @@ export class Emprestimolist implements OnInit {
           item.id_emprestimo = index.id_emprestimo;
           item.cd_emprestimo = index.cd_emprestimo;
           item.ds_observacao = index.ds_observacao;
-          item.dt_emprestimo = index.dt_emprestimo;
+          item.dt_emprestimo = formatarDataParaInput(index.dt_emprestimo)
           item.id_centrocusto = index.centroCusto.nm_centrocusto;
           item.tp_emprestimo = index.tp_emprestimo;
           item.tp_status = index.tp_status;
