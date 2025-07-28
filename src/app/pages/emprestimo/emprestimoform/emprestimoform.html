@@ -1,1 +1,82 @@
-<p>emprestimoform works!</p>
+<form hlmCardContent class="space-y-4" #f="ngForm" (ngSubmit)="salvar()">
+  <div class="grid md:grid-cols-2 gap-4">
+    <app-input
+      [inputId]="'cd_emprestimo'"
+      [type]="'text'"
+      [label]="'Codigo: (*)'"
+      [required]="true"
+      [placeholder]="''"
+      [(model)]="objeto.cd_emprestimo"
+      [error]="errorValidacao['cd_emprestimo']  || null"
+      [disabled]="true"
+      [value]="objeto.cd_emprestimo"
+    ></app-input>
+
+    <app-date-custom
+      [(model)]="objeto.dt_emprestimo"
+      name="dt_emprestimo"
+      [label]="'Data: (*)'"
+      [error]="errorValidacao['dt_emprestimo']  || null"
+    />
+
+    <app-combobox
+      label="Tipo de emprestimo: (*)"
+      [options]="listaTipoEmprestimo"
+      [(model)]="objeto.tp_emprestimo"
+      name="tp_emprestimo"
+      [error]="errorValidacao['tp_emprestimo']  || null"
+    ></app-combobox>
+
+    <app-combobox
+      label="Status: (*)"
+      [options]="listaStatusEmprestimo"
+      [(model)]="objeto.tp_status"
+      name="tp_status"
+      [error]="errorValidacao['tp_status']  || null"
+    ></app-combobox>
+
+    <app-combobox
+      label="Centro de custo: (*)"
+      [options]="listaCentroCusto"
+      [(model)]="objeto.id_centrocusto"
+      name="id_centrocusto"
+      [error]="errorValidacao['id_centrocusto']  || null"
+    ></app-combobox>
+
+    <app-money-custom
+      [label]="'Valor: (*)'"
+      [inputId]="'vl_total'"
+      [(model)]="objeto.vl_total"
+      [required]="true"
+      [error]="errorValidacao['vl_total']  || null"
+      placeholder="R$ 0,00"
+      [disabled]="true"
+    ></app-money-custom>
+
+     <app-input
+      [inputId]="'ds_observacao'"
+      [type]="'text'"
+      [label]="'Descrição'"
+      [required]="true"
+      [placeholder]="'Descreva...'"
+      [(model)]="objeto.ds_observacao"
+      [disabled]="false"
+      [value]="objeto.ds_observacao"
+    ></app-input>
+
+  </div>
+  
+  <app-emprestimodetalheform
+      [(objeto)]="objeto"
+    [itemTemp]="objetoItem"
+    [nomeItem]="'itens'"
+  >
+
+  </app-emprestimodetalheform>
+
+
+
+  <div hlmCardFooter class="pt-4">
+    <button type="submit" hlmBtn class="w-full">Salvar</button>
+  </div>
+</form>

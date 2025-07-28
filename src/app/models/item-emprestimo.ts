@@ -3,8 +3,7 @@ export class ItemEmprestimo {
   public cd_itememprestimo!: string;
   public dt_pagamento!: string;
   public dt_vencimento!: string;
-  public id_eprestimo!: number;
-  public tp_emprestimo!: string;
+  public id_emprestimo!: number;
   public tp_itemstatus!: string;
   public vl_emprestimo!: number;
 }

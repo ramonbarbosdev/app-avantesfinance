@@ -1,0 +1,127 @@
+<!-- Itens  -->
+
+<div class="pt-6 space-y-2">
+  <h4 class="text-lg font-semibold">Itens do Emprestimo</h4>
+
+  <hlm-sheet
+    [state]="popoverState()"
+    (stateChanged)="onPopoverStateChange($event)"
+    side="right"
+  >
+    <button
+      title="novo item"
+      id="edit-profile"
+      variant="outline"
+      brnSheetTrigger
+      hlmBtn
+      type="button"
+    >
+      Cadastrar
+    </button>
+    <hlm-sheet-content class="flex flex-col gap-5" *brnSheetContent="let ctx">
+      <hlm-sheet-header>
+        <h3 hlmSheetTitle>Novo</h3>
+        <p hlmSheetDescription>Cadastre o novo item de emprestimo</p>
+      </hlm-sheet-header>
+
+      <div class="grid flex-1 auto-rows-min gap-6 px-4">
+        <app-input
+          [inputId]="'cd_itememprestimo'"
+          [type]="'text'"
+          [label]="'Código: (*)'"
+          [required]="true"
+          [placeholder]="''"
+          [(model)]="itemTemp.cd_itememprestimo"
+          [disabled]="true"
+          [value]="itemTemp.cd_itememprestimo"
+          [error]="errorValidacao['cd_itememprestimo']  || null"
+        ></app-input>
+
+        <app-date-custom
+          [(model)]="itemTemp.dt_pagamento"
+          name="dt_pagamento"
+          [label]="'Data de pagamento: (*)'"
+          [error]="errorValidacao['dt_pagamento']  || null"
+        >
+        </app-date-custom>
+        <app-date-custom
+          [(model)]="itemTemp.dt_vencimento"
+          name="dt_vencimento"
+          [label]="'Data de vencimento: (*)'"
+          [error]="errorValidacao['dt_vencimento']  || null"
+        >
+        </app-date-custom>
+
+        <app-combobox
+          label="Status: (*)"
+          [options]="listaStatus"
+          [(model)]="itemTemp.tp_itemstatus"
+          name="tp_itemstatus"
+          [error]="errorValidacao['tp_itemstatus']  || null"
+        ></app-combobox>
+
+        <app-money-custom
+          [label]="'Valor: (*)'"
+          [inputId]="'vl_emprestimo'"
+          [(model)]="itemTemp.vl_emprestimo"
+          [required]="true"
+          placeholder="R$ 0,00"
+          [error]="errorValidacao['vl_emprestimo']  || null"
+        ></app-money-custom>
+      </div>
+
+      <hlm-sheet-footer>
+        <button hlmBtn type="button" (click)="adicionarItem()">Salvar</button>
+      </hlm-sheet-footer>
+    </hlm-sheet-content>
+  </hlm-sheet>
+
+  <section class="p-2" hlmCard>
+    <table hlmTable>
+      <caption hlmCaption>
+        Listagem de itens
+      </caption>
+      <thead hlmTHead>
+        <tr hlmTr>
+          <th hlmTh class="w-[5%]"></th>
+          <th hlmTh class="">Codigo</th>
+          <th hlmTh class="">Pagamento</th>
+          <th hlmTh class="">Vencimento</th>
+          <th hlmTh class="">Valor</th>
+        </tr>
+      </thead>
+      <tbody hlmTBody>
+        <tr hlmTr *ngFor="let item of objeto[nomeItem];  let i = index">
+          <td
+            hlmTd
+            class="flex flex-row h-full w-full gap-2 justify-center items-center"
+          >
+            <div
+              (click)="editarItem(i)"
+              class="flex cursor-pointer hover:scale-[1.2] transform transition-all duration-300"
+            >
+              <ng-icon hlm size="sm" name="lucideSquarePen" />
+            </div>
+            <div
+              (click)="removerItem(i)"
+              class="flex cursor-pointer hover:scale-[1.2] transform transition-all duration-300"
+            >
+              <ng-icon hlm size="sm" name="lucideTrash2" />
+            </div>
+          </td>
+
+          <td hlmTd>{{ item.cd_itememprestimo.padStart(3, '0' ) }}</td>
+          <td hlmTd>{{ item.dt_vencimento | date: 'dd/MM/yyyy' }}</td>
+          <td hlmTd>{{ item.dt_pagamento | date: 'dd/MM/yyyy' }}</td>
+          <td hlmTd>{{ item.vl_emprestimo | currency:'BRL' }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <div class="pt-4">
+    <!-- <button type="button" hlmBtn (click)="adicionarItem()">
+      Adicionar Item
+    </button> -->
+  </div>
+</div>

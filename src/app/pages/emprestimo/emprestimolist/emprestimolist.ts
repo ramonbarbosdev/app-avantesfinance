@@ -9,6 +9,7 @@ import { Emprestimo } from '../../../models/emprestimo';
 import { Router } from '@angular/router';
 import { EmprestimoService } from '../../../services/emprestimo.service';
 import { BaseService } from '../../../services/base.service';
+import { Emprestimoform } from "../emprestimoform/emprestimoform";
 
 @Component({
   selector: 'app-emprestimolist',
@@ -21,7 +22,8 @@ import { BaseService } from '../../../services/base.service';
     HlmTabsContentDirective,
     HlmTabsListComponent,
     HlmTabsTriggerDirective,
-  ],
+    Emprestimoform
+],
   providers: [provideIcons({ lucideTrash2, lucideCheck, lucideSquarePen })],
   templateUrl: './emprestimolist.html',
   styleUrl: './emprestimolist.scss',
