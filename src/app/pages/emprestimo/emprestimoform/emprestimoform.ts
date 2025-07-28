@@ -4,7 +4,10 @@ import { Combobox } from '../../../components/combobox/combobox';
 import { MoneyCustom } from '../../../components/money-custom/money-custom';
 import { DateCustom } from '../../../components/date-custom/date-custom';
 import { InputCustom } from '../../../components/input-custom/input-custom';
-import { HlmCardContentDirective, HlmCardFooterDirective } from '@spartan-ng/helm/card';
+import {
+  HlmCardContentDirective,
+  HlmCardFooterDirective,
+} from '@spartan-ng/helm/card';
 import { HlmButtonDirective } from '@spartan-ng/helm/button';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -33,7 +36,7 @@ import { Emprestimodetalheform } from '../emprestimodetalheform/emprestimodetalh
     MoneyCustom,
     Combobox,
     HlmFormFieldModule,
-    Emprestimodetalheform
+    Emprestimodetalheform,
   ],
   templateUrl: './emprestimoform.html',
   styleUrl: './emprestimoform.scss',
@@ -52,19 +55,20 @@ export class Emprestimoform implements OnInit {
   router = inject(Router);
   private cdr = inject(ChangeDetectorRef);
 
-   ngOnInit() {
-     this.onShow();
+  ngOnInit() {
+    this.onShow();
   }
 
-   onShow() {
+  onShow() {
     const key = this.route.snapshot.paramMap.get('id');
-     this.obterCentroCusto();
-     this.obterTipoEmprestimo();
-     this.obterStatusEmprestimo();
+    this.obterCentroCusto();
+    this.obterTipoEmprestimo();
+    this.obterStatusEmprestimo();
 
     if (!key) {
       this.objeto.vl_total = 0;
-      this.objeto.ds_observacao = "";
+      this.objeto.ds_observacao = '';
+      this.objeto.dt_emprestimo = new Date().toISOString().split('T')[0];
       this.obterSequencia();
     } else {
       this.onEdit(key);
@@ -124,7 +128,7 @@ export class Emprestimoform implements OnInit {
     }
   }
 
-   obterCentroCusto(): Promise<void> {
+  obterCentroCusto(): Promise<void> {
     return new Promise((resolve, reject) => {
       this.baseService.findAll('centrocusto/').subscribe({
         next: (res) => {
@@ -141,7 +145,7 @@ export class Emprestimoform implements OnInit {
     });
   }
 
-   obterTipoEmprestimo(): Promise<void> {
+  obterTipoEmprestimo(): Promise<void> {
     return new Promise((resolve, reject) => {
       this.baseService.findAll(`${this.endpoint}/tipo-emprestimo`).subscribe({
         next: (res) => {
@@ -156,7 +160,7 @@ export class Emprestimoform implements OnInit {
       });
     });
   }
-   obterStatusEmprestimo(): Promise<void> {
+  obterStatusEmprestimo(): Promise<void> {
     return new Promise((resolve, reject) => {
       this.baseService.findAll(`${this.endpoint}/status-emprestimo`).subscribe({
         next: (res) => {
