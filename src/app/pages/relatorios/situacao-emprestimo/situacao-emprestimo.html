@@ -1,0 +1,33 @@
+<div
+  class="w-full p-5 overflow-x-auto rounded-lg shadow-sm border border-border"
+>
+  <table hlmTable >
+    <caption hlmCaption>
+      Situação de Emprestimo
+    </caption>
+    <thead hlmTHead>
+      <tr hlmTr>
+        <th hlmTh>Codigo</th>
+        <th hlmTh>Tipo emprevisto</th>
+        <th hlmTh>Status</th>
+        <th hlmTh>Total emprestado</th>
+        <th hlmTh>Total pago</th>
+        <th hlmTh>Em aberto</th>
+      </tr>
+    </thead>
+    <tbody hlmTBody>
+      <tr hlmTr *ngFor="let item of objeto">
+        <td hlmTd>{{ item.cd_emprestimo }}</td>
+        <td hlmTd>{{ item.tp_emprestimo }}</td>
+        <td hlmTd>{{ item.tp_status }}</td>
+        <!-- <td hlmTd>{{ item.dt_emprestimo | date: 'dd/MM/yyyy'  }}</td> -->
+        <td hlmTd>{{ item.total_emprestado | currency:'BRL' }}</td>
+        <td hlmTd>{{ item.total_pago | currency:'BRL' }}</td>
+        <td hlmTd>{{ item.em_aberto | currency:'BRL' }}</td>
+      
+      </tr>
+    </tbody>
+  </table>
+
+  
+</div>

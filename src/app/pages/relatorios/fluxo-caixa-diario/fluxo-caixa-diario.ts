@@ -17,7 +17,7 @@ export class FluxoCaixaDiarioModel {
 
 @Component({
   selector: 'app-fluxo-caixa-diario',
-  imports: [CommonModule, HlmTableImports, HlmIconDirective, NgIcon],
+  imports: [CommonModule, HlmTableImports],
   providers: [provideIcons({ lucideExternalLink })],
   templateUrl: './fluxo-caixa-diario.html',
   styleUrl: './fluxo-caixa-diario.scss',
