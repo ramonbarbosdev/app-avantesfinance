@@ -11,6 +11,7 @@ import { Perfil } from './pages/config/perfil/perfil';
 import { Relatoriolist } from './pages/relatorios/relatoriolist/relatoriolist';
 import { Emprestimolist } from './pages/emprestimo/emprestimolist/emprestimolist';
 import { Emprestimoform } from './pages/emprestimo/emprestimoform/emprestimoform';
+import { Competencia } from './pages/config/competencia/competencia';
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: Login },
@@ -29,6 +30,7 @@ export const routes: Routes = [
       { path: 'relatorios', component: Relatoriolist },
       { path: 'emprestimo', component: Emprestimolist },
       { path: 'emprestimoform/:id', component: Emprestimoform },
+      { path: 'competencia', component: Competencia },
     ],
   },
 ];

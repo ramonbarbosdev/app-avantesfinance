@@ -8,14 +8,14 @@
       <section class="p-2" hlmCard>
         <table hlmTable>
           <caption hlmCaption>
-            Listagem de ançamentos
+            Listagem de Lançamentos
           </caption>
           <thead hlmTHead>
             <tr hlmTr>
               <th hlmTh class="w-[5%]"></th>
               <th hlmTh class="">Codigo</th>
               <th hlmTh class="">Centro de custo</th>
-              <th hlmTh class="">Mês</th>
+              <th hlmTh class="">Data</th>
               <th hlmTh class="">Valor</th>
             </tr>
           </thead>
@@ -38,7 +38,7 @@
         
               <td hlmTd>{{ item.cd_lancamento }}</td>
               <td hlmTd class="">{{ item.id_centrocusto }}</td>
-              <td hlmTd class="">{{ item.dt_anomes }}</td>
+              <td hlmTd class="">{{ item.dt_lancamento | date: 'dd/MM/yyyy'  }}</td>
                <td hlmTd>{{ item.vl_total | currency:'BRL' }}</td>
             </tr>
           </tbody>
