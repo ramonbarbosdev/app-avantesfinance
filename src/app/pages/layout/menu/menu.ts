@@ -48,8 +48,8 @@ import { formatAnoMes } from '../../../utils/formatAnoMes';
     HlmAvatarFallbackDirective,
     RouterLink,
     HlmSpinnerComponent,
-    Combobox
-],
+    Combobox,
+  ],
   providers: [
     provideIcons({
       lucidePanelLeftClose,
@@ -66,6 +66,8 @@ export class Menu implements OnInit {
   nm_inicial = '';
   id_usuario = 0;
   imagemPerfil: string = '';
+  id_competencia!: number ;
+
   public urlBase = `${environment.apiUrl}`;
 
   private eventService = inject(EventService);
@@ -90,7 +92,7 @@ export class Menu implements OnInit {
     if (this.auth.getUser()?.id_usuario)
       this.obterUsuarioLogado(this.auth.getUser()?.id_usuario);
 
-    this.obterCompetencia()
+    this.obterCompetencia();
 
     this.eventService.userReload$.subscribe((id: number) => {
       this.obterUsuarioLogado(id);
@@ -107,7 +109,6 @@ export class Menu implements OnInit {
   }
 
   obterUsuarioLogado(id: number) {
-
     this.auth.findById(id).subscribe({
       next: (res) => {
         this.objeto.id = res.userId;
@@ -116,24 +117,23 @@ export class Menu implements OnInit {
         this.nm_inicial = formatarInicialNome(res.userNome);
         this.objeto.img = res.userImg;
         this.imagemPerfil = `${this.urlBase}${this.objeto.img}`;
+        this.id_competencia = 202507;
       },
-      error: (e) => {
-      },
+      error: (e) => {},
     });
   }
 
-  obterCompetencia()
-  {
-    this.baseService.findAll("competencia/").subscribe({
-      next:(res)=>{
-         this.listaCompetencia = (res as any).map((index: any) => {
-           const item = new Box();
-           item.value = String(index.cd_competencia);
-           item.label = formatAnoMes(index.cd_competencia)
-           return item;
-         });
-      }
-    })
+  obterCompetencia() {
+    this.baseService.findAll('competencia/').subscribe({
+      next: (res) => {
+        this.listaCompetencia = (res as any).map((index: any) => {
+          const item = new Box();
+          item.value = String(index.cd_competencia);
+          item.label = formatAnoMes(index.cd_competencia);
+          return item;
+        });
+      },
+    });
   }
 
   checkIfMobile(): void {
