@@ -1,8 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { HlmButtonDirective } from '@spartan-ng/helm/button';
-import { HlmCardContentDirective, HlmCardDirective, HlmCardHeaderDirective, HlmCardTitleDirective } from '@spartan-ng/helm/card';
-import { TableTransacaoConta } from '../../components/table-transacao-conta/table-transacao-conta';
+
 import { TableMovimentacao } from "../../components/table-movimentacao/table-movimentacao";
 
 import { HlmIconDirective } from '@spartan-ng/helm/icon';
@@ -14,7 +12,6 @@ import { lucideIterationCw } from '@ng-icons/lucide';
   selector: 'app-home',
   imports: [
     CommonModule,
-    HlmButtonDirective,
     TableMovimentacao,
     HlmIconDirective,
     NgIcon,
