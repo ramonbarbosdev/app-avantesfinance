@@ -96,7 +96,7 @@ export class Menu implements OnInit {
 
     this.obterCompetencia();
     if (!this.id_competencia) this.obterCompetenciaAtual();
-
+    
     this.eventService.userReload$.subscribe((id: number) => {
       this.obterUsuarioLogado(id);
       this.cdRef.detectChanges();

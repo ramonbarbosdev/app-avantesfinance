@@ -161,7 +161,8 @@
         </div>
         <div class="flex flex-row gap-1 justify-center items-center">
           <div>
-            <img src="logo.png" alt="" class="w-5" />
+            <img *ngIf="themeService.isDarkMode()" src="logo.png" alt="" class="w-5" />
+            <img *ngIf="!themeService.isDarkMode()" src="logo-dark.png" alt="" class="w-5" />
           </div>
           <div>
             <h1 class="text-[1.3rem] font-bold">Finance</h1>
