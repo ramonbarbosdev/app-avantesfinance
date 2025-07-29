@@ -21,7 +21,6 @@ import {
   imports: [
     HlmButtonDirective,
     InputCustom,
-    HlmSpinnerComponent,
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
@@ -32,29 +31,23 @@ import {
 export class Login {
   public objeto = { login: '', senha: '' };
 
-  public loading = false;
-
   router = inject(Router);
   constructor(private auth: AuthService) {}
 
   logar() {
-    this.loading = true;
 
     if (!this.objeto.login) 
     {
-        this.loading = false;
         return;
     }
 
     this.auth.login(this.objeto).subscribe({
       next: (res: any) => {
-        this.loading = false;
         this.auth.setUser(res);
         this.auth.setToken(res.Authorization);
         this.router.navigate(['client/home']);
       },
       error: (err) => {
-        this.loading = false;
         this.tratarErro(err);
       },
     });

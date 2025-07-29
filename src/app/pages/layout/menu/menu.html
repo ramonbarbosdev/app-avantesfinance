@@ -1,4 +1,4 @@
-<div class="h-screen flex">
+<div class="h-screen flex" *ngIf="isLoading == false">
     <!-- Sidebar com largura dinâmica -->
     <div class="bg-[hsl(var(--background))] text-[hsl(var(--foreground))]
      shadow-lg transition-all duration-300 ease-in-out flex flex-col
@@ -132,5 +132,9 @@
     </div>
 
 </div>
+
+ <div class="w-full flex  h-screen  justify-center items-center " *ngIf="isLoading == true">
+    <hlm-spinner />
+  </div>
 
 

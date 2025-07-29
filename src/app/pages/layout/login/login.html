@@ -2,7 +2,6 @@
   <form
     #f="ngForm"
     (ngSubmit)="logar()"
-    *ngIf="loading == false"
     class="w-full max-w-sm rounded-2xl bg-background p-6 shadow-lg flex flex-col gap-3"
   >
  
@@ -35,7 +34,5 @@
 
   </form>
 
-  <div class="w-full flex m-1 justify-center" *ngIf="loading == true">
-    <hlm-spinner />
-  </div>
+  
 </div>

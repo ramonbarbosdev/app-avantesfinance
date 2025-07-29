@@ -30,6 +30,7 @@ import { BehaviorSubject } from 'rxjs';
 import { Usuario } from '../../../models/usuario';
 import { EventService } from '../../../services/event.service';
 import { environment } from '../../../../environment';
+import { HlmSpinnerComponent } from '@spartan-ng/helm/spinner';
 
 @Component({
   selector: 'app-menu',
@@ -42,6 +43,7 @@ import { environment } from '../../../../environment';
     HlmAvatarComponent,
     HlmAvatarFallbackDirective,
     RouterLink,
+    HlmSpinnerComponent,
   ],
   providers: [
     provideIcons({
@@ -69,12 +71,12 @@ export class Menu implements OnInit {
 
   sidebarOpen = false;
   isMobile = false;
+  isLoading = false;
 
   ngOnInit(): void {
     this.auth.user$.subscribe((user) => {
       if (user) {
         this.obterUsuarioLogado(user.id_usuario);
-        
       }
     });
 
@@ -85,7 +87,6 @@ export class Menu implements OnInit {
       this.obterUsuarioLogado(id);
       this.cdRef.detectChanges();
       // window.location.reload();
-
     });
 
     window.innerWidth < 768
@@ -97,6 +98,7 @@ export class Menu implements OnInit {
   }
 
   obterUsuarioLogado(id: number) {
+
     this.auth.findById(id).subscribe({
       next: (res) => {
         this.objeto.id = res.userId;
@@ -105,6 +107,8 @@ export class Menu implements OnInit {
         this.nm_inicial = formatarInicialNome(res.userNome);
         this.objeto.img = res.userImg;
         this.imagemPerfil = `${this.urlBase}${this.objeto.img}`;
+      },
+      error: (e) => {
       },
     });
   }
