@@ -112,7 +112,7 @@
 
         <!-- Topbar ao lado da sidebar -->
         <div class="bg-[hsl(var(--background))] text-[hsl(var(--foreground))] border-b border-[hsl(var(--secondary))]">
-            <div class="flex justify-start p-3">
+            <div class="flex justify-start p-3 gap-5 justify-center items-center">
                 <div class="mr-4">
                     <button title="abri/fechar" hlm variant="ghost" (click)="toggleSidebar()" class="text-center">
                         <ng-icon hlm size="base" name="lucidePanelRightClose" />
@@ -120,6 +120,14 @@
                 </div>
                 <div>
                     <h1 class="text-base font-bold">Avantes</h1>
+                </div>
+
+                <div>
+                    <app-combobox
+                     [options]="listaCompetencia"
+                    >
+
+                    </app-combobox>
                 </div>
             </div>
         </div>

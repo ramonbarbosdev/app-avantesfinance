@@ -31,6 +31,10 @@ import { Usuario } from '../../../models/usuario';
 import { EventService } from '../../../services/event.service';
 import { environment } from '../../../../environment';
 import { HlmSpinnerComponent } from '@spartan-ng/helm/spinner';
+import { Combobox } from "../../../components/combobox/combobox";
+import { Box } from '../../../models/box';
+import { BaseService } from '../../../services/base.service';
+import { formatAnoMes } from '../../../utils/formatAnoMes';
 
 @Component({
   selector: 'app-menu',
@@ -44,7 +48,8 @@ import { HlmSpinnerComponent } from '@spartan-ng/helm/spinner';
     HlmAvatarFallbackDirective,
     RouterLink,
     HlmSpinnerComponent,
-  ],
+    Combobox
+],
   providers: [
     provideIcons({
       lucidePanelLeftClose,
@@ -63,11 +68,13 @@ export class Menu implements OnInit {
   imagemPerfil: string = '';
   public urlBase = `${environment.apiUrl}`;
 
+  private eventService = inject(EventService);
+  private baseService = inject(BaseService);
   private auth = inject(AuthService);
   public objeto: Usuario = new Usuario();
-  private eventService = inject(EventService);
   constructor(public themeService: ThemeService) {}
   private cdRef = inject(ChangeDetectorRef);
+  public listaCompetencia: Box[] = [];
 
   sidebarOpen = false;
   isMobile = false;
@@ -82,6 +89,8 @@ export class Menu implements OnInit {
 
     if (this.auth.getUser()?.id_usuario)
       this.obterUsuarioLogado(this.auth.getUser()?.id_usuario);
+
+    this.obterCompetencia()
 
     this.eventService.userReload$.subscribe((id: number) => {
       this.obterUsuarioLogado(id);
@@ -111,6 +120,20 @@ export class Menu implements OnInit {
       error: (e) => {
       },
     });
+  }
+
+  obterCompetencia()
+  {
+    this.baseService.findAll("competencia/").subscribe({
+      next:(res)=>{
+         this.listaCompetencia = (res as any).map((index: any) => {
+           const item = new Box();
+           item.value = String(index.cd_competencia);
+           item.label = formatAnoMes(index.cd_competencia)
+           return item;
+         });
+      }
+    })
   }
 
   checkIfMobile(): void {

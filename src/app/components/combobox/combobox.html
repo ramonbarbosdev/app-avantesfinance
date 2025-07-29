@@ -1,5 +1,5 @@
 <div class="flex flex-col gap-3 relative">
-  <label class="" hlmLabel>{{ label }}</label>
+  <label *ngIf="label" class="" hlmLabel>{{ label }}</label>
 
   <brn-popover
     [state]="state()"
@@ -34,7 +34,7 @@
         />
       </hlm-command-search>
 
-      <div *brnCommandEmpty hlmCommandEmpty>No results found.</div>
+      <div *brnCommandEmpty hlmCommandEmpty>Sem resultados.</div>
 
       <hlm-command-list>
         <hlm-command-group>
@@ -46,7 +46,8 @@
             type="button"
             [disabled]="disabled"
           >
-            <span>{{ framework.value }} - {{ framework.label }}</span>
+              <span *ngIf="dualDisplay ==true ">{{ framework.value }} - {{ framework.label }}</span>
+              <span *ngIf="dualDisplay ==false ">{{ framework.label }}</span>
             <ng-icon
               hlm
               class="ml-auto"

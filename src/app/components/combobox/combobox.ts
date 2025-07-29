@@ -75,6 +75,7 @@ export class Combobox implements ControlValueAccessor, OnChanges {
   @Output() selectedChange = new EventEmitter<string>();
   @Input() error: string | null = null;
   @Input() disabled = false;
+  @Input() dualDisplay = false
   
   @Input() model: any;
   @Output() modelChange = new EventEmitter<string>();
