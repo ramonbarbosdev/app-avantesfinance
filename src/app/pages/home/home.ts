@@ -5,13 +5,21 @@ import { HlmCardContentDirective, HlmCardDirective, HlmCardHeaderDirective, HlmC
 import { TableTransacaoConta } from '../../components/table-transacao-conta/table-transacao-conta';
 import { TableMovimentacao } from "../../components/table-movimentacao/table-movimentacao";
 
+import { HlmIconDirective } from '@spartan-ng/helm/icon';
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import { lucideIterationCw } from '@ng-icons/lucide';
+
+
 @Component({
   selector: 'app-home',
   imports: [
     CommonModule,
     HlmButtonDirective,
-    TableMovimentacao
-],
+    TableMovimentacao,
+    HlmIconDirective,
+    NgIcon,
+  ],
+  providers: [provideIcons({ lucideIterationCw })],
   templateUrl: './home.html',
   styleUrl: './home.scss',
 })

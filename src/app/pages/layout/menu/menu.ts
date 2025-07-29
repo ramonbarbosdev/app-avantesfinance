@@ -146,9 +146,10 @@ export class Menu implements OnInit {
   }
 
   onSelecionarCompetencia(valor: string) {
-    if (this.competenciaService.getCompetencia() != valor)
+    if (this.competenciaService.getCompetencia() != valor) {
       this.competenciaService.setCompetencia(valor);
       this.router.navigate(['client/home']);
+    }
   }
 
   checkIfMobile(): void {
