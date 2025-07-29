@@ -93,6 +93,7 @@ export class Menu implements OnInit {
       this.obterUsuarioLogado(this.auth.getUser()?.id_usuario);
 
     this.obterCompetencia();
+    this.obterCompetenciaAtual()
 
     this.eventService.userReload$.subscribe((id: number) => {
       this.obterUsuarioLogado(id);
@@ -117,7 +118,7 @@ export class Menu implements OnInit {
         this.nm_inicial = formatarInicialNome(res.userNome);
         this.objeto.img = res.userImg;
         this.imagemPerfil = `${this.urlBase}${this.objeto.img}`;
-        this.id_competencia = 202507;
+ 
       },
       error: (e) => {},
     });
@@ -132,6 +133,13 @@ export class Menu implements OnInit {
           item.label = formatAnoMes(index.cd_competencia);
           return item;
         });
+      },
+    });
+  }
+  obterCompetenciaAtual() {
+    this.baseService.findAll('competencia/atual').subscribe({
+      next: (res) => {
+          this.id_competencia = res.cd_competencia;
       },
     });
   }

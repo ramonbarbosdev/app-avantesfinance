@@ -4,6 +4,7 @@ import { HlmToasterComponent } from '@spartan-ng/helm/sonner';
 import { LoadingService } from './services/loading.service';
 import { CommonModule } from '@angular/common';
 import { HlmSpinnerComponent } from '@spartan-ng/helm/spinner';
+import { delay } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -18,5 +19,7 @@ import { HlmSpinnerComponent } from '@spartan-ng/helm/spinner';
 })
 export class App {
   protected title = 'app-avantesfinance';
-  loading$ = inject(LoadingService).loading$;
+  loading$ = inject(LoadingService).loading$.pipe(
+    delay(1) // força mudança para o próximo tick
+  );
 }
