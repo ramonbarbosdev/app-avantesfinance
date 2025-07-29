@@ -20,6 +20,6 @@ import { delay } from 'rxjs';
 export class App {
   protected title = 'app-avantesfinance';
   loading$ = inject(LoadingService).loading$.pipe(
-    delay(1) // força mudança para o próximo tick
+    delay(1) 
   );
 }

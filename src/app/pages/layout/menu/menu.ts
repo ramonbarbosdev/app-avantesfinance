@@ -7,7 +7,7 @@ import {
   OnInit,
   SimpleChanges,
 } from '@angular/core';
-import { RouterLink, RouterOutlet } from '@angular/router';
+import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import { HlmIconDirective } from '@spartan-ng/helm/icon';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { CommonModule } from '@angular/common';
@@ -31,10 +31,11 @@ import { Usuario } from '../../../models/usuario';
 import { EventService } from '../../../services/event.service';
 import { environment } from '../../../../environment';
 import { HlmSpinnerComponent } from '@spartan-ng/helm/spinner';
-import { Combobox } from "../../../components/combobox/combobox";
+import { Combobox } from '../../../components/combobox/combobox';
 import { Box } from '../../../models/box';
 import { BaseService } from '../../../services/base.service';
 import { formatAnoMes } from '../../../utils/formatAnoMes';
+import { CompetenciaService } from '../../../services/competencia.service';
 
 @Component({
   selector: 'app-menu',
@@ -66,18 +67,19 @@ export class Menu implements OnInit {
   nm_inicial = '';
   id_usuario = 0;
   imagemPerfil: string = '';
-  id_competencia!: number ;
 
   public urlBase = `${environment.apiUrl}`;
-
+  router = inject(Router);
   private eventService = inject(EventService);
   private baseService = inject(BaseService);
+  private competenciaService = inject(CompetenciaService);
   private auth = inject(AuthService);
   public objeto: Usuario = new Usuario();
   constructor(public themeService: ThemeService) {}
   private cdRef = inject(ChangeDetectorRef);
   public listaCompetencia: Box[] = [];
 
+  id_competencia: string = this.competenciaService.getCompetencia() || '';
   sidebarOpen = false;
   isMobile = false;
   isLoading = false;
@@ -93,7 +95,7 @@ export class Menu implements OnInit {
       this.obterUsuarioLogado(this.auth.getUser()?.id_usuario);
 
     this.obterCompetencia();
-    this.obterCompetenciaAtual()
+    if (!this.id_competencia) this.obterCompetenciaAtual();
 
     this.eventService.userReload$.subscribe((id: number) => {
       this.obterUsuarioLogado(id);
@@ -118,7 +120,6 @@ export class Menu implements OnInit {
         this.nm_inicial = formatarInicialNome(res.userNome);
         this.objeto.img = res.userImg;
         this.imagemPerfil = `${this.urlBase}${this.objeto.img}`;
- 
       },
       error: (e) => {},
     });
@@ -139,9 +140,15 @@ export class Menu implements OnInit {
   obterCompetenciaAtual() {
     this.baseService.findAll('competencia/atual').subscribe({
       next: (res) => {
-          this.id_competencia = res.cd_competencia;
+        this.id_competencia = res.cd_competencia;
       },
     });
+  }
+
+  onSelecionarCompetencia(valor: string) {
+    if (this.competenciaService.getCompetencia() != valor)
+      this.competenciaService.setCompetencia(valor);
+      this.router.navigate(['client/home']);
   }
 
   checkIfMobile(): void {

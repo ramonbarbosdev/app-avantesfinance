@@ -117,15 +117,17 @@ export class Lancamentoform {
     if (!id) return;
     this.fl_edicao = true;
 
-    this.baseService.findById(this.endpoint, id).subscribe({
-      next: (res: any) => {
-        res.dt_lancamento = formatarDataParaInput(res.dt_lancamento);
-        res.cd_lancamento = String(res.cd_lancamento).padStart(3, '0');
-        this.objeto = res;
-        this.cdr.detectChanges();
-      },
-      error: (err) => {},
-    });
+    this.baseService
+      .findById(`${this.endpoint}/lista-por-competencia`, id)
+      .subscribe({
+        next: (res: any) => {
+          res.dt_lancamento = formatarDataParaInput(res.dt_lancamento);
+          res.cd_lancamento = String(res.cd_lancamento).padStart(3, '0');
+          this.objeto = res;
+          this.cdr.detectChanges();
+        },
+        error: (err) => {},
+      });
   }
 
   obterSequencia() {

@@ -6,14 +6,21 @@ import { provideRouter } from '@angular/router';
 import { routes } from './app/app.routes';
 import { TokenInterceptor } from './app/auth/token-interceptor.interceptor';
 import { LoadingInterceptor } from './app/interceptor/loading.interceptor';
+import { CompetenciaInterceptor } from './app/interceptor/competencia.interceptor';
 
 document.documentElement.classList.add('dark');
 
 bootstrapApplication(App, {
   providers: [
-    provideHttpClient( withInterceptors([TokenInterceptor, LoadingInterceptor])),
+    provideHttpClient(
+      withInterceptors([
+        TokenInterceptor,
+        LoadingInterceptor,
+        CompetenciaInterceptor,
+      ])
+    ),
     provideRouter(routes),
-   
-    ...appConfig.providers
-  ]
-}).catch(err => console.error(err));
+
+    ...appConfig.providers,
+  ],
+}).catch((err) => console.error(err));

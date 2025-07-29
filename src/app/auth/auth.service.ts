@@ -160,6 +160,7 @@ export class AuthService {
   clearToken() {
     sessionStorage.removeItem('user');
     sessionStorage.removeItem('token');
+    sessionStorage.removeItem('competencia');
   }
 
   getUser() {

@@ -57,7 +57,7 @@ export class Lancamentolist implements OnInit {
   }
 
   onShow() {
-    this.baseService.findAll(`${this.endpoint}/`).subscribe({
+    this.baseService.findAll(`${this.endpoint}/lista-por-competencia/`).subscribe({
       next: (res) => {
         const novaListagem: Lancamento[] = [];
         Object.values(res as any).forEach((index: any) => {
