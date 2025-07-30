@@ -12,6 +12,7 @@ import { Emprestimolist } from './pages/client/emprestimo/emprestimolist/emprest
 import { Lancamentolist } from './pages/client/lancamento/lancamentolist/lancamentolist';
 import { Lancamentoform } from './pages/client/lancamento/lancamentoform/lancamentoform';
 import { Relatoriolist } from './pages/client/relatorios/relatoriolist/relatoriolist';
+import { Dashboard } from './pages/admin/dashboard/dashboard';
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: Login },
@@ -31,6 +32,15 @@ export const routes: Routes = [
       { path: 'emprestimo', component: Emprestimolist },
       { path: 'emprestimoform/:id', component: Emprestimoform },
       { path: 'competencia', component: Competencia },
+    ],
+  },
+  {
+    path: 'admin',
+    component: Principal,
+    canActivateChild: [authGuard],
+    children: [
+      { path: 'dashboard', component: Dashboard },
+
     ],
   },
 ];

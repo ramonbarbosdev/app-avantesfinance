@@ -1,6 +1,8 @@
 <div class="min-h-screen flex flex-col md:flex-row">
   <!-- Lado esquerdo com imagem -->
-  <div class="hidden md:flex w-full md:w-1/2 bg-muted items-center justify-center p-6">
+  <div
+    class="hidden md:flex w-full md:w-1/2 bg-muted items-center justify-center p-6"
+  >
     <img
       src="assets/login-img2.png"
       alt="Controle Financeiro"
@@ -9,7 +11,9 @@
   </div>
 
   <!-- Lado direito com o formulário -->
-  <div class="w-full md:w-1/2 flex items-center justify-center bg-background px-4 py-12">
+  <div
+    class="w-full md:w-1/2 flex items-center justify-center bg-background px-4 py-12"
+  >
     <form
       #f="ngForm"
       (ngSubmit)="logar()"
@@ -24,7 +28,17 @@
         [required]="true"
         placeholder="Login"
         [(model)]="objeto.login"
+        (blur)="processarLogin()"
       ></app-input>
+
+      <div *ngIf="fl_exibirCliente == true">
+        <app-combobox
+          label="Organização: (*)"
+          [options]="listaClientes"
+          [(model)]="objeto.id_cliente"
+          name="id_cliente"
+        ></app-combobox>
+      </div>
 
       <app-input
         [inputId]="'senha'"
@@ -35,9 +49,7 @@
         [(model)]="objeto.senha"
       ></app-input>
 
-      <button hlmBtn variant="default" class="w-full mt-2">
-        Entrar
-      </button>
+      <button hlmBtn variant="default" class="w-full mt-2">Entrar</button>
     </form>
   </div>
 </div>

@@ -36,6 +36,26 @@ export class AuthService {
       })
     );
   }
+  findByLogin(login: string): Observable<any> {
+    const url = `${this.apiUrl}/cliente/obter-cliente-usuario/${login}`;
+
+    return this.http.get<any>(url).pipe(
+      tap((res) => {
+        return res;
+      }),
+      catchError((e) => {
+        console.log(e);
+        toast(e.error.message, {
+          description: e.error.codeDescription,
+          action: {
+            label: 'Ok',
+            onClick: () => {},
+          },
+        });
+        return throwError(() => e);
+      })
+    );
+  }
 
   updateUser( data: any): Observable<any> {
 
@@ -136,9 +156,9 @@ export class AuthService {
     const retorno = await firstValueFrom(
       this.obterChave(info.id_usuario, info.Authorization)
     );
-
     let objeto = {
       id_usuario: info.id_usuario,
+      id_cliente: info.id_cliente,
       // nm_usuario: info.nm_usuario,
       login: info.login,
       img: info.img,

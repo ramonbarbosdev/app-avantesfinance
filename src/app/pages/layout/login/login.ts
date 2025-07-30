@@ -15,6 +15,10 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { BaseService } from '../../../services/base.service';
+import { Box } from '../../../models/box';
+import { Combobox } from '../../../components/combobox/combobox';
+import { toast } from 'ngx-sonner';
 
 @Component({
   selector: 'app-login',
@@ -24,33 +28,75 @@ import {
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
+    Combobox,
   ],
   templateUrl: './login.html',
   styleUrl: './login.scss',
 })
 export class Login {
-  public objeto = { login: '', senha: '' };
-
+  public objeto = { login: '', senha: '', id_cliente: null };
+  public listaClientes: Box[] = [];
   router = inject(Router);
   constructor(private auth: AuthService) {}
+  public fl_exibirCliente = false;
 
   logar() {
-
-    if (!this.objeto.login) 
-    {
-        return;
+    if (!this.objeto.login) {
+      return;
     }
 
     this.auth.login(this.objeto).subscribe({
       next: (res: any) => {
-        this.auth.setUser(res);
-        this.auth.setToken(res.Authorization);
-        this.router.navigate(['client/home']);
+        this.gerenciarRotaUsuario(res)
       },
       error: (err) => {
         this.tratarErro(err);
       },
     });
+  }
+
+  processarLogin() {
+    const login = this.objeto.login?.trim();
+
+    if (!login) {
+      this.fl_exibirCliente = false;
+      // this.listaClientes.length = 0;
+      return;
+    }
+
+    this.auth.findByLogin(login).subscribe({
+      next: (res: any[]) => {
+        this.fl_exibirCliente = true;
+        this.listaClientes = res
+          .filter((item: any) => item.tp_status === 'ATIVO' && item.cliente)
+          .map((item: any) => ({
+            value: String(item.cliente.id_cliente),
+            label: item.cliente.nm_cliente,
+          }));
+      },
+      error: (error) => {
+        this.fl_exibirCliente = false;
+        // this.listaClientes.length = 0;
+      },
+    });
+  }
+
+  gerenciarRotaUsuario(res:any) {
+    if (!this.objeto.id_cliente) {
+      toast('Escopo(s) inválido(s) fornecido(s)', {
+        description: '',
+        action: {
+          label: 'Ok',
+          onClick: () => {},
+        },
+      });
+      return;
+    }
+    res.id_cliente = this.objeto.id_cliente;
+    this.auth.setUser(res);
+    this.auth.setToken(res.Authorization);
+    //  this.router.navigate(['admin/dashboard']);
+    this.router.navigate(['client/home']);
   }
 
   tratarErro(e: any) {

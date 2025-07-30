@@ -13,6 +13,7 @@
       (input)="onInputChange($event)"
       [disabled]="disabled"
       [value]="value"
+       (blur)="blur.emit($event)"
     />
 
     <button
@@ -44,6 +45,7 @@
       (input)="onInputChange($event)"
       [disabled]="disabled"
       [value]="value"
+       (blur)="blur.emit($event)"
     >
     </textarea>
   </div>

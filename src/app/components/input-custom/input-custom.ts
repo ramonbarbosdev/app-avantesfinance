@@ -27,6 +27,7 @@ export class InputCustom {
   @Input() model: any;
   @Input() type: any;
   @Output() modelChange = new EventEmitter<any>();
+  @Output() blur = new EventEmitter<FocusEvent>();
 
   @Input() label!: string;
   @Input() inputId!: string;
