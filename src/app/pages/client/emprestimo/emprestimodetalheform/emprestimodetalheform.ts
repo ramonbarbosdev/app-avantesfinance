@@ -9,16 +9,9 @@ import {
   signal,
   SimpleChanges,
 } from '@angular/core';
-import { ItemEmprestimo } from '../../../models/item-emprestimo';
-import { EmprestimoService } from '../../../services/emprestimo.service';
-import { BaseService } from '../../../services/base.service';
 import { Observable } from 'rxjs';
 import { ZodError } from 'zod';
-import { formatarDataParaInput } from '../../../utils/formatarDataParaInput';
-import { DateCustom } from '../../../components/date-custom/date-custom';
-import { MoneyCustom } from '../../../components/money-custom/money-custom';
-import { Combobox } from '../../../components/combobox/combobox';
-import { InputCustom } from '../../../components/input-custom/input-custom';
+
 import {
   BrnSheetContentDirective,
   BrnSheetTriggerDirective,
@@ -37,10 +30,17 @@ import { HlmIconDirective } from '@spartan-ng/helm/icon';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HlmButtonDirective } from '@spartan-ng/helm/button';
 import { CommonModule } from '@angular/common';
-import { Box } from '../../../models/box';
-import { ItemLancametoSchema } from '../../../schema/itemlancamento-schema';
-import { ItemEmprestimoSchema } from '../../../schema/itememprestimo-schema';
 import { lucideCheck, lucideSquarePen, lucideTrash2 } from '@ng-icons/lucide';
+import { InputCustom } from '../../../../components/input-custom/input-custom';
+import { Combobox } from '../../../../components/combobox/combobox';
+import { MoneyCustom } from '../../../../components/money-custom/money-custom';
+import { DateCustom } from '../../../../components/date-custom/date-custom';
+import { ItemEmprestimo } from '../../../../models/item-emprestimo';
+import { EmprestimoService } from '../../../../services/emprestimo.service';
+import { BaseService } from '../../../../services/base.service';
+import { ItemEmprestimoSchema } from '../../../../schema/itememprestimo-schema';
+import { formatarDataParaInput } from '../../../../utils/formatarDataParaInput';
+import { Box } from '../../../../models/box';
 
 @Component({
   selector: 'app-emprestimodetalheform',

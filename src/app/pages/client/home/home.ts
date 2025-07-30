@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 
-import { TableMovimentacao } from "../../components/table-movimentacao/table-movimentacao";
+import { TableMovimentacao } from "../../../components/table-movimentacao/table-movimentacao";
 
 import { HlmIconDirective } from '@spartan-ng/helm/icon';
 import { NgIcon, provideIcons } from '@ng-icons/core';

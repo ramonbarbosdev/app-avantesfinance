@@ -5,12 +5,12 @@ import { lucideCheck, lucideSquarePen, lucideTrash2 } from '@ng-icons/lucide';
 import { HlmIconDirective } from '@spartan-ng/helm/icon';
 import { HlmTableImports } from '@spartan-ng/helm/table';
 import { HlmTabsComponent, HlmTabsContentDirective, HlmTabsListComponent, HlmTabsTriggerDirective } from '@spartan-ng/helm/tabs';
-import { Emprestimo } from '../../../models/emprestimo';
 import { Router } from '@angular/router';
-import { EmprestimoService } from '../../../services/emprestimo.service';
-import { BaseService } from '../../../services/base.service';
-import { Emprestimoform } from "../emprestimoform/emprestimoform";
-import { formatarDataParaInput } from '../../../utils/formatarDataParaInput';
+import { Emprestimoform } from '../emprestimoform/emprestimoform';
+import { Emprestimo } from '../../../../models/emprestimo';
+import { EmprestimoService } from '../../../../services/emprestimo.service';
+import { BaseService } from '../../../../services/base.service';
+import { formatarDataParaInput } from '../../../../utils/formatarDataParaInput';
 
 @Component({
   selector: 'app-emprestimolist',
