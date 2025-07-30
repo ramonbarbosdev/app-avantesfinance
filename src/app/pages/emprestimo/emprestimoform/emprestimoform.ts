@@ -130,6 +130,12 @@ export class Emprestimoform implements OnInit {
     }
   }
 
+    limparFormulario()
+    {
+      this.objeto = new Emprestimo();
+      this.onShow()
+    }
+
   obterCentroCusto(): Promise<void> {
     return new Promise((resolve, reject) => {
       this.baseService.findAll('centrocusto/').subscribe({

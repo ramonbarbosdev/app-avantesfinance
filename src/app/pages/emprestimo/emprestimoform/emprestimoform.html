@@ -76,6 +76,21 @@
   </app-emprestimodetalheform>
 
   <div hlmCardFooter class="pt-4">
-    <button type="submit" hlmBtn class="w-full">Salvar</button>
+    <div class="flex w-full ">
+      <div class="flex justify-between w-full gap-2">
+        <button
+          *ngIf="fl_edicao == false"
+          type="button"
+          hlmBtn
+          class="w-full max-w-[150px]"
+          (click)="limparFormulario()"
+        >
+          Limpar
+        </button>
+        <button type="submit" hlmBtn class="w-full max-w-[150px]">
+          Salvar
+        </button>
+      </div>
+    </div>
   </div>
 </form>
