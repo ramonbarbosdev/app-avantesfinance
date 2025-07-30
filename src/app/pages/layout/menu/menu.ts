@@ -37,6 +37,7 @@ import { BaseService } from '../../../services/base.service';
 import { formatAnoMes } from '../../../utils/formatAnoMes';
 import { CompetenciaService } from '../../../services/competencia.service';
 import { toast } from 'ngx-sonner';
+import { ClienteService } from '../../../services/cliente.service';
 
 @Component({
   selector: 'app-menu',
@@ -100,6 +101,7 @@ export class Menu implements OnInit {
       );
 
     this.obterCompetencia();
+    // this.obterCompetenciaAtual();
 
     this.eventService.userReload$.subscribe(({ id_usuario, id_cliente }) => {
       this.obterUsuarioLogado(id_usuario, id_cliente);
@@ -116,6 +118,7 @@ export class Menu implements OnInit {
   }
 
   obterUsuarioLogado(id_usuario: number, id_cliente:number) {
+       
     this.auth.findByUsuarioByCliente(id_usuario, id_cliente).subscribe({
       next: (res) => {
         this.objeto.id = res.usuario.id;
@@ -147,6 +150,7 @@ export class Menu implements OnInit {
     this.baseService.findAll('competencia/atual').subscribe({
       next: (res) => {
         let nomeCompetencia = formatAnoMes(res.cd_competencia);
+        this.id_competencia = res.cd_competencia
         toast(`Competência de ${nomeCompetencia} selecionada.`, {
           description: `Mês está ${res.tp_status}`,
           action: {

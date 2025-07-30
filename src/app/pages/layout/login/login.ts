@@ -19,6 +19,7 @@ import { BaseService } from '../../../services/base.service';
 import { Box } from '../../../models/box';
 import { Combobox } from '../../../components/combobox/combobox';
 import { toast } from 'ngx-sonner';
+import { ClienteService } from '../../../services/cliente.service';
 
 @Component({
   selector: 'app-login',
@@ -39,6 +40,7 @@ export class Login {
   router = inject(Router);
   constructor(private auth: AuthService) {}
   public fl_exibirCliente = false;
+  private clienteService = inject(ClienteService);
 
   logar() {
     if (!this.objeto.login) {
@@ -93,6 +95,7 @@ export class Login {
       return;
     }
     res.id_cliente = this.objeto.id_cliente;
+    this.clienteService.setObjeto(String(this.objeto.id_cliente));
     this.auth.setUser(res);
     this.auth.setToken(res.Authorization);
     //  this.router.navigate(['admin/dashboard']);

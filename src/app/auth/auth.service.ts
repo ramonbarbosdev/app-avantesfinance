@@ -180,6 +180,7 @@ export class AuthService {
     sessionStorage.removeItem('user');
     sessionStorage.removeItem('token');
     sessionStorage.removeItem('competencia');
+    sessionStorage.removeItem('id_cliente');
   }
 
   getUser() {
