@@ -36,6 +36,7 @@ import { Box } from '../../../models/box';
 import { BaseService } from '../../../services/base.service';
 import { formatAnoMes } from '../../../utils/formatAnoMes';
 import { CompetenciaService } from '../../../services/competencia.service';
+import { toast } from 'ngx-sonner';
 
 @Component({
   selector: 'app-menu',
@@ -95,8 +96,7 @@ export class Menu implements OnInit {
       this.obterUsuarioLogado(this.auth.getUser()?.id_usuario);
 
     this.obterCompetencia();
-    if (!this.id_competencia) this.obterCompetenciaAtual();
-    
+        
     this.eventService.userReload$.subscribe((id: number) => {
       this.obterUsuarioLogado(id);
       this.cdRef.detectChanges();
@@ -140,7 +140,14 @@ export class Menu implements OnInit {
   obterCompetenciaAtual() {
     this.baseService.findAll('competencia/atual').subscribe({
       next: (res) => {
-        this.id_competencia = res.cd_competencia;
+        let nomeCompetencia = formatAnoMes(res.cd_competencia)
+          toast(`Competência de ${nomeCompetencia} selecionada.`, {
+            description: `Mês está ${res.tp_status}`,
+            action: {
+              label: 'Ok',
+              onClick: () => {},
+            },
+          });
       },
     });
   }
@@ -149,6 +156,8 @@ export class Menu implements OnInit {
     if (this.competenciaService.getCompetencia() != valor) {
       this.competenciaService.setCompetencia(valor);
       this.router.navigate(['client/home']);
+      this.obterCompetenciaAtual()
+     
     }
   }
 
