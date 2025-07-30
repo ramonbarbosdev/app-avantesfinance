@@ -5,13 +5,13 @@ import { Login } from './pages/layout/login/login';
 import { authGuard } from './auth/auth.guard';
 import { Conta } from './pages/config/conta/conta';
 import { Ajustes } from './pages/config/ajustes/ajustes';
-import { Lancamentoform } from './pages/lancamento/lancamentoform/lancamentoform';
-import { Lancamentolist } from './pages/lancamento/lancamentolist/lancamentolist';
 import { Perfil } from './pages/config/perfil/perfil';
 import { Relatoriolist } from './pages/relatorios/relatoriolist/relatoriolist';
 import { Emprestimoform } from './pages/client/emprestimo/emprestimoform/emprestimoform';
 import { Competencia } from './pages/config/competencia/competencia';
 import { Emprestimolist } from './pages/client/emprestimo/emprestimolist/emprestimolist';
+import { Lancamentolist } from './pages/client/lancamento/lancamentolist/lancamentolist';
+import { Lancamentoform } from './pages/client/lancamento/lancamentoform/lancamentoform';
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: Login },

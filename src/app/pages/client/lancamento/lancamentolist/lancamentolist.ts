@@ -10,11 +10,13 @@ import {
   HlmTabsListComponent,
   HlmTabsTriggerDirective,
 } from '@spartan-ng/helm/tabs';
-import { Lancamento } from '../../../models/lancamento';
-import { Lancamentoform } from "../lancamentoform/lancamentoform";
-import { LancamentoService } from '../../../services/lancamento.service';
+
 import { Router } from '@angular/router';
-import { BaseService } from '../../../services/base.service';
+import { Lancamento } from '../../../../models/lancamento';
+import { LancamentoService } from '../../../../services/lancamento.service';
+import { BaseService } from '../../../../services/base.service';
+import { Lancamentoform } from '../lancamentoform/lancamentoform';
+
 @Component({
   selector: 'app-lancamentolist',
   imports: [
