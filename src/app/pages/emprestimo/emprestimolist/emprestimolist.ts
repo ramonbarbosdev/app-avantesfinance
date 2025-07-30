@@ -63,7 +63,7 @@ export class Emprestimolist implements OnInit {
             const item = new Emprestimo();
             item.id_emprestimo = index.id_emprestimo;
             item.cd_emprestimo = index.cd_emprestimo;
-            item.ds_observacao = index.ds_observacao;
+            item.ds_observacao = index.ds_observacao.substring(0,20);
             item.dt_emprestimo = formatarDataParaInput(index.dt_emprestimo);
             item.id_centrocusto = index.centroCusto.nm_centrocusto;
             item.tp_emprestimo = index.tp_emprestimo;

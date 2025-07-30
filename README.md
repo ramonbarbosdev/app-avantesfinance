@@ -19,3 +19,6 @@ This project was generated using [Angular CLI](https://github.com/angular/angula
         Saldo Final
     B. Projeção de Vencimentos de Empréstimos
 
+5. Colocar anotações no item lancamento
+6. colocar valor acomulado no lancamento (receita, despesa)
+7. 
