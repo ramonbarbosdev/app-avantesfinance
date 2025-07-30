@@ -8,6 +8,9 @@ export class Lancamento {
   public dt_lancamento!: string;
   public id_centrocusto!: number;
   public vl_total!: number;
+  public vl_receitaacomulada!: number;
+  public vl_despesaacomulada!: number;
+
 
   public itens!: ItemLancamento[];
 }

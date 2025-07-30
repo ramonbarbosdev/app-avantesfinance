@@ -248,5 +248,14 @@ export class Lancamentodetalheform implements OnChanges, OnInit {
     this.objeto.vl_total = this.objeto.itens
       .map((item: any) => item.vl_itemlancamento ?? 0)
       .reduce((acc: any, curr: any) => acc + curr, 0);
+
+    this.objeto.vl_receitaacomulada = this.objeto.itens
+      .filter((item: any) => item.categoria.tp_categoria === 'RECEITA')
+      .map((item: any) => item.vl_itemlancamento ?? 0)
+      .reduce((acc: any, curr: any) => acc + curr, 0);
+    this.objeto.vl_despesaacomulada = this.objeto.itens
+      .filter((item: any) => item.categoria.tp_categoria === 'DESPESA')
+      .map((item: any) => item.vl_itemlancamento ?? 0)
+      .reduce((acc: any, curr: any) => acc + curr, 0);
   }
 }

@@ -1,4 +1,6 @@
 <form hlmCardContent class="space-y-4" #f="ngForm" (ngSubmit)="salvar()">
+
+  
   <div class="grid md:grid-cols-2 gap-4">
     <app-input
       [inputId]="'cd_lancamento'"
@@ -33,6 +35,23 @@
       [(model)]="objeto.vl_total"
       [required]="true"
       [error]="errorValidacao['vl_total']  || null"
+      placeholder="R$ 0,00"
+      [disabled]="true"
+    ></app-money-custom>
+    
+    <app-money-custom
+      [label]="'Receita:'"
+      [inputId]="'vl_receitaacomulada'"
+      [(model)]="objeto.vl_receitaacomulada"
+      [required]="true"
+      placeholder="R$ 0,00"
+      [disabled]="true"
+    ></app-money-custom>
+    <app-money-custom
+      [label]="'Despesa:'"
+      [inputId]="'vl_despesaacomulada'"
+      [(model)]="objeto.vl_despesaacomulada"
+      [required]="true"
       placeholder="R$ 0,00"
       [disabled]="true"
     ></app-money-custom>
