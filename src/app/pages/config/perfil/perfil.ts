@@ -59,7 +59,7 @@ export class Perfil implements OnInit {
   }
 
   obterUsuarioLogado() {
-    this.baseService.findById("usuario/", this.objeto.id).subscribe({
+    this.baseService.findById("usuario", this.objeto.id).subscribe({
       next: (res) => {
         this.objeto.id = res.userId;
         this.objeto.login = res.userLogin;
