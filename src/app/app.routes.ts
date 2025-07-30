@@ -6,12 +6,12 @@ import { authGuard } from './auth/auth.guard';
 import { Conta } from './pages/config/conta/conta';
 import { Ajustes } from './pages/config/ajustes/ajustes';
 import { Perfil } from './pages/config/perfil/perfil';
-import { Relatoriolist } from './pages/relatorios/relatoriolist/relatoriolist';
 import { Emprestimoform } from './pages/client/emprestimo/emprestimoform/emprestimoform';
 import { Competencia } from './pages/config/competencia/competencia';
 import { Emprestimolist } from './pages/client/emprestimo/emprestimolist/emprestimolist';
 import { Lancamentolist } from './pages/client/lancamento/lancamentolist/lancamentolist';
 import { Lancamentoform } from './pages/client/lancamento/lancamentoform/lancamentoform';
+import { Relatoriolist } from './pages/client/relatorios/relatoriolist/relatoriolist';
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: Login },
