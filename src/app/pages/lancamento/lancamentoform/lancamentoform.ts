@@ -168,6 +168,12 @@ export class Lancamentoform {
     }
   }
 
+  limparFormulario()
+  {
+    this.objeto = new Lancamento();
+    this.onShow()
+  }
+
   async obterCentroCusto(): Promise<void> {
     return new Promise((resolve, reject) => {
       this.baseService.findAll('centrocusto/').subscribe({
