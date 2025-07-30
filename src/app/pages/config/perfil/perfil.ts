@@ -19,6 +19,7 @@ import {
 import { formatarInicialNome } from '../../../utils/InicialNome';
 import { Combobox } from '../../../components/combobox/combobox';
 import { Box } from '../../../models/box';
+import { BaseService } from '../../../services/base.service';
 
 
 
@@ -48,15 +49,17 @@ export class Perfil implements OnInit {
 
   private auth = inject(AuthService);
   private router = inject(Router);
+  private baseService = inject(BaseService);
 
   ngOnInit(): void {
     this.objeto.id = this.auth.getUser()?.id_usuario;
+    this.objeto.id_cliente = this.auth.getUser()?.id_cliente;
     if (!this.objeto.roles) this.objeto.roles = [];
     this.obterUsuarioLogado();
   }
 
   obterUsuarioLogado() {
-    this.auth.findById(this.objeto.id).subscribe({
+    this.baseService.findById("usuario/", this.objeto.id).subscribe({
       next: (res) => {
         this.objeto.id = res.userId;
         this.objeto.login = res.userLogin;
@@ -64,7 +67,7 @@ export class Perfil implements OnInit {
         this.nm_inicial = formatarInicialNome(res.userNome);
         this.objeto.img = res.userImg;
         this.imagemPerfil = `${this.urlBase}${this.objeto.img}`;
-        this.objeto.role= res.roles[0]
+        this.objeto.role = res.roles[0];
 
         this.listaRole = (res.roles as any).map((index: any) => {
           const item = new Box();
@@ -72,7 +75,6 @@ export class Perfil implements OnInit {
           item.label = index;
           return item;
         });
-
       },
     });
   }
@@ -118,7 +120,10 @@ export class Perfil implements OnInit {
     this.auth.updateUser(this.objeto).subscribe({
       next: (res) => {
         this.atualizarFoto();
-        this.eventService.emitUserReload(this.objeto.id);
+        this.eventService.emitUserReload(
+          this.objeto.id,
+          this.objeto.id_cliente
+        );
         // window.location.reload();
         this.router.navigate(['client/ajustes']);
       },

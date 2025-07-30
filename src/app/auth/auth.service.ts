@@ -16,8 +16,8 @@ export class AuthService {
   private router = inject(Router);
   constructor(private http: HttpClient) {}
 
-  findById(id: number): Observable<any> {
-    const url = `${this.apiUrl}/usuario/${id}`;
+  findByUsuarioByCliente(id_usuario: number, id_cliente: number): Observable<any> {
+    const url = `${this.apiUrl}/cliente/obter-usuario-logado/${id_usuario}/${id_cliente}`;
 
     return this.http.get<any>(url).pipe(
       tap((res) => {
@@ -57,19 +57,18 @@ export class AuthService {
     );
   }
 
-  updateUser( data: any): Observable<any> {
-
+  updateUser(data: any): Observable<any> {
     const url = `${this.apiUrl}/usuario/perfil/`;
 
     return this.http.post<any>(url, data).pipe(
       tap((res) => {
-         toast(res.message, {
-           description: "",
-           action: {
-             label: 'Ok',
-             onClick: () => {},
-           },
-         });
+        toast(res.message, {
+          description: '',
+          action: {
+            label: 'Ok',
+            onClick: () => {},
+          },
+        });
         return res;
       }),
       catchError((e) => {

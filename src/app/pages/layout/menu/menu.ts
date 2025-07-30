@@ -68,6 +68,7 @@ export class Menu implements OnInit {
   nm_inicial = '';
   id_usuario = 0;
   imagemPerfil: string = '';
+  nm_cliente = "";
 
   public urlBase = `${environment.apiUrl}`;
   router = inject(Router);
@@ -88,17 +89,20 @@ export class Menu implements OnInit {
   ngOnInit(): void {
     this.auth.user$.subscribe((user) => {
       if (user) {
-        this.obterUsuarioLogado(user.id_usuario);
+        this.obterUsuarioLogado(user.id_usuario, user.id_cliente);
       }
     });
 
     if (this.auth.getUser()?.id_usuario)
-      this.obterUsuarioLogado(this.auth.getUser()?.id_usuario);
+      this.obterUsuarioLogado(
+        this.auth.getUser()?.id_usuario,
+        this.auth.getUser()?.id_cliente
+      );
 
     this.obterCompetencia();
-        
-    this.eventService.userReload$.subscribe((id: number) => {
-      this.obterUsuarioLogado(id);
+
+    this.eventService.userReload$.subscribe(({ id_usuario, id_cliente }) => {
+      this.obterUsuarioLogado(id_usuario, id_cliente);
       this.cdRef.detectChanges();
       // window.location.reload();
     });
@@ -111,14 +115,16 @@ export class Menu implements OnInit {
     window.addEventListener('resize', () => this.checkIfMobile());
   }
 
-  obterUsuarioLogado(id: number) {
-    this.auth.findById(id).subscribe({
+  obterUsuarioLogado(id_usuario: number, id_cliente:number) {
+    this.auth.findByUsuarioByCliente(id_usuario, id_cliente).subscribe({
       next: (res) => {
-        this.objeto.id = res.userId;
-        this.objeto.login = res.userLogin;
-        this.objeto.nome = res.userNome;
-        this.nm_inicial = formatarInicialNome(res.userNome);
-        this.objeto.img = res.userImg;
+        this.objeto.id = res.usuario.id;
+        this.objeto.login = res.usuario.login;
+        this.objeto.nome = res.usuario.nome;
+        this.nm_inicial = formatarInicialNome(res.usuario.nome);
+        this.objeto.img = res.usuario.img;
+        this.objeto.id_cliente = id_cliente;
+        this.nm_cliente = res.cliente.nm_cliente;
         this.imagemPerfil = `${this.urlBase}${this.objeto.img}`;
       },
       error: (e) => {},
@@ -140,14 +146,14 @@ export class Menu implements OnInit {
   obterCompetenciaAtual() {
     this.baseService.findAll('competencia/atual').subscribe({
       next: (res) => {
-        let nomeCompetencia = formatAnoMes(res.cd_competencia)
-          toast(`Competência de ${nomeCompetencia} selecionada.`, {
-            description: `Mês está ${res.tp_status}`,
-            action: {
-              label: 'Ok',
-              onClick: () => {},
-            },
-          });
+        let nomeCompetencia = formatAnoMes(res.cd_competencia);
+        toast(`Competência de ${nomeCompetencia} selecionada.`, {
+          description: `Mês está ${res.tp_status}`,
+          action: {
+            label: 'Ok',
+            onClick: () => {},
+          },
+        });
       },
     });
   }
@@ -156,8 +162,7 @@ export class Menu implements OnInit {
     if (this.competenciaService.getCompetencia() != valor) {
       this.competenciaService.setCompetencia(valor);
       this.router.navigate(['client/home']);
-      this.obterCompetenciaAtual()
-     
+      this.obterCompetenciaAtual();
     }
   }
 
