@@ -69,7 +69,7 @@ export class Menu implements OnInit {
   nm_inicial = '';
   id_usuario = 0;
   imagemPerfil: string = '';
-  nm_cliente = "";
+  nm_cliente = '';
 
   public urlBase = `${environment.apiUrl}`;
   router = inject(Router);
@@ -86,28 +86,32 @@ export class Menu implements OnInit {
   sidebarOpen = false;
   isMobile = false;
   isLoading = false;
+  // private isAdmin =  false;
 
   ngOnInit(): void {
     this.auth.user$.subscribe((user) => {
       if (user) {
-        this.obterUsuarioLogado(user.id_usuario, user.id_cliente);
+        console.log(user);
+        this.obterUsuarioLogado(user.id_usuario, user.id_cliente, user.role);
+        // this.isAdmin = user.role == "admin" ? true : false
       }
     });
 
     if (this.auth.getUser()?.id_usuario)
       this.obterUsuarioLogado(
         this.auth.getUser()?.id_usuario,
-        this.auth.getUser()?.id_cliente
+        this.auth.getUser()?.id_cliente,
+        this.auth.getUser()?.role
       );
 
     this.obterCompetencia();
-    // this.obterCompetenciaAtual();
 
-    this.eventService.userReload$.subscribe(({ id_usuario, id_cliente }) => {
-      this.obterUsuarioLogado(id_usuario, id_cliente);
-      this.cdRef.detectChanges();
-      // window.location.reload();
-    });
+    this.eventService.userReload$.subscribe(
+      ({ id_usuario, id_cliente, role }) => {
+        this.obterUsuarioLogado(id_usuario, id_cliente, role);
+        this.cdRef.detectChanges();
+      }
+    );
 
     window.innerWidth < 768
       ? (this.sidebarOpen = false)
@@ -117,10 +121,10 @@ export class Menu implements OnInit {
     window.addEventListener('resize', () => this.checkIfMobile());
   }
 
-  obterUsuarioLogado(id_usuario: number, id_cliente:number) {
-       
+  obterUsuarioLogado(id_usuario: number, id_cliente: number, role:string) {
     this.auth.findByUsuarioByCliente(id_usuario, id_cliente).subscribe({
       next: (res) => {
+        console.log(res.usuario.roles[0].nomeRole);
         this.objeto.id = res.usuario.id;
         this.objeto.login = res.usuario.login;
         this.objeto.nome = res.usuario.nome;
@@ -128,6 +132,10 @@ export class Menu implements OnInit {
         this.objeto.img = res.usuario.img;
         this.objeto.id_cliente = id_cliente;
         this.nm_cliente = res.cliente.nm_cliente;
+        this.objeto.role =
+          res.usuario.roles[0].nomeRole == 'ROLE_ADMIN' && role == 'admin'
+            ? role
+            : 'client'; 
         this.imagemPerfil = `${this.urlBase}${this.objeto.img}`;
       },
       error: (e) => {},
@@ -150,7 +158,7 @@ export class Menu implements OnInit {
     this.baseService.findAll('competencia/atual').subscribe({
       next: (res) => {
         let nomeCompetencia = formatAnoMes(res.cd_competencia);
-        this.id_competencia = res.cd_competencia
+        this.id_competencia = res.cd_competencia;
         toast(`Competência de ${nomeCompetencia} selecionada.`, {
           description: `Mês está ${res.tp_status}`,
           action: {

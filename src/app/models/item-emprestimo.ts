@@ -6,4 +6,5 @@ export class ItemEmprestimo {
   public id_emprestimo!: number;
   public tp_itemstatus!: string;
   public vl_emprestimo!: number;
+  public ds_anotacao!: string;
 }

@@ -68,6 +68,17 @@
           placeholder="R$ 0,00"
           [error]="errorValidacao['vl_emprestimo']  || null"
         ></app-money-custom>
+
+        <app-input
+          [inputId]="'ds_anotacao'"
+          [type]="'textarea'"
+          [label]="'Anotações'"
+          [required]="true"
+          [placeholder]="'Anote...'"
+          [(model)]="objeto.ds_anotacao"
+          [disabled]="false"
+          [value]="objeto.ds_anotacao"
+        ></app-input>
       </div>
 
       <hlm-sheet-footer>

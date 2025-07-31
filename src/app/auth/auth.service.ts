@@ -158,9 +158,8 @@ export class AuthService {
     let objeto = {
       id_usuario: info.id_usuario,
       id_cliente: info.id_cliente,
-      // nm_usuario: info.nm_usuario,
+      role: info.role,
       login: info.login,
-      img: info.img,
       pluggy: [],
     };
     sessionStorage.setItem('user', JSON.stringify(objeto));

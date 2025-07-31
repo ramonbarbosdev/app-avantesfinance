@@ -35,11 +35,13 @@ import { ClienteService } from '../../../services/cliente.service';
   styleUrl: './login.scss',
 })
 export class Login {
-  public objeto = { login: '', senha: '', id_cliente: null };
+  public objeto = { login: '', senha: '', id_cliente: null, role: "" };
   public listaClientes: Box[] = [];
+  public listaRoles: Box[] = [];
   router = inject(Router);
   constructor(private auth: AuthService) {}
   public fl_exibirCliente = false;
+  public fl_exibirADM = false;
   private clienteService = inject(ClienteService);
 
   logar() {
@@ -49,7 +51,7 @@ export class Login {
 
     this.auth.login(this.objeto).subscribe({
       next: (res: any) => {
-        this.gerenciarRotaUsuario(res)
+        this.gerenciarRotaUsuario(res);
       },
       error: (err) => {
         this.tratarErro(err);
@@ -62,6 +64,7 @@ export class Login {
 
     if (!login) {
       this.fl_exibirCliente = false;
+      this.fl_exibirADM = false;
       // this.listaClientes.length = 0;
       return;
     }
@@ -75,15 +78,30 @@ export class Login {
             value: String(item.cliente.id_cliente),
             label: item.cliente.nm_cliente,
           }));
+
+        let userRole = res[0].usuario.roles[0];
+        if (userRole.nomeRole === 'ROLE_ADMIN') {
+          this.fl_exibirADM = true;
+          this.listaRoles = [
+            { label: 'Administrador', value: 'admin' },
+            { label: 'Cliente', value: 'client' },
+          ];
+        }
+        else
+        {
+          this.objeto.role = "client"
+        }
       },
       error: (error) => {
         this.fl_exibirCliente = false;
+        this.fl_exibirADM = false;
+
         // this.listaClientes.length = 0;
       },
     });
   }
 
-  gerenciarRotaUsuario(res:any) {
+  gerenciarRotaUsuario(res: any) {
     if (!this.objeto.id_cliente) {
       toast('Escopo(s) inválido(s) fornecido(s)', {
         description: '',
@@ -95,11 +113,15 @@ export class Login {
       return;
     }
     res.id_cliente = this.objeto.id_cliente;
+    res.role = this.objeto.role;
     this.clienteService.setObjeto(String(this.objeto.id_cliente));
     this.auth.setUser(res);
     this.auth.setToken(res.Authorization);
     //  this.router.navigate(['admin/dashboard']);
-    this.router.navigate(['client/home']);
+
+    if(this.objeto.role == "admin") this.router.navigate([`${this.objeto.role}/dashboard`]);
+    if(this.objeto.role == "client") this.router.navigate([`${this.objeto.role}/home`]);
+   
   }
 
   tratarErro(e: any) {

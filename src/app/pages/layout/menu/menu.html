@@ -59,45 +59,46 @@
         >
           Modulos
         </h2>
+        <div *ngIf="objeto.role == 'client'">
+          <button
+            [routerLink]="'home'"
+            class="w-full text-left px-4 py-2 rounded hover:bg-[hsl(var(--muted))]"
+          >
+            <span class="inline-flex items-center gap-2">
+              <ng-icon hlm size="sm" name="lucideBolt" class="" />
+              <p class="">Inicio</p>
+            </span>
+          </button>
 
-        <button
-          [routerLink]="'home'"
-          class="w-full text-left px-4 py-2 rounded hover:bg-[hsl(var(--muted))]"
-        >
-          <span class="inline-flex items-center gap-2">
-            <ng-icon hlm size="sm" name="lucideBolt" class="" />
-            <p class="">Inicio</p>
-          </span>
-        </button>
+          <button
+            [routerLink]="'lancamento'"
+            class="w-full text-left px-4 py-2 rounded hover:bg-[hsl(var(--muted))]"
+          >
+            <span class="inline-flex items-center gap-2">
+              <ng-icon hlm size="sm" name="lucideBolt" class="" />
+              <p class="">Lancamento</p>
+            </span>
+          </button>
+          <button
+            [routerLink]="'emprestimo'"
+            class="w-full text-left px-4 py-2 rounded hover:bg-[hsl(var(--muted))]"
+          >
+            <span class="inline-flex items-center gap-2">
+              <ng-icon hlm size="sm" name="lucideBolt" class="" />
+              <p class="">Emprestimos</p>
+            </span>
+          </button>
 
-        <button
-          [routerLink]="'lancamento'"
-          class="w-full text-left px-4 py-2 rounded hover:bg-[hsl(var(--muted))]"
-        >
-          <span class="inline-flex items-center gap-2">
-            <ng-icon hlm size="sm" name="lucideBolt" class="" />
-            <p class="">Lancamento</p>
-          </span>
-        </button>
-        <button
-          [routerLink]="'emprestimo'"
-          class="w-full text-left px-4 py-2 rounded hover:bg-[hsl(var(--muted))]"
-        >
-          <span class="inline-flex items-center gap-2">
-            <ng-icon hlm size="sm" name="lucideBolt" class="" />
-            <p class="">Emprestimos</p>
-          </span>
-        </button>
-
-        <button
-          [routerLink]="'relatorios'"
-          class="w-full text-left px-4 py-2 rounded hover:bg-[hsl(var(--muted))]"
-        >
-          <span class="inline-flex items-center gap-2">
-            <ng-icon hlm size="sm" name="lucideBolt" class="" />
-            <p class="">Relatorios</p>
-          </span>
-        </button>
+          <button
+            [routerLink]="'relatorios'"
+            class="w-full text-left px-4 py-2 rounded hover:bg-[hsl(var(--muted))]"
+          >
+            <span class="inline-flex items-center gap-2">
+              <ng-icon hlm size="sm" name="lucideBolt" class="" />
+              <p class="">Relatorios</p>
+            </span>
+          </button>
+        </div>
       </div>
 
       <!-- Grupo: Opções -->
@@ -161,8 +162,18 @@
         </div>
         <div class="flex flex-row gap-1 justify-center items-center">
           <div>
-            <img *ngIf="themeService.isDarkMode()" src="logo.png" alt="" class="w-5" />
-            <img *ngIf="!themeService.isDarkMode()" src="logo-dark.png" alt="" class="w-5" />
+            <img
+              *ngIf="themeService.isDarkMode()"
+              src="logo.png"
+              alt=""
+              class="w-5"
+            />
+            <img
+              *ngIf="!themeService.isDarkMode()"
+              src="logo-dark.png"
+              alt=""
+              class="w-5"
+            />
           </div>
           <div>
             <h1 class="text-[1.3rem] font-bold">Finance</h1>

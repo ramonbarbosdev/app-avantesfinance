@@ -17,6 +17,7 @@ This project was generated using [Angular CLI](https://github.com/angular/angula
     B. Projeção de Vencimentos de Empréstimos
 
 7. colocar id_cliente nas tabelas centro de custo e categoria
+    Colocar cards de  totalizadores no home e um grafico ficticio
 8. Fazer sessao admin no front
 9. separar por permissoes no front e back
 5. Colocar anotações no item lancamento

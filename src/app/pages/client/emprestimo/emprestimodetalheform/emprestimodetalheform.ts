@@ -97,6 +97,7 @@ export class Emprestimodetalheform implements OnChanges, OnInit {
     this.obterTipoEmprestimo()
       this.itemTemp.dt_pagamento = new Date().toISOString().split('T')[0];
       this.itemTemp.dt_vencimento = new Date().toISOString().split('T')[0];
+      this.objeto.ds_anotacao =  ""
   }
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['objeto']) {
@@ -131,6 +132,7 @@ export class Emprestimodetalheform implements OnChanges, OnInit {
       dt_pagamento: '',
       dt_vencimento: '',
       tp_itemstatus: '',
+      ds_anotacao: '',
       vl_emprestimo: 0,
     };
     this.onSeq();
@@ -177,8 +179,7 @@ export class Emprestimodetalheform implements OnChanges, OnInit {
       if (error instanceof ZodError) {
         this.errorValidacao = {};
         error.issues.forEach((e) => {
-          const value = e.path[1];
-          console.log(value)
+          const value = e.path[1];  
           this.errorValidacao[String(value)] = e.message;
         });
 

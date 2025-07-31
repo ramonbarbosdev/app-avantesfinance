@@ -15,10 +15,11 @@ export class EventService {
   private userSubject = new Subject<{
     id_usuario: number;
     id_cliente: number;
+    role: string;
   }>();
   userReload$ = this.userSubject.asObservable();
 
-  emitUserReload(id_usuario: number, id_cliente: number) {
-    this.userSubject.next({ id_usuario, id_cliente });
+  emitUserReload(id_usuario: number, id_cliente: number, role: string) {
+    this.userSubject.next({ id_usuario, id_cliente, role });
   }
 }

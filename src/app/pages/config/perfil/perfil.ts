@@ -122,7 +122,8 @@ export class Perfil implements OnInit {
         this.atualizarFoto();
         this.eventService.emitUserReload(
           this.objeto.id,
-          this.objeto.id_cliente
+          this.objeto.id_cliente,
+          this.auth.getUser()?.role
         );
         // window.location.reload();
         this.router.navigate(['client/ajustes']);

@@ -40,6 +40,15 @@
         ></app-combobox>
       </div>
 
+      <div *ngIf="fl_exibirADM == true">
+        <app-combobox
+          label="Acesso: (*)"
+          [options]="listaRoles"
+          [(model)]="objeto.role"
+          name="role"
+        ></app-combobox>
+      </div>
+
       <app-input
         [inputId]="'senha'"
         [type]="'password'"
