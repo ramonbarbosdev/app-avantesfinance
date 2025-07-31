@@ -14,7 +14,14 @@ export class AuthService {
   private readonly apiUrl = `${environment.apiUrl}`;
 
   private router = inject(Router);
-  constructor(private http: HttpClient) {}
+  
+  constructor(private http: HttpClient) {
+    const userJson = sessionStorage.getItem('user');
+    if (userJson) {
+      const user = JSON.parse(userJson);
+      this.userSubject.next(user);
+    }
+  }
 
   findByUsuarioByCliente(
     id_usuario: number,
@@ -160,10 +167,9 @@ export class AuthService {
       id_cliente: info.id_cliente,
       role: info.role,
       login: info.login,
-      pluggy: [], // vazio inicialmente
+      pluggy: [],
     };
 
-    // Emite imediatamente o usuário
     this.userSubject.next(objeto);
     sessionStorage.setItem('user', JSON.stringify(objeto));
 
@@ -171,7 +177,7 @@ export class AuthService {
       const pluggyData = await firstValueFrom(
         this.obterChave(info.id_usuario, info.Authorization)
       );
-      // Atualiza a propriedade pluggy sem atrasar a emissão inicial
+
       objeto.pluggy = pluggyData;
       this.userSubject.next(objeto);
       sessionStorage.setItem('user', JSON.stringify(objeto));
