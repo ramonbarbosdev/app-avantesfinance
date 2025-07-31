@@ -20,6 +20,7 @@ export const routes: Routes = [
     path: 'client',
     component: Principal,
     canActivateChild: [authGuard],
+    data: { roles: ['client'] },
     children: [
       { path: 'home', component: Home },
       { path: 'ajustes', component: Ajustes },
@@ -38,9 +39,7 @@ export const routes: Routes = [
     path: 'admin',
     component: Principal,
     canActivateChild: [authGuard],
-    children: [
-      { path: 'dashboard', component: Dashboard },
-
-    ],
+    data: { roles: ['admin'] },
+    children: [{ path: 'dashboard', component: Dashboard }],
   },
 ];

@@ -91,7 +91,6 @@ export class Menu implements OnInit {
   ngOnInit(): void {
     this.auth.user$.subscribe((user) => {
       if (user) {
-        console.log(user);
         this.obterUsuarioLogado(user.id_usuario, user.id_cliente, user.role);
         // this.isAdmin = user.role == "admin" ? true : false
       }
@@ -124,7 +123,6 @@ export class Menu implements OnInit {
   obterUsuarioLogado(id_usuario: number, id_cliente: number, role:string) {
     this.auth.findByUsuarioByCliente(id_usuario, id_cliente).subscribe({
       next: (res) => {
-        console.log(res.usuario.roles[0].nomeRole);
         this.objeto.id = res.usuario.id;
         this.objeto.login = res.usuario.login;
         this.objeto.nome = res.usuario.nome;

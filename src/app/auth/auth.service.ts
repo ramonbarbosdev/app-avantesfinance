@@ -16,7 +16,10 @@ export class AuthService {
   private router = inject(Router);
   constructor(private http: HttpClient) {}
 
-  findByUsuarioByCliente(id_usuario: number, id_cliente: number): Observable<any> {
+  findByUsuarioByCliente(
+    id_usuario: number,
+    id_cliente: number
+  ): Observable<any> {
     const url = `${this.apiUrl}/cliente/obter-usuario-logado/${id_usuario}/${id_cliente}`;
 
     return this.http.get<any>(url).pipe(
@@ -152,19 +155,29 @@ export class AuthService {
   }
 
   async setUser(info: any) {
-    const retorno = await firstValueFrom(
-      this.obterChave(info.id_usuario, info.Authorization)
-    );
     let objeto = {
       id_usuario: info.id_usuario,
       id_cliente: info.id_cliente,
       role: info.role,
       login: info.login,
-      pluggy: [],
+      pluggy: [], // vazio inicialmente
     };
+
+    // Emite imediatamente o usuário
+    this.userSubject.next(objeto);
     sessionStorage.setItem('user', JSON.stringify(objeto));
 
-    this.userSubject.next(objeto);
+    try {
+      const pluggyData = await firstValueFrom(
+        this.obterChave(info.id_usuario, info.Authorization)
+      );
+      // Atualiza a propriedade pluggy sem atrasar a emissão inicial
+      objeto.pluggy = pluggyData;
+      this.userSubject.next(objeto);
+      sessionStorage.setItem('user', JSON.stringify(objeto));
+    } catch (error) {
+      console.error('Erro ao obter chave pluggy:', error);
+    }
   }
 
   setToken(token: string) {

@@ -35,7 +35,7 @@ import { ClienteService } from '../../../services/cliente.service';
   styleUrl: './login.scss',
 })
 export class Login {
-  public objeto = { login: '', senha: '', id_cliente: null, role: "" };
+  public objeto = { login: '', senha: '', id_cliente: null, role: '' };
   public listaClientes: Box[] = [];
   public listaRoles: Box[] = [];
   router = inject(Router);
@@ -61,11 +61,12 @@ export class Login {
 
   processarLogin() {
     const login = this.objeto.login?.trim();
+    this.fl_exibirCliente = false;
+    this.fl_exibirADM = false;
+    this.listaRoles = [];
+    this.listaClientes = [];
 
     if (!login) {
-      this.fl_exibirCliente = false;
-      this.fl_exibirADM = false;
-      // this.listaClientes.length = 0;
       return;
     }
 
@@ -86,10 +87,8 @@ export class Login {
             { label: 'Administrador', value: 'admin' },
             { label: 'Cliente', value: 'client' },
           ];
-        }
-        else
-        {
-          this.objeto.role = "client"
+        } else {
+          this.objeto.role = 'client';
         }
       },
       error: (error) => {
@@ -102,7 +101,7 @@ export class Login {
   }
 
   gerenciarRotaUsuario(res: any) {
-    if (!this.objeto.id_cliente) {
+    if (!this.objeto.id_cliente || !this.objeto.role) {
       toast('Escopo(s) inválido(s) fornecido(s)', {
         description: '',
         action: {
@@ -119,9 +118,10 @@ export class Login {
     this.auth.setToken(res.Authorization);
     //  this.router.navigate(['admin/dashboard']);
 
-    if(this.objeto.role == "admin") this.router.navigate([`${this.objeto.role}/dashboard`]);
-    if(this.objeto.role == "client") this.router.navigate([`${this.objeto.role}/home`]);
-   
+    if (this.objeto.role == 'admin')
+      this.router.navigate([`${this.objeto.role}/dashboard`]);
+    if (this.objeto.role == 'client')
+      this.router.navigate([`${this.objeto.role}/home`]);
   }
 
   tratarErro(e: any) {
