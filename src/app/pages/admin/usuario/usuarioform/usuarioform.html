@@ -44,6 +44,15 @@
     ></app-combobox>
   </div>
 
+  <div *ngIf="objeto.id">
+    <app-vinculo-cliente
+      [(objeto)]="objeto"
+      [itemTemp]="objetoItem"
+      [nomeItem]="'cliente'"
+    >
+    </app-vinculo-cliente>
+  </div>
+
   <div hlmCardFooter class="pt-4">
     <div class="flex flex-row w-full itens-center justify-end-safe">
       <div class="flex gap-2">

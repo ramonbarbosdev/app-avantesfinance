@@ -1,1 +1,110 @@
-<p>vinculo-cliente works!</p>
+<!-- Itens  -->
+
+<div class="pt-6 space-y-2">
+  <h4 class="text-lg font-semibold">Vinculo de clientes</h4>
+
+  <hlm-sheet
+    [state]="popoverState()"
+    (stateChanged)="onPopoverStateChange($event)"
+    side="right"
+  >
+    <button
+      title="novo item"
+      id="cliente-profile"
+      variant="outline"
+      brnSheetTrigger
+      hlmBtn
+      type="button"
+    >
+      Cadastrar
+    </button>
+
+    <hlm-sheet-content class="flex flex-col gap-5" *brnSheetContent="let ctx">
+      <hlm-sheet-header>
+        <h3 hlmSheetTitle>Novo Vinculo</h3>
+        <p hlmSheetDescription>Cadastre o novo cliente ao usuario</p>
+      </hlm-sheet-header>
+
+      <div class="grid flex-1 auto-rows-min gap-6 px-4">
+        <app-combobox
+          label="Usuario: (*)"
+          [options]="listaUsuario"
+          [(model)]="itemTemp.id_usuario"
+          name="id_usuario"
+          [error]="errorValidacao['id_usuario']  || null"
+          [disabled]="true"
+        >
+        </app-combobox>
+
+        <app-combobox
+          label="Clientes: (*)"
+          [options]="listaCliente"
+          [(model)]="itemTemp.id_cliente"
+          name="id_cliente"
+          [error]="errorValidacao['id_cliente']  || null"
+        >
+        </app-combobox>
+
+        <app-input
+          [inputId]="'tp_status'"
+          [type]="'text'"
+          [label]="'Status'"
+          [required]="true"
+          [placeholder]="''"
+          [(model)]="itemTemp.tp_status"
+          [disabled]="true"
+          [value]="itemTemp.tp_status"
+        ></app-input>
+      </div>
+
+      <hlm-sheet-footer>
+        <button hlmBtn type="button" (click)="adicionarItem()">Salvar</button>
+      </hlm-sheet-footer>
+    </hlm-sheet-content>
+  </hlm-sheet>
+
+  <section class="p-2" hlmCard>
+    <table hlmTable>
+      <caption hlmCaption>
+        Listagem
+      </caption>
+      <thead hlmTHead>
+        <tr hlmTr>
+          <th hlmTh class="w-[5%]"></th>
+          <th hlmTh class="">Cliente</th>
+          <th hlmTh class="">Status</th>
+        </tr>
+      </thead>
+      <tbody hlmTBody>
+        <tr hlmTr *ngFor="let item of listagem">
+          <td
+            hlmTd
+            class="flex flex-row h-full w-full gap-2 justify-center items-center"
+          >
+            <div
+              (click)="editarItem(item)"
+              class="flex cursor-pointer hover:scale-[1.2] transform transition-all duration-300"
+            >
+              <ng-icon hlm size="sm" name="lucideSquarePen" />
+            </div>
+            <div
+              (click)="removerItem(item)"
+              class="flex cursor-pointer hover:scale-[1.2] transform transition-all duration-300"
+            >
+              <ng-icon hlm size="sm" name="lucideTrash2" />
+            </div>
+          </td>
+
+          <td hlmTd>{{ item.nm_cliente }}</td>
+          <td hlmTd>{{ item.tp_status }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <div class="pt-4">
+    <!-- <button type="button" hlmBtn (click)="adicionarItem()">
+      Adicionar Item
+    </button> -->
+  </div>
+</div>

@@ -16,6 +16,8 @@ import { LancametosSchema } from '../../../../schema/lancamento-schema.';
 import { Box } from '../../../../models/box';
 import { Combobox } from '../../../../components/combobox/combobox';
 import { UsuarioSchema } from '../../../../schema/usuario-schema';
+import { VinculoCliente } from "../../vinculo-cliente/vinculo-cliente";
+import { Usuariocliente } from '../../../../models/usuariocliente';
 
 @Component({
   selector: 'app-usuarioform',
@@ -29,6 +31,7 @@ import { UsuarioSchema } from '../../../../schema/usuario-schema';
     HlmFormFieldModule,
     InputCustom,
     Combobox,
+    VinculoCliente,
   ],
   templateUrl: './usuarioform.html',
   styleUrl: './usuarioform.scss',
@@ -37,12 +40,15 @@ export class Usuarioform {
   baseService = inject(BaseService);
   endpoint = 'usuario';
   public objeto: Usuario = new Usuario();
+  public objetoItem: Usuariocliente = new Usuariocliente();
+
   public errorValidacao: Record<string, string> = {};
   fl_edicao = false;
   private route = inject(ActivatedRoute);
   private cdr = inject(ChangeDetectorRef);
   router = inject(Router);
   public listaRoles: Box[] = [];
+  public listaClientes: Box[] = [];
 
   ngOnInit() {
     this.onShow();
@@ -111,6 +117,21 @@ export class Usuarioform {
   }
 
   obterRoles() {
+    return new Promise((resolve, reject) => {
+      this.baseService.findAll('role/').subscribe({
+        next: (res) => {
+          this.listaRoles = (res as any).map((index: any) => {
+            const item = new Box();
+            item.value = String(index.nomeRole);
+            item.label = index.nomeRole;
+            return item;
+          });
+        },
+        error: (err) => reject(err),
+      });
+    });
+  }
+  obterCliente() {
     return new Promise((resolve, reject) => {
       this.baseService.findAll('role/').subscribe({
         next: (res) => {
