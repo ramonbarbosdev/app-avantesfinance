@@ -13,6 +13,7 @@ import { Lancamentolist } from './pages/client/lancamento/lancamentolist/lancame
 import { Lancamentoform } from './pages/client/lancamento/lancamentoform/lancamentoform';
 import { Relatoriolist } from './pages/client/relatorios/relatoriolist/relatoriolist';
 import { Dashboard } from './pages/admin/dashboard/dashboard';
+import { Usuario } from './pages/admin/usuario/usuario';
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: Login },
@@ -40,6 +41,10 @@ export const routes: Routes = [
     component: Principal,
     canActivateChild: [authGuard],
     data: { roles: ['admin'] },
-    children: [{ path: 'dashboard', component: Dashboard }],
+    children: [
+      { path: 'dashboard', component: Dashboard },
+      { path: 'usuario', component: Usuario },
+
+    ],
   },
 ];

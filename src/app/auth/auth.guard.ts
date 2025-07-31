@@ -15,7 +15,7 @@ export const authGuard: CanActivateFn = (route, state) => {
   }
 
   const rolesPermitidos = route.parent?.data?.['roles'] as string[] | undefined;
-  console.log(rolesPermitidos);
+  
   return auth.user$.pipe(
     take(1),
     map((user) => {

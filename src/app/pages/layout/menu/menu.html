@@ -54,12 +54,12 @@
     >
       <!-- Grupo: Modulos -->
       <div class="mb-6">
-        <h2
-          class="text-sm font-semibold mb-2 text-[hsl(var(--accent-foreground))]"
-        >
-          Modulos
-        </h2>
         <div *ngIf="objeto.role == 'client'">
+          <h2
+            class="text-sm font-semibold mb-2 text-[hsl(var(--accent-foreground))]"
+          >
+            Modulos
+          </h2>
           <button
             [routerLink]="'home'"
             class="w-full text-left px-4 py-2 rounded hover:bg-[hsl(var(--muted))]"
@@ -99,6 +99,34 @@
             </span>
           </button>
         </div>
+
+        <div *ngIf="objeto.role == 'admin'">
+          <h2
+            class="text-sm font-semibold mb-2 text-[hsl(var(--accent-foreground))]"
+          >
+            Cadastro
+          </h2>
+          <button
+            [routerLink]="'dashboard'"
+            class="w-full text-left px-4 py-2 rounded hover:bg-[hsl(var(--muted))]"
+          >
+            <span class="inline-flex items-center gap-2">
+              <ng-icon hlm size="sm" name="lucideBolt" class="" />
+              <p class="">Dashboard</p>
+            </span>
+          </button>
+          <button
+            [routerLink]="'usuario'"
+            class="w-full text-left px-4 py-2 rounded hover:bg-[hsl(var(--muted))]"
+          >
+            <span class="inline-flex items-center gap-2">
+              <ng-icon hlm size="sm" name="lucideBolt" class="" />
+              <p class="">Usuario</p>
+            </span>
+          </button>
+
+        </div>
+
       </div>
 
       <!-- Grupo: Opções -->
@@ -109,15 +137,17 @@
           Opções
         </h2>
 
-        <button
-          [routerLink]="'ajustes'"
-          class="w-full text-left px-4 py-2 rounded hover:bg-[hsl(var(--muted))]"
-        >
-          <span class="inline-flex items-center gap-2">
-            <ng-icon hlm size="sm" name="lucideBolt" class="" />
-            <p class="">Ajustes</p>
-          </span>
-        </button>
+        <div *ngIf="objeto.role == 'client'">
+          <button
+            [routerLink]="'ajustes'"
+            class="w-full text-left px-4 py-2 rounded hover:bg-[hsl(var(--muted))]"
+          >
+            <span class="inline-flex items-center gap-2">
+              <ng-icon hlm size="sm" name="lucideBolt" class="" />
+              <p class="">Ajustes</p>
+            </span>
+          </button>
+        </div>
 
         <button
           (click)="themeService.toggleTheme()"
