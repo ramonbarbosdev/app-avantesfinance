@@ -1,6 +1,5 @@
 import { Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
 import { AuthService } from '../../../auth/auth.service';
-import { ThemeService } from '../../../services/theme.service';
 import { InputCustom } from "../../../components/input-custom/input-custom";
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';

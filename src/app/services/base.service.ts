@@ -123,6 +123,34 @@ export class BaseService {
     );
   }
 
+  create(endpoint: string, data: any): Observable<any> {
+    const url = `${this.apiUrl}/${endpoint}`;
+
+    return this.http.post<any>(url, data).pipe(
+      tap((res) => {
+        toast('Salvo com sucesso!', {
+          action: {
+            label: 'Ok',
+            onClick: () => {},
+          },
+        });
+        return res;
+      }),
+      catchError((e) => {
+        console.log(e);
+
+        toast(e.error.message, {
+          description: e.error.codeDescription,
+          action: {
+            label: 'Ok',
+            onClick: () => {},
+          },
+        });
+        return throwError(() => e);
+      })
+    );
+  }
+
   deleteById(endpoint: string, id: number): Observable<any> {
     const url = `${this.apiUrl}/${endpoint}/${id}`;
 

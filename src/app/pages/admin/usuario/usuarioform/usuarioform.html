@@ -1,0 +1,63 @@
+<form hlmCardContent class="space-y-4" #f="ngForm" (ngSubmit)="salvar()">
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-4">
+    <app-input
+      [inputId]="'nome'"
+      [type]="'text'"
+      [label]="'Nome: (*)'"
+      [required]="true"
+      [placeholder]="'Nome de usuario'"
+      [(model)]="objeto.nome"
+      [error]="errorValidacao['nome']  || null"
+      [disabled]="false"
+      [value]="objeto.nome"
+    ></app-input>
+
+    <app-input
+      [inputId]="'login'"
+      [type]="'text'"
+      [label]="'Login: (*)'"
+      [required]="true"
+      [placeholder]="'login de acesso'"
+      [(model)]="objeto.login"
+      [error]="errorValidacao['login']  || null"
+      [disabled]="false"
+      [value]="objeto.login"
+    ></app-input>
+
+    <app-input
+      [inputId]="'senha'"
+      [type]="'password'"
+      [label]="'Senha: (*)'"
+      [required]="true"
+      [placeholder]="'Senha de acesso'"
+      [(model)]="objeto.senha"
+      [error]="errorValidacao['senha']  || null"
+      [value]="objeto.senha"
+    ></app-input>
+
+    <app-combobox
+      label="Acesso: (*)"
+      [options]="listaRoles"
+      [(model)]="objeto.role"
+      name="role"
+      [error]="errorValidacao['role']  || null"
+    ></app-combobox>
+  </div>
+
+  <div hlmCardFooter class="pt-4">
+    <div class="flex flex-row w-full itens-center justify-end-safe">
+      <div class="flex gap-2">
+        <button
+          *ngIf="fl_edicao ==false"
+          type="button"
+          hlmBtn
+          class="w-full"
+          (click)="limparFormulario()"
+        >
+          Limpar
+        </button>
+        <button type="submit" hlmBtn class="w-full">Salvar</button>
+      </div>
+    </div>
+  </div>
+</form>

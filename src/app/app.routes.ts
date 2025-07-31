@@ -13,7 +13,8 @@ import { Lancamentolist } from './pages/client/lancamento/lancamentolist/lancame
 import { Lancamentoform } from './pages/client/lancamento/lancamentoform/lancamentoform';
 import { Relatoriolist } from './pages/client/relatorios/relatoriolist/relatoriolist';
 import { Dashboard } from './pages/admin/dashboard/dashboard';
-import { Usuario } from './pages/admin/usuario/usuario';
+import { Usuariolist } from './pages/admin/usuario/usuariolist/usuariolist';
+import { Usuarioform } from './pages/admin/usuario/usuarioform/usuarioform';
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: Login },
@@ -43,8 +44,8 @@ export const routes: Routes = [
     data: { roles: ['admin'] },
     children: [
       { path: 'dashboard', component: Dashboard },
-      { path: 'usuario', component: Usuario },
-
+      { path: 'usuario', component: Usuariolist },
+      { path: 'usuarioform/:id', component: Usuarioform },
     ],
   },
 ];
