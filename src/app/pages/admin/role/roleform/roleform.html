@@ -1,0 +1,35 @@
+<form hlmCardContent class="space-y-4" #f="ngForm" (ngSubmit)="salvar()">
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-4">
+    <app-input
+      [inputId]="'nomeRole'"
+      [type]="'text'"
+      [label]="'Nome: (*)'"
+      [required]="true"
+      [placeholder]="'Nome de acesso'"
+      [(model)]="objeto.nomeRole"
+      [error]="errorValidacao['nomeRole']  || null"
+      [disabled]="false"
+      [value]="objeto.nomeRole"
+    ></app-input>
+
+  </div>
+
+
+
+  <div hlmCardFooter class="pt-4">
+    <div class="flex flex-row w-full itens-center justify-end-safe">
+      <div class="flex gap-2">
+        <button
+          *ngIf="fl_edicao ==false"
+          type="button"
+          hlmBtn
+          class="w-full"
+          (click)="limparFormulario()"
+        >
+          Limpar
+        </button>
+        <button type="submit" hlmBtn class="w-full">Salvar</button>
+      </div>
+    </div>
+  </div>
+</form>

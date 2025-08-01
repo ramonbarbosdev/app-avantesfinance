@@ -12,7 +12,6 @@ import { BaseService } from '../../../../services/base.service';
 import { Usuario } from '../../../../models/usuario';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ZodError } from 'zod';
-import { LancametosSchema } from '../../../../schema/lancamento-schema.';
 import { Box } from '../../../../models/box';
 import { Combobox } from '../../../../components/combobox/combobox';
 import { UsuarioSchema } from '../../../../schema/usuario-schema';
