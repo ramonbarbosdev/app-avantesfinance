@@ -1,0 +1,61 @@
+<form hlmCardContent class="space-y-4" #f="ngForm" (ngSubmit)="salvar()">
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-4">
+   
+
+    <app-input
+      [inputId]="'nm_cliente'"
+      [type]="'text'"
+      [label]="'Nome: (*)'"
+      [required]="true"
+      [placeholder]="'Nome do cliente'"
+      [(model)]="objeto.nm_cliente"
+      [error]="errorValidacao['nm_cliente']  || null"
+      [disabled]="false"
+      [value]="objeto.nm_cliente"
+    ></app-input>
+
+     <app-input
+      [inputId]="'nu_cnpjcpf'"
+      [type]="'text'"
+      [label]="'CPF/CNPJ: (*)'"
+      [required]="true"
+      [placeholder]="'CPF/CNPJ do cliente'"
+      [(model)]="objeto.nu_cnpjcpf"
+      [error]="errorValidacao['nu_cnpjcpf']  || null"
+      [disabled]="false"
+      [value]="objeto.nu_cnpjcpf"
+    ></app-input>
+
+     <app-input
+      [inputId]="'tp_status'"
+      [type]="'text'"
+      [label]="'Status: (*)'"
+      [required]="true"
+      [placeholder]="'Status do cliente'"
+      [(model)]="objeto.tp_status"
+      [error]="errorValidacao['tp_status']  || null"
+      [disabled]="false"
+      [value]="objeto.tp_status"
+    ></app-input>
+
+  </div>
+
+
+
+  <div hlmCardFooter class="pt-4">
+    <div class="flex flex-row w-full itens-center justify-end-safe">
+      <div class="flex gap-2">
+        <button
+          *ngIf="fl_edicao ==false"
+          type="button"
+          hlmBtn
+          class="w-full"
+          (click)="limparFormulario()"
+        >
+          Limpar
+        </button>
+        <button type="submit" hlmBtn class="w-full">Salvar</button>
+      </div>
+    </div>
+  </div>
+</form>

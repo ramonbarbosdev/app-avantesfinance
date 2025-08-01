@@ -17,6 +17,8 @@ import { Usuariolist } from './pages/admin/usuario/usuariolist/usuariolist';
 import { Usuarioform } from './pages/admin/usuario/usuarioform/usuarioform';
 import { Rolelist } from './pages/admin/role/rolelist/rolelist';
 import { Roleform } from './pages/admin/role/roleform/roleform';
+import { Clientelist } from './pages/admin/cliente/clientelist/clientelist';
+import { Clienteform } from './pages/admin/cliente/clienteform/clienteform';
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: Login },
@@ -50,6 +52,8 @@ export const routes: Routes = [
       { path: 'usuarioform/:id', component: Usuarioform },
       { path: 'role', component: Rolelist },
       { path: 'roleform/:id', component: Roleform },
+      { path: 'cliente', component: Clientelist },
+      { path: 'clienteform/:id', component: Clienteform },
     ],
   },
 ];
