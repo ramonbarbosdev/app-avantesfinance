@@ -7,7 +7,6 @@ import { Conta } from './pages/config/conta/conta';
 import { Ajustes } from './pages/config/ajustes/ajustes';
 import { Perfil } from './pages/config/perfil/perfil';
 import { Emprestimoform } from './pages/client/emprestimo/emprestimoform/emprestimoform';
-import { Competencia } from './pages/config/competencia/competencia';
 import { Emprestimolist } from './pages/client/emprestimo/emprestimolist/emprestimolist';
 import { Lancamentolist } from './pages/client/lancamento/lancamentolist/lancamentolist';
 import { Lancamentoform } from './pages/client/lancamento/lancamentoform/lancamentoform';
@@ -19,6 +18,8 @@ import { Rolelist } from './pages/admin/role/rolelist/rolelist';
 import { Roleform } from './pages/admin/role/roleform/roleform';
 import { Clientelist } from './pages/admin/cliente/clientelist/clientelist';
 import { Clienteform } from './pages/admin/cliente/clienteform/clienteform';
+import { Competencialist } from './pages/config/competencia/competencialist/competencialist';
+import { Competenciaform } from './pages/config/competencia/competenciaform/competenciaform';
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: Login },
@@ -38,7 +39,8 @@ export const routes: Routes = [
       { path: 'relatorios', component: Relatoriolist },
       { path: 'emprestimo', component: Emprestimolist },
       { path: 'emprestimoform/:id', component: Emprestimoform },
-      { path: 'competencia', component: Competencia },
+      { path: 'competencia', component: Competencialist },
+      { path: 'competenciaform/:id', component: Competenciaform },
     ],
   },
   {

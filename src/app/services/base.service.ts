@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environment';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { catchError, Observable, tap, throwError } from 'rxjs';
 import { toast } from 'ngx-sonner';
 
@@ -150,6 +150,7 @@ export class BaseService {
       })
     );
   }
+  
 
   deleteById(endpoint: string, id: number): Observable<any> {
     const url = `${this.apiUrl}/${endpoint}/${id}`;
@@ -176,6 +177,4 @@ export class BaseService {
       })
     );
   }
-
-  
 }

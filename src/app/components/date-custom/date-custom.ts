@@ -31,13 +31,14 @@ export class DateCustom implements ControlValueAccessor, OnChanges {
 
   @Input() model: any;
   @Output() modelChange = new EventEmitter<string>();
+  @Output() blur = new EventEmitter<FocusEvent>();
 
   value: Date | null = null;
   public data?: Date;
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['model']) {
-      const parsedDate = new Date(this.model + 'T00:00:00'); 
+      const parsedDate = new Date(this.model + 'T00:00:00');
       this.data = isNaN(parsedDate.getTime()) ? undefined : parsedDate;
     }
   }
@@ -58,7 +59,6 @@ export class DateCustom implements ControlValueAccessor, OnChanges {
   }
 
   onValueChange(event: any) {
-
     const data = new Date(event);
     const dataFormatada = data.toISOString();
     // this.value = event?.toISOString().split('T')[0]; ;

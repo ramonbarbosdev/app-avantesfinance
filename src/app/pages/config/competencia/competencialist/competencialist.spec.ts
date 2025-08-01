@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { Competencia } from './competencia';
+import { Competencialist } from './competencialist';
 
-describe('Competencia', () => {
-  let component: Competencia;
-  let fixture: ComponentFixture<Competencia>;
+describe('Competencialist', () => {
+  let component: Competencialist;
+  let fixture: ComponentFixture<Competencialist>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [Competencia]
+      imports: [Competencialist]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(Competencia);
+    fixture = TestBed.createComponent(Competencialist);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

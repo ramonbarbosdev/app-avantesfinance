@@ -1,0 +1,77 @@
+<form hlmCardContent class="space-y-4" #f="ngForm" (ngSubmit)="salvar()">
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-4">
+
+    <app-date-custom
+      [(model)]="objeto.dt_competencia"
+      name="dt_competencia"
+      [label]="'Data: (*)'"
+      [error]="errorValidacao['dt_competencia']  || null"
+      (modelChange)="processarCompetencia($event)"
+
+    >
+    </app-date-custom>
+
+    <app-input
+      [inputId]="'cd_competencia'"
+      [type]="'text'"
+      [label]="'Competência: (*)'"
+      [required]="true"
+      [placeholder]="'Ex: 202501'"
+      [(model)]="objeto.cd_competencia"
+      [error]="errorValidacao['cd_competencia']  || null"
+      [disabled]="false"
+      [value]="objeto.cd_competencia"
+    ></app-input>
+
+    <app-input
+      [inputId]="'nm_competencia'"
+      [type]="'text'"
+      [label]="'Nome da Competência:'"
+      [required]="true"
+      [placeholder]="'Ex: Janeiro'"
+      [(model)]="objeto.nm_competencia"
+      [value]="objeto.nm_competencia"
+      [disabled]="true"
+    ></app-input>
+
+    <app-input
+      [inputId]="'dt_ano'"
+      [type]="'text'"
+      [label]="'Ano da Competência:'"
+      [required]="true"
+      [placeholder]="'Ex: 2025'"
+      [(model)]="objeto.dt_ano"
+      [disabled]="true"
+      [value]="objeto.dt_ano"
+    ></app-input>
+
+    <app-input
+      [inputId]="'tp_status'"
+      [type]="'text'"
+      [label]="'Status: (*)'"
+      [required]="true"
+      [placeholder]="''"
+      [(model)]="objeto.tp_status"
+      [error]="errorValidacao['tp_status']  || null"
+      [disabled]="true"
+      [value]="objeto.tp_status"
+    ></app-input>
+  </div>
+
+  <div hlmCardFooter class="pt-4">
+    <div class="flex flex-row w-full itens-center justify-end-safe">
+      <div class="flex gap-2">
+        <button
+          *ngIf="fl_edicao ==false"
+          type="button"
+          hlmBtn
+          class="w-full"
+          (click)="limparFormulario()"
+        >
+          Limpar
+        </button>
+        <button type="submit" hlmBtn class="w-full">Salvar</button>
+      </div>
+    </div>
+  </div>
+</form>
