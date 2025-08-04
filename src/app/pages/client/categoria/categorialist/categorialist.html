@@ -1,0 +1,59 @@
+<div class="p-10 flex flex-col gap-5">
+  <hlm-tabs tab="listagem" class="w-full">
+    <hlm-tabs-list class="grid w-full grid-cols-2" aria-label="tabs example">
+      <button hlmTabsTrigger="listagem">Categorias</button>
+      <button hlmTabsTrigger="novo">Novo</button>
+    </hlm-tabs-list>
+    <div hlmTabsContent="listagem">
+      <section class="p-2" hlmCard>
+        <table hlmTable>
+          <caption hlmCaption>
+            Listagem de categorias
+          </caption>
+          <thead hlmTHead>
+            <tr hlmTr>
+              <th hlmTh class="w-[5%]"></th>
+              <th class="w-[100px]" hlmTh>Codigo</th>
+              <th class="w-[100px]" hlmTh>Nome</th>
+              <th class="w-[100px]" hlmTh>Tipo</th>
+            </tr>
+          </thead>
+          <tbody hlmTBody>
+            <tr hlmTr *ngFor="let item of listagem">
+              <td
+                hlmTd
+                class="flex flex-row h-full w-full gap-2 justify-center items-center"
+              >
+                <div
+                  (click)="editar(item)"
+                  class="flex cursor-pointer hover:scale-[1.2] transform transition-all duration-300"
+                >
+                  <ng-icon hlm size="sm" name="lucideSquarePen" />
+                </div>
+                <div
+                  (click)="excluir(item.id_categoria)"
+                  class="flex cursor-pointer hover:scale-[1.2] transform transition-all duration-300"
+                >
+                  <ng-icon hlm size="sm" name="lucideTrash2" />
+                </div>
+              </td>
+
+              <td hlmTd>{{ item.cd_categoria }}</td>
+              <td hlmTd>{{ item.nm_categoria }}</td>
+              <td hlmTd>{{ item.tp_categoria }}</td>
+              
+            </tr>
+          </tbody>
+        </table>
+      </section>
+    </div>
+
+    <div hlmTabsContent="novo">
+      <div class="p-5">
+    <app-categoriaform>
+        
+    </app-categoriaform>
+      </div>
+    </div>
+  </hlm-tabs>
+</div>

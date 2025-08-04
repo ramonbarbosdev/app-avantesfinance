@@ -22,6 +22,8 @@ import { Competencialist } from './pages/config/competencia/competencialist/comp
 import { Competenciaform } from './pages/config/competencia/competenciaform/competenciaform';
 import { Centrocustolist } from './pages/client/centrocusto/centrocustolist/centrocustolist';
 import { Centrocustoform } from './pages/client/centrocusto/centrocustoform/centrocustoform';
+import { Categoriaform } from './pages/client/categoria/categoriaform/categoriaform';
+import { Categorialist } from './pages/client/categoria/categorialist/categorialist';
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: Login },
@@ -37,6 +39,8 @@ export const routes: Routes = [
       { path: 'conta', component: Conta },
       { path: 'centrocusto', component: Centrocustolist },
       { path: 'centrocustoform/:id', component: Centrocustoform },
+      { path: 'categoria', component: Categorialist },
+      { path: 'categoriaform/:id', component: Categoriaform },
       { path: 'lancamento', component: Lancamentolist },
       { path: 'lancamentoform/:id', component: Lancamentoform },
       { path: 'lancamentoform', component: Lancamentoform },
