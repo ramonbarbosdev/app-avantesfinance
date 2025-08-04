@@ -1,0 +1,64 @@
+<form hlmCardContent class="space-y-4" #f="ngForm" (ngSubmit)="salvar()">
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-4">
+
+  
+
+    <app-input
+      [inputId]="'cd_centrocusto'"
+      [type]="'text'"
+      [label]="'Codigo: (*)'"
+      [required]="true"
+      [placeholder]="''"
+      [(model)]="objeto.cd_centrocusto"
+      [error]="errorValidacao['cd_centrocusto']  || null"
+      [disabled]="true"
+      [value]="objeto.cd_centrocusto"
+    ></app-input>
+
+    <app-input
+      [inputId]="'nm_centrocusto'"
+      [type]="'text'"
+      [label]="'Nome:'"
+      [required]="true"
+      [placeholder]="'Ex: Moradia'"
+      [(model)]="objeto.nm_centrocusto"
+      [value]="objeto.nm_centrocusto"
+      [disabled]="false"
+      [error]="errorValidacao['nm_centrocusto']  || null"
+
+    ></app-input>
+
+   
+  </div>
+
+  <div>
+
+       <app-input
+      [inputId]="'ds_centrocusto'"
+      [type]="'textarea'"
+      [label]="'Descrição:'"
+      [required]="true"
+      [placeholder]="'Descreva...'"
+      [(model)]="objeto.ds_centrocusto"
+      [disabled]="false"
+      [value]="objeto.ds_centrocusto"
+    ></app-input>
+  </div>
+
+  <div hlmCardFooter class="pt-4">
+    <div class="flex flex-row w-full itens-center justify-end-safe">
+      <div class="flex gap-2">
+        <button
+          *ngIf="fl_edicao ==false"
+          type="button"
+          hlmBtn
+          class="w-full"
+          (click)="limparFormulario()"
+        >
+          Limpar
+        </button>
+        <button type="submit" hlmBtn class="w-full">Salvar</button>
+      </div>
+    </div>
+  </div>
+</form>

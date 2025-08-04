@@ -69,6 +69,15 @@
               <p class="">Inicio</p>
             </span>
           </button>
+          <button
+            [routerLink]="'centrocusto'"
+            class="w-full text-left px-4 py-2 rounded hover:bg-[hsl(var(--muted))]"
+          >
+            <span class="inline-flex items-center gap-2">
+              <ng-icon hlm size="sm" name="lucideBolt" class="" />
+              <p class="">Centro de Custo</p>
+            </span>
+          </button>
 
           <button
             [routerLink]="'lancamento'"
@@ -231,8 +240,8 @@
         <div>
           <app-combobox
             [options]="listaCompetencia"
-            name="id_competencia"
-            [(model)]="id_competencia"
+            name="cd_competencia"
+            [(model)]="cd_competencia"
             (modelChange)="onSelecionarCompetencia($event)"
           >
             >

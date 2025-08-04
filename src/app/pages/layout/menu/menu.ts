@@ -26,7 +26,6 @@ import {
 import { ThemeService } from '../../../services/theme.service';
 import { AuthService } from '../../../auth/auth.service';
 import { formatarInicialNome } from '../../../utils/InicialNome';
-import { BehaviorSubject } from 'rxjs';
 import { Usuario } from '../../../models/usuario';
 import { EventService } from '../../../services/event.service';
 import { environment } from '../../../../environment';
@@ -37,7 +36,6 @@ import { BaseService } from '../../../services/base.service';
 import { formatAnoMes } from '../../../utils/formatAnoMes';
 import { CompetenciaService } from '../../../services/competencia.service';
 import { toast } from 'ngx-sonner';
-import { ClienteService } from '../../../services/cliente.service';
 
 @Component({
   selector: 'app-menu',
@@ -82,7 +80,7 @@ export class Menu implements OnInit {
   private cdRef = inject(ChangeDetectorRef);
   public listaCompetencia: Box[] = [];
 
-  id_competencia: string = this.competenciaService.getCompetencia() || '';
+  cd_competencia: string = this.competenciaService.getCompetencia() || '';
   sidebarOpen = false;
   isMobile = false;
   isLoading = false;
@@ -104,6 +102,7 @@ export class Menu implements OnInit {
       );
 
     this.obterCompetencia();
+    // if(this.cd_competencia) this.obterCompetenciaAtual()
 
     this.eventService.userReload$.subscribe(
       ({ id_usuario, id_cliente, role }) => {
@@ -156,7 +155,7 @@ export class Menu implements OnInit {
     this.baseService.findAll('competencia/atual').subscribe({
       next: (res) => {
         let nomeCompetencia = formatAnoMes(res.cd_competencia);
-        this.id_competencia = res.cd_competencia;
+        this.cd_competencia = res.cd_competencia;
         toast(`Competência de ${nomeCompetencia} selecionada.`, {
           description: `Mês está ${res.tp_status}`,
           action: {
@@ -174,7 +173,7 @@ export class Menu implements OnInit {
       this.objeto.role == 'admin'
         ? this.router.navigate(['admin/dashboard'])
         : this.router.navigate(['client/home']);
-  
+      
       this.obterCompetenciaAtual();
     }
   }

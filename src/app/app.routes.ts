@@ -20,6 +20,8 @@ import { Clientelist } from './pages/admin/cliente/clientelist/clientelist';
 import { Clienteform } from './pages/admin/cliente/clienteform/clienteform';
 import { Competencialist } from './pages/config/competencia/competencialist/competencialist';
 import { Competenciaform } from './pages/config/competencia/competenciaform/competenciaform';
+import { Centrocustolist } from './pages/client/centrocusto/centrocustolist/centrocustolist';
+import { Centrocustoform } from './pages/client/centrocusto/centrocustoform/centrocustoform';
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: Login },
@@ -33,6 +35,8 @@ export const routes: Routes = [
       { path: 'ajustes', component: Ajustes },
       { path: 'perfil', component: Perfil },
       { path: 'conta', component: Conta },
+      { path: 'centrocusto', component: Centrocustolist },
+      { path: 'centrocustoform/:id', component: Centrocustoform },
       { path: 'lancamento', component: Lancamentolist },
       { path: 'lancamentoform/:id', component: Lancamentoform },
       { path: 'lancamentoform', component: Lancamentoform },
