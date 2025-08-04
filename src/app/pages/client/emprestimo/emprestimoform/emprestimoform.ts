@@ -67,7 +67,6 @@ export class Emprestimoform implements OnInit {
 
     if (!key) {
       this.objeto.vl_total = 0;
-      this.objeto.ds_observacao = '';
       this.objeto.dt_emprestimo = new Date().toISOString().split('T')[0];
       this.obterSequencia();
     } else {

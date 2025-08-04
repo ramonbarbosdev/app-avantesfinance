@@ -97,7 +97,7 @@ export class Emprestimodetalheform implements OnChanges, OnInit {
     this.obterTipoEmprestimo()
       this.itemTemp.dt_pagamento = new Date().toISOString().split('T')[0];
       this.itemTemp.dt_vencimento = new Date().toISOString().split('T')[0];
-      this.objeto.ds_anotacao =  ""
+      this.itemTemp.ds_anotacao = '';
   }
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['objeto']) {
