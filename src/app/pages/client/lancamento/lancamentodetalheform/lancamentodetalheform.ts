@@ -101,6 +101,7 @@ export class Lancamentodetalheform implements OnChanges, OnInit {
 
   ngOnInit(): void {
     this.consultarCategoria();
+       this.itemTemp.ds_anotacao = '';
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -135,6 +136,7 @@ export class Lancamentodetalheform implements OnChanges, OnInit {
       id_categoria: 0,
       vl_itemlancamento: 0,
       tp_categoria: '',
+      ds_anotacao: '',
     };
     this.onSeq();
   }
@@ -246,12 +248,20 @@ export class Lancamentodetalheform implements OnChanges, OnInit {
       .reduce((acc: any, curr: any) => acc + curr, 0);
 
     this.objeto.vl_receitaacomulada = this.objeto.itens
-      .filter((item: any) => item.tp_categoria === 'RECEITA')
+      .filter(
+        (item: any) =>
+          item.tp_categoria === 'RECEITA' ||
+          item?.categoria?.tp_categoria == 'RECEITA'
+      )
       .map((item: any) => item.vl_itemlancamento ?? 0)
       .reduce((acc: any, curr: any) => acc + curr, 0);
 
     this.objeto.vl_despesaacomulada = this.objeto.itens
-      .filter((item: any) => item.tp_categoria === 'DESPESA')
+      .filter(
+        (item: any) =>
+          item.tp_categoria === 'DESPESA' ||
+          item?.categoria?.tp_categoria === 'DESPESA'
+      )
       .map((item: any) => item.vl_itemlancamento ?? 0)
       .reduce((acc: any, curr: any) => acc + curr, 0);
   }

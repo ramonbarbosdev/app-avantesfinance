@@ -75,6 +75,17 @@
           placeholder="R$ 0,00"
           [error]="errorValidacao['vl_itemlancamento']  || null"
         ></app-money-custom>
+
+         <app-input
+          [inputId]="'ds_anotacao'"
+          [type]="'textarea'"
+          [label]="'Anotações'"
+          [required]="true"
+          [placeholder]="'Anote...'"
+          [(model)]="itemTemp.ds_anotacao"
+          [disabled]="false"
+          [value]="itemTemp.ds_anotacao"
+        ></app-input>
       </div>
 
       <hlm-sheet-footer>
@@ -94,6 +105,7 @@
           <th hlmTh class="">Codigo</th>
           <th hlmTh class="">Data</th>
           <th hlmTh class="">Categoria</th>
+          <th hlmTh class="">Anotação</th>
           <th hlmTh class="">Valor</th>
         </tr>
       </thead>
@@ -120,6 +132,7 @@
           <td hlmTd>{{ item.cd_itemlancamento.padStart(3, '0' ) }}</td>
           <td hlmTd>{{ item.dt_itemlancamento | date: 'dd/MM/yyyy' }}</td>
           <td hlmTd>{{ getCategoriaLabel(item.id_categoria) }}</td>
+          <td hlmTd>{{ item.ds_anotacao }}</td>
           <td hlmTd>{{ item.vl_itemlancamento | currency:'BRL' }}</td>
         </tr>
       </tbody>
