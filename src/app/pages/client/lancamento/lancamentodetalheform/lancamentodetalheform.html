@@ -1,12 +1,14 @@
 <!-- Itens do lançamento -->
 
-<div class="pt-6 space-y-2">
+<div class="pt-6 space-y-2 ">
   <h4 class="text-lg font-semibold">Itens do Lançamento</h4>
 
   <hlm-sheet
     [state]="popoverState()"
     (stateChanged)="onPopoverStateChange($event)"
     side="right"
+    
+
   >
     <button
       title="novo item"
@@ -51,7 +53,19 @@
           [(model)]="itemTemp.id_categoria"
           name="id_categoria"
           [error]="errorValidacao['id_categoria']  || null"
+          (modelChange)="processarCategoria($event)"
         ></app-combobox>
+
+        <app-input
+        [inputId]="'tp_categoria'"
+          [type]="'text'"
+          [label]="'Tipo da categoria:'"
+          [required]="true"
+          [placeholder]="''"
+          [(model)]="itemTemp.tp_categoria"
+          [disabled]="true"
+          [value]="itemTemp.tp_categoria"
+        ></app-input>
 
         <app-money-custom
           [label]="'Valor: (*)'"

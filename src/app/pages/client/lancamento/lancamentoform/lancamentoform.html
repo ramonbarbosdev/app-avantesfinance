@@ -1,34 +1,32 @@
 <form hlmCardContent class="space-y-4" #f="ngForm" (ngSubmit)="salvar()">
   <div class="grid grid-cols-2 sm:[grid-template-columns:3fr_1fr] gap-4">
-    <div class="flex flex-col gap-2">
-      <div class="grid md:grid-cols-3 gap-2">
-        <app-input
-          [inputId]="'cd_lancamento'"
-          [type]="'text'"
-          [label]="'Codigo: (*)'"
-          [required]="true"
-          [placeholder]="''"
-          [(model)]="objeto.cd_lancamento"
-          [error]="errorValidacao['cd_lancamento']  || null"
-          [disabled]="true"
-          [value]="objeto.cd_lancamento"
-        ></app-input>
+    <div class="grid md:grid-cols-2 gap-2">
+      <app-input
+        [inputId]="'cd_lancamento'"
+        [type]="'text'"
+        [label]="'Codigo: (*)'"
+        [required]="true"
+        [placeholder]="''"
+        [(model)]="objeto.cd_lancamento"
+        [error]="errorValidacao['cd_lancamento']  || null"
+        [disabled]="true"
+        [value]="objeto.cd_lancamento"
+      ></app-input>
 
-        <app-date-custom
-          [(model)]="objeto.dt_lancamento"
-          name="dt_lancamento"
-          [label]="'Data: (*)'"
-          [error]="errorValidacao['dt_lancamento']  || null"
-        />
+      <app-date-custom
+        [(model)]="objeto.dt_lancamento"
+        name="dt_lancamento"
+        [label]="'Data: (*)'"
+        [error]="errorValidacao['dt_lancamento']  || null"
+      />
 
-        <app-combobox
-          label="Centro de custo: (*)"
-          [options]="listaCentroCusto"
-          [(model)]="objeto.id_centrocusto"
-          name="id_centrocusto"
-          [error]="errorValidacao['id_centrocusto']  || null"
-        ></app-combobox>
-      </div>
+      <app-combobox
+        label="Centro de custo: (*)"
+        [options]="listaCentroCusto"
+        [(model)]="objeto.id_centrocusto"
+        name="id_centrocusto"
+        [error]="errorValidacao['id_centrocusto']  || null"
+      ></app-combobox>
 
       <app-input
         [inputId]="'ds_lancamento'"
@@ -77,12 +75,21 @@
     [nomeItem]="'itens'"
   >
   </app-lancamentodetalheform>
-
   <div hlmCardFooter class="pt-4">
-    <div class="flex flex-row w-full itens-center justify-end-safe ">
-      <div class="flex gap-2">
-        <button  *ngIf="fl_edicao ==false" type="button" hlmBtn class="w-full" (click)="limparFormulario()">Limpar</button>
-        <button type="submit" hlmBtn class="w-full">Salvar</button>
+    <div class="flex w-full">
+      <div class="flex justify-between w-full gap-2">
+        <button
+          *ngIf="fl_edicao == false"
+          type="button"
+          hlmBtn
+          class="w-full max-w-[150px]"
+          (click)="limparFormulario()"
+        >
+          Limpar
+        </button>
+        <button type="submit" hlmBtn class="w-full max-w-[150px]">
+          Salvar
+        </button>
       </div>
     </div>
   </div>

@@ -134,6 +134,7 @@ export class Lancamentodetalheform implements OnChanges, OnInit {
       dt_itemlancamento: '',
       id_categoria: 0,
       vl_itemlancamento: 0,
+      tp_categoria: '',
     };
     this.onSeq();
   }
@@ -149,13 +150,6 @@ export class Lancamentodetalheform implements OnChanges, OnInit {
         });
       },
     });
-  }
-
-  getCategoriaLabel(id_categoria: number | string): string {
-    const categoria = this.listaCategoria.find(
-      (c) => c.value == String(id_categoria)
-    );
-    return categoria ? categoria.label : 'Sem categoria';
   }
 
   atualizarValor(valorAtualizado: any) {
@@ -252,12 +246,32 @@ export class Lancamentodetalheform implements OnChanges, OnInit {
       .reduce((acc: any, curr: any) => acc + curr, 0);
 
     this.objeto.vl_receitaacomulada = this.objeto.itens
-      .filter((item: any) => item.categoria.tp_categoria === 'RECEITA')
+      .filter((item: any) => item.tp_categoria === 'RECEITA')
       .map((item: any) => item.vl_itemlancamento ?? 0)
       .reduce((acc: any, curr: any) => acc + curr, 0);
+
     this.objeto.vl_despesaacomulada = this.objeto.itens
-      .filter((item: any) => item.categoria.tp_categoria === 'DESPESA')
+      .filter((item: any) => item.tp_categoria === 'DESPESA')
       .map((item: any) => item.vl_itemlancamento ?? 0)
       .reduce((acc: any, curr: any) => acc + curr, 0);
+  }
+
+  processarCategoria(event: any) {
+    this.consultarCategoriaPorId(event);
+  }
+
+  consultarCategoriaPorId(id: number) {
+    this.baseService.findById('categoria', id).subscribe({
+      next: (res) => {
+        this.itemTemp.tp_categoria = res.tp_categoria;
+      },
+    });
+  }
+
+  getCategoriaLabel(id_categoria: number | string): string {
+    const categoria = this.listaCategoria.find(
+      (c) => c.value == String(id_categoria)
+    );
+    return categoria ? categoria.label : 'Sem categoria';
   }
 }

@@ -58,19 +58,21 @@
     ></app-input>
   </div>
 
-  <div hlmCardFooter class="pt-4">
-    <div class="flex flex-row w-full itens-center justify-end-safe">
-      <div class="flex gap-2">
+ <div hlmCardFooter class="pt-4">
+    <div class="flex w-full ">
+      <div class="flex justify-between w-full gap-2">
         <button
-          *ngIf="fl_edicao ==false"
+          *ngIf="fl_edicao == false"
           type="button"
           hlmBtn
-          class="w-full"
+          class="w-full max-w-[150px]"
           (click)="limparFormulario()"
         >
           Limpar
         </button>
-        <button type="submit" hlmBtn class="w-full">Salvar</button>
+        <button type="submit" hlmBtn class="w-full max-w-[150px]">
+          Salvar
+        </button>
       </div>
     </div>
   </div>
