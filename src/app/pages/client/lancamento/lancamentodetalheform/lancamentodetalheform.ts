@@ -127,19 +127,12 @@ export class Lancamentodetalheform implements OnChanges, OnInit {
     });
   }
 
-  limparCampos() {
-    this.itemTemp = {
-      ...this.itemTemp,
-      id_itemlancamento: 0,
-      id_lancamento: 0,
-      dt_itemlancamento: '',
-      id_categoria: 0,
-      vl_itemlancamento: 0,
-      tp_categoria: '',
-      ds_anotacao: '',
-    };
-    this.onSeq();
-  }
+ 
+   limparCampos() {
+     this.itemTemp = new ItemLancamento()
+     this.errorValidacao = {};
+     this.onSeq();
+   }
 
   consultarCategoria() {
     this.baseService.findAll('categoria/').subscribe({

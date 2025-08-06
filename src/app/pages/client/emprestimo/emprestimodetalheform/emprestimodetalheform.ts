@@ -125,16 +125,8 @@ export class Emprestimodetalheform implements OnChanges, OnInit {
   }
 
   limparCampos() {
-    this.itemTemp = {
-      ...this.itemTemp,
-      id_itememprestimo: 0,
-      id_emprestimo: 0,
-      dt_pagamento: '',
-      dt_vencimento: '',
-      tp_itemstatus: '',
-      ds_anotacao: '',
-      vl_emprestimo: 0,
-    };
+    this.itemTemp = new ItemEmprestimo()
+    this.errorValidacao = {};
     this.onSeq();
   }
 
