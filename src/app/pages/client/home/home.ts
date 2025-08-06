@@ -6,6 +6,7 @@ import { TableMovimentacao } from "../../../components/table-movimentacao/table-
 import { HlmIconDirective } from '@spartan-ng/helm/icon';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideIterationCw } from '@ng-icons/lucide';
+import { Teste } from "../../../components/charts/teste/teste";
 
 
 @Component({
@@ -15,7 +16,9 @@ import { lucideIterationCw } from '@ng-icons/lucide';
     TableMovimentacao,
     HlmIconDirective,
     NgIcon,
-  ],
+    Teste
+],
+  standalone: true,
   providers: [provideIcons({ lucideIterationCw })],
   templateUrl: './home.html',
   styleUrl: './home.scss',
