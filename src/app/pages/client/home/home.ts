@@ -7,16 +7,16 @@ import { HlmIconDirective } from '@spartan-ng/helm/icon';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideIterationCw } from '@ng-icons/lucide';
 import { Teste } from "../../../components/charts/teste/teste";
+import { MovimentacaoCaixaChartComponent } from "../../../components/charts/movimentacao-caixa-chart-component/movimentacao-caixa-chart-component";
 
 
 @Component({
   selector: 'app-home',
   imports: [
     CommonModule,
-    TableMovimentacao,
     HlmIconDirective,
     NgIcon,
-    Teste
+    MovimentacaoCaixaChartComponent
 ],
   standalone: true,
   providers: [provideIcons({ lucideIterationCw })],

@@ -1,11 +1,14 @@
-import { Component } from '@angular/core';
-
+import { Component, Input } from '@angular/core';
+import {  HlmCardImports } from '@spartan-ng/helm/card';
 @Component({
   selector: 'app-layout-chart-component',
-  imports: [],
+  imports: [HlmCardImports],
   templateUrl: './layout-chart-component.html',
-  styleUrl: './layout-chart-component.scss'
+  styleUrl: './layout-chart-component.scss',
 })
 export class LayoutChartComponent {
+
+  @Input() titulo: string ="";
+  @Input() subtitulo: string ="";
 
 }

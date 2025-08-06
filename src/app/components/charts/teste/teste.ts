@@ -1,21 +1,32 @@
-import { Component, ViewChild } from '@angular/core';
-import { ApexAxisChartSeries, ApexChart, ApexXAxis, ChartComponent, NgApexchartsModule } from 'ng-apexcharts';
+import { Component, inject, ViewChild } from '@angular/core';
+import {
+  ApexAxisChartSeries,
+  ApexChart,
+  ApexXAxis,
+  ChartComponent,
+  NgApexchartsModule,
+} from 'ng-apexcharts';
+import { LayoutChartComponent } from '../layout-chart-component/layout-chart-component';
+import { ThemeService } from '../../../services/theme.service';
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;
   chart: ApexChart;
   xaxis: ApexXAxis;
   title: ApexTitleSubtitle;
+  theme: ApexTheme;
 };
 @Component({
   selector: 'app-teste',
-  imports: [NgApexchartsModule],
+  imports: [NgApexchartsModule, LayoutChartComponent],
   templateUrl: './teste.html',
   styleUrl: './teste.scss',
 })
 export class Teste {
   @ViewChild('chart') chart!: ChartComponent;
   public chartOptions: ChartOptions;
+
+  public themeService = inject(ThemeService);
 
   constructor() {
     this.chartOptions = {
@@ -44,6 +55,15 @@ export class Teste {
           'Aug',
           'Sep',
         ],
+      },
+      theme: {
+        mode: this.themeService.isDarkMode() ? "dark" : "light",
+        // monochrome: {
+        //   enabled: false,
+        //   color: 'black',
+        //   shadeTo: 'dark',
+        //   shadeIntensity: 1,
+        // },
       },
     };
   }

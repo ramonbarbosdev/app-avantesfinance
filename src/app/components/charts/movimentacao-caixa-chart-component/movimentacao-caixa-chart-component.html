@@ -1,0 +1,20 @@
+ 
+<app-layout-chart-component [titulo]="'Saldo diario'" [subtitulo]="'Visualização do saldo diario'">
+  <apx-chart  *ngIf="chartOptions && chartOptions.series" 
+    [series]="chartOptions.series"
+    [chart]="chartOptions.chart"
+    [xaxis]="chartOptions.xaxis"
+    [theme]="chartOptions.theme"
+  ></apx-chart>
+
+</app-layout-chart-component>
+
+<app-layout-chart-component [titulo]="'Receita vs Despesa'" [subtitulo]="'Comparativos acumulado entre receitas e despesas diario'">
+  <apx-chart  *ngIf="chartOptions && chartOptions.series" 
+    [series]="chartOptions.series"
+    [chart]="chartOptions.chart"
+    [xaxis]="chartOptions.xaxis"
+    [theme]="chartOptions.theme"
+  ></apx-chart>
+
+</app-layout-chart-component>

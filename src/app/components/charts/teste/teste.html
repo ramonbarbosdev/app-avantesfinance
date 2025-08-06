@@ -1,8 +1,10 @@
- <div style="text-align:center">
+ 
+<app-layout-chart-component [titulo]="'Grafico Teste'" [subtitulo]="'Grafico de barras para testes'">
   <apx-chart
     [series]="chartOptions.series"
     [chart]="chartOptions.chart"
     [xaxis]="chartOptions.xaxis"
-    [title]="chartOptions.title"
+    [theme]="chartOptions.theme"
   ></apx-chart>
-</div>
+
+</app-layout-chart-component>
