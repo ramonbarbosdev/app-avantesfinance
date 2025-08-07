@@ -1,7 +1,12 @@
-FROM node:22
+# Build stage
+FROM node:18-alpine as build
 WORKDIR /app
 COPY . .
 RUN npm install
-RUN npm install @angular/cli -g
-EXPOSE 4200
-CMD ["ng", "serve", "--host", "0.0.0.0"]
+RUN npm run build -- --configuration production
+
+# Serve stage
+FROM nginx:alpine
+COPY --from=build dist/app-avantesfinance/browser /usr/share/nginx/html
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
